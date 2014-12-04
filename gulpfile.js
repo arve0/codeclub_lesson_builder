@@ -1,6 +1,6 @@
+var build = require('./metalsmith');
 var gulp = require("gulp");
 var browserSync = require('browser-sync');
-var build = require('./metalsmith');
 var reload = browserSync.reload;
 
 // server
@@ -17,5 +17,5 @@ gulp.task('default', ['server'], function(){
   gulp.watch('./templates/**/*', build);
 
   // wait for build, then reload
-  gulp.watch('./build/**/*', browserSync.reload);
+  gulp.watch('./build/index.html', browserSync.reload);
 });

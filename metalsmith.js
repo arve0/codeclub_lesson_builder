@@ -4,23 +4,24 @@ var Metalsmith = require('metalsmith'),
   collections = require('metalsmith-collections'),
   minimatch = require('minimatch');
 
+
 module.exports = function build(){
   Metalsmith(__dirname)
   .use(setTemplate({
-    pattern: 'python/**/*.md',
-    template: 'python.jade'
+  pattern: 'python/**/*.md',
+  template: 'python.jade'
   }))
   .use(collections({
-    python: {
-      pattern: 'python/**/*.md'
-    },
+  python: {
+    pattern: 'python/**/*.md'
+  },
   }))
   .use(markdown())
   .use(setUrl)
   .use(templates('jade'))
   .destination('./build')
   .build(function(err){
-    if (err) console.log(err);
+  if (err) console.log(err);
   });
 }
 
