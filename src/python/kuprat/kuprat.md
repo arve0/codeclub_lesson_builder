@@ -3,7 +3,6 @@ title: Kuprat
 course: Python
 level: easy
 language: nb-NO
-embeds: "*.png"
 ---
 
 # Introduksjon {.intro}
