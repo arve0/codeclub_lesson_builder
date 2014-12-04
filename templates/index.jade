@@ -1,0 +1,14 @@
+extends ./layout.jade
+
+block content
+  .content!= contents
+  .python
+    h2 Python
+    //- HACKHACK - function for not returning circular reference
+    - function f(k,v){if (k=='next') return undefined; else return v;}
+    //- Send variable to client, for debugging
+    script.
+      collections = !{JSON.stringify(collections, f)}
+    each exercise in collections.python
+      a(href=exercise.url)
+        li!= exercise.title
