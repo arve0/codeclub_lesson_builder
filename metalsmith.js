@@ -11,10 +11,17 @@ module.exports = function build(){
     pattern: 'python/**/*.md',
     template: 'python.jade'
   }))
+  .use(setTemplate({
+    pattern: 'scratch/**/*.md',
+    template: 'scratch.jade'
+  }))
   .use(collections({
     python: {
       pattern: 'python/**/*.md'
     },
+    scratch: {
+      pattern: 'scratch/**/*.md'
+    }
   }))
   .use(markdown())
   .use(setUrl)
