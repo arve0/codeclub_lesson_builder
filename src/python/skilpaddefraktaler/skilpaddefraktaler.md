@@ -3,7 +3,6 @@ title: Skilpaddefraktaler
 course: Python
 level: easy
 language: nb-NO
-stylesheet: python
 embeds: "*.png"
 ---
 
@@ -247,7 +246,7 @@ trenger å tegne en rett strek.
             forward(lengde)
             return
     ```
-        
+
     Her bruker vi `return` for å si at vi ikke vil gjøre mer for det
     enkle tilfellet.
 

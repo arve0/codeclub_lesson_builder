@@ -3,7 +3,6 @@ title: Spille mot datamaskinen
 course: Python
 level: easy
 language: nb-NO
-stylesheet: python
 origin: codeclubuk
 ---
 

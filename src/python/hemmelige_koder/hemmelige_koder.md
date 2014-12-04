@@ -3,11 +3,8 @@ title: Hemmelige Koder
 course: Python
 level: easy
 language: nb-NO
-stylesheet: python
 origin: codeclubuk
 ---
-
- arve
 
 
 # Introduksjon {.intro}

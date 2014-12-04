@@ -3,7 +3,6 @@ title: Tre På Rad
 course: Python
 level: easy
 language: nb-NO
-stylesheet: python
 origin: codeclubuk
 ---
 

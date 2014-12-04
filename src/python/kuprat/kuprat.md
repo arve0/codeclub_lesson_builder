@@ -3,7 +3,6 @@ title: Kuprat
 course: Python
 level: easy
 language: nb-NO
-stylesheet: python
 embeds: "*.png"
 ---
 

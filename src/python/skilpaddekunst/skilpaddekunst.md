@@ -3,7 +3,6 @@ title: Skilpaddekunst
 course: Python
 level: easy
 language: nb-NO
-stylesheet: python
 embeds: "*.png"
 ---
 
@@ -139,7 +138,7 @@ om til en kunstner.
   firkant kan vi først gå fremover, deretter svinge 90 grader (mot
   høyre eller venstre), deretter fremover igjen, så svinge, så
   fremover, så svinge og til slutt fremover en gang til. I Python kan
-  vi skrive dette som 
+  vi skrive dette som
 
 	```python
 	from turtle import *
