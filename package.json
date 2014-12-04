@@ -1,5 +1,5 @@
 {
-  "name": "metalsmith-test",
+  "name": "metalsmith-kodeklubben",
   "version": "0.0.1",
   "description": "test of building kodeklubben docs with metalsmith",
   "main": "build.js",
