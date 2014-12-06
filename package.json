@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "browser-sync": "^1.7.2",
+    "cheerio": "^0.18.0",
     "gulp": "^3.8.10",
     "jade": "^1.8.1",
     "metalsmith": "^1.0.1",

@@ -2,7 +2,9 @@ var Metalsmith = require('metalsmith'),
   markdown = require('metalsmith-markdown'),
   templates = require('metalsmith-templates'),
   collections = require('metalsmith-collections'),
-  minimatch = require('minimatch');
+  minimatch = require('minimatch'),
+  cheerio   = require('cheerio'),
+  extname   = require('path').extname;
 
 
 module.exports = function build(){
@@ -24,6 +26,7 @@ module.exports = function build(){
     }
   }))
   .use(markdown())
+  .use(extendMarkdown())
   .use(setUrl)
   .use(templates('jade'))
   .destination('./build')
@@ -49,6 +52,25 @@ function setTemplate(config){
     done();
   }
 }
+function extendMarkdown(config) {
+    return function(files, metalsmith, done){
+        var mdExtension= RegExp('{\..*}');
+        var matches = [];
+        for (var file in files) {
+            if ('.html' != extname(file)) continue;
+            $ = cheerio.load(files[file].contents.toString());
+            $("*").filter(function(){
+                return mdExtension.test($(this).text());
+            }).each(function() {
+                var classname = mdExtension.exec($(this).text())[0].replace(/{|}|\./g,'');
+                $(this).addClass(classname);
+            });
+            files[file].contents = new Buffer($.html());
+        }
+        done();
+    }
+}
+
 function setUrl(files, _, done){
   for (var file in files){
     var _f = files[file];
@@ -56,3 +78,9 @@ function setUrl(files, _, done){
   }
   done();
 }
+
+
+
+
+
+
