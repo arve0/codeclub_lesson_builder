@@ -3,11 +3,16 @@ var Metalsmith = require('metalsmith'),
   templates = require('metalsmith-templates'),
   collections = require('metalsmith-collections'),
   setMetadata = require('metalsmith-filemetadata'),
-  filepath = require('metalsmith-filepath');
+  filepath = require('metalsmith-filepath'),
+  assets = require('metalsmith-assets');
 
 
 module.exports = function build(){
   Metalsmith(__dirname)
+  .use(assets({
+      source:'./assets',
+      destination:'./assets'
+  }))
   // set template for exercises
   .use(setMetadata([
     { pattern: 'python/**/*.md',  metadata: { template: 'python.jade' }},
