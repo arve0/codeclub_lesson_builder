@@ -2,19 +2,23 @@ var Metalsmith = require('metalsmith'),
   markdown = require('metalsmith-markdown'),
   templates = require('metalsmith-templates'),
   collections = require('metalsmith-collections'),
-  minimatch = require('minimatch');
+  minimatch = require('minimatch'),
+  setMeta = require('metalsmith-glob-meta');
 
 
 module.exports = function build(){
   Metalsmith(__dirname)
-  .use(setTemplate({
+  // set template for python exercises
+  .use(setMeta({
     pattern: 'python/**/*.md',
-    template: 'python.jade'
+    meta: { template: 'python.jade' }
   }))
-  .use(setTemplate({
+  // set tempalte for scratch exercises
+  .use(setMeta({
     pattern: 'scratch/**/*.md',
-    template: 'scratch.jade'
+    meta: { template: 'scratch.jade' }
   }))
+  // create collections for index scaffolding
   .use(collections({
     python: {
       pattern: 'python/**/*.md'
@@ -23,9 +27,12 @@ module.exports = function build(){
       pattern: 'scratch/**/*.md'
     }
   }))
+  // convert to html
   .use(markdown())
   .use(setUrl)
+  // apply templates
   .use(templates('jade'))
+  //build
   .destination('./build')
   .build(function(err){
     if (err) console.log(err);
@@ -34,21 +41,6 @@ module.exports = function build(){
 
 
 // functions/plugins
-function setTemplate(config){
-  return function(files, metalsmith, done){
-    // debug, put files in metadata, so that we can send it to browser
-    //var metadata = metalsmith.metadata();
-    //metadata.files = files;
-    for (var file in files){
-      if (minimatch(file, config.pattern, config)){
-        //console.log('match:' + file);
-        var _f = files[file];
-        _f.template = config.template;
-      }
-    }
-    done();
-  }
-}
 function setUrl(files, _, done){
   for (var file in files){
     var _f = files[file];
