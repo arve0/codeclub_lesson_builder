@@ -1,19 +1,24 @@
 extends ./layout.jade
 
 block content
+  //- HACKHACK 
+  //- filter out circular references and key==contents of js-objects
+  - function f(k,v){if (k=='next' || k=='contents' || k=='previous') return undefined; else return v;}
+  //- Send variable to client, for debugging
+  script.
+    collections = !{JSON.stringify(collections, f)};
+  
+  //- insert contents from index.md
   .content!= contents
-  .python
+
+  //- create links to exercises
+  #python
     h2 Python
-    //- HACKHACK - function for not returning circular reference
-    - function f(k,v){if (k=='next') return undefined; else return v;}
-    //- Send variable to client, for debugging
-    script.
-      collections = !{JSON.stringify(collections, f)}
     each exercise in collections.python
-      a(href=exercise.url)
-        li!= exercise.title
+      a(href=exercise.link)
+        li= exercise.title
   #scratch
     h2 Scratch
     each exercise in collections.scratch
-      a(href=exercise.url)
-        li!= exercise.title
+      a(href=exercise.link)
+        li= exercise.title

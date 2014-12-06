@@ -3,21 +3,17 @@ var Metalsmith = require('metalsmith'),
   templates = require('metalsmith-templates'),
   collections = require('metalsmith-collections'),
   minimatch = require('minimatch'),
-  setMeta = require('metalsmith-glob-meta');
+  setMetadata = require('metalsmith-filemetadata'),
+  filepath = require('metalsmith-filepath');
 
 
 module.exports = function build(){
   Metalsmith(__dirname)
-  // set template for python exercises
-  .use(setMeta({
-    glob: 'python/**/*.md',
-    meta: { template: 'python.jade' }
-  }))
-  // set tempalte for scratch exercises
-  .use(setMeta({
-    glob: 'scratch/**/*.md',
-    meta: { template: 'scratch.jade' }
-  }))
+  // set template for exercises
+  .use(setMetadata([
+    { pattern: 'python/**/*.md',  metadata: { template: 'python.jade' }},
+    { pattern: 'scratch/**/*.md', metadata: { template: 'scratch.jade' }}
+  ]))
   // create collections for index scaffolding
   .use(collections({
     python: 'python/**/*.md',
@@ -25,7 +21,8 @@ module.exports = function build(){
   }))
   // convert to html
   .use(markdown())
-  .use(setUrl)
+  // add file.link metadata
+  .use(filepath())
   // apply templates
   .use(templates('jade'))
   //build
@@ -33,14 +30,4 @@ module.exports = function build(){
   .build(function(err){
     if (err) console.log(err);
   });
-}
-
-
-// functions/plugins
-function setUrl(files, _, done){
-  for (var file in files){
-    var _f = files[file];
-    _f.url = file;
-  }
-  done();
 }
