@@ -1,10 +1,9 @@
-var Metalsmith = require('metalsmith'),
-  markdown = require('metalsmith-markdown'),
-  templates = require('metalsmith-templates'),
-  collections = require('metalsmith-collections'),
-  minimatch = require('minimatch'),
-  cheerio   = require('cheerio'),
-  extname   = require('path').extname;
+var Metalsmith  = require('metalsmith'),
+  markdown      = require('metalsmith-markdown'),
+  templates     = require('metalsmith-templates'),
+  collections   = require('metalsmith-collections'),
+  dom           = require('metalsmith-dom'),
+  minimatch     = require('minimatch');
 
 
 module.exports = function build(){
@@ -26,6 +25,7 @@ module.exports = function build(){
     }
   }))
   .use(markdown())
+  .use(dom())
   .use(extendMarkdown())
   .use(setUrl)
   .use(templates('jade'))
@@ -52,24 +52,41 @@ function setTemplate(config){
     done();
   }
 }
+
+
 function extendMarkdown(config) {
     return function(files, metalsmith, done){
-        var mdExtension= RegExp('{\..*}');
-        var matches = [];
+        var extRegex    = RegExp('{.*}'),
+            classRegex  = RegExp('{\..*}'),
+            idRegex     = RegExp('{#.*}'),
+            stripRegex  = /{|}|\./g;
+
         for (var file in files) {
-            if ('.html' != extname(file)) continue;
-            $ = cheerio.load(files[file].contents.toString());
+            if (files[file].DOM==null) continue;
+            $ = files[file].DOM; 
             $("*").filter(function(){
-                return mdExtension.test($(this).text());
+                return extRegex.test($(this).text());
             }).each(function() {
-                var classname = mdExtension.exec($(this).text())[0].replace(/{|}|\./g,'');
-                $(this).addClass(classname);
+                if(classRegex.test($(this).text())){
+                    var classname = classRegex.exec($(this).text())[0].replace(stripRegex,'');
+                    $(this).addClass(classname);
+                }
+                if(idRegex.test($(this).text())){
+                    var idname = idRegex.exec($(this).text())[0].replace(stripRegex,'');
+                    $(this).attr("id", idname);
+                }
+            }).each(function(){
+                $(this).text($(this).text().replace(extRegex,'')); 
             });
+
             files[file].contents = new Buffer($.html());
         }
         done();
     }
 }
+
+
+
 
 function setUrl(files, _, done){
   for (var file in files){
