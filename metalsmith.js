@@ -20,12 +20,8 @@ module.exports = function build(){
   }))
   // create collections for index scaffolding
   .use(collections({
-    python: {
-      pattern: 'python/**/*.md'
-    },
-    scratch: {
-      pattern: 'scratch/**/*.md'
-    }
+    python: 'python/**/*.md',
+    scratch: 'scratch/**/*.md'
   }))
   // convert to html
   .use(markdown())
