@@ -2,7 +2,6 @@ var Metalsmith = require('metalsmith'),
   markdown = require('metalsmith-markdown'),
   templates = require('metalsmith-templates'),
   collections = require('metalsmith-collections'),
-  minimatch = require('minimatch'),
   setMetadata = require('metalsmith-filemetadata'),
   filepath = require('metalsmith-filepath');
 
