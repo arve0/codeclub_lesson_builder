@@ -10,12 +10,12 @@ module.exports = function build(){
   Metalsmith(__dirname)
   // set template for python exercises
   .use(setMeta({
-    pattern: 'python/**/*.md',
+    glob: 'python/**/*.md',
     meta: { template: 'python.jade' }
   }))
   // set tempalte for scratch exercises
   .use(setMeta({
-    pattern: 'scratch/**/*.md',
+    glob: 'scratch/**/*.md',
     meta: { template: 'scratch.jade' }
   }))
   // create collections for index scaffolding
