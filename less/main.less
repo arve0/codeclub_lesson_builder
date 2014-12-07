@@ -1,3 +1,5 @@
+@import "includes/bootstrap.less";
+
 * {
     margin: 0px padding: 0px;
     font: Arial, Helvetica, sans-serif;
@@ -121,6 +123,13 @@ pre {
     border: 1px dotted #349946;
     border-radius: 5px;
 }
+
+.content:extend(.container){
+    section:extend(.row){
+        background-color: purple;
+    }
+}
+
 h1, h2,h3 {
     page-break-before: auto;
     page-break-after:avoid;
