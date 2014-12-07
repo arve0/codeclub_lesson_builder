@@ -1,5 +1,7 @@
 var build = require('./metalsmith');
 var gulp = require("gulp");
+var less = require('gulp-less');
+var path = require('path');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 
@@ -10,9 +12,17 @@ gulp.task('server', function () {
   });
 });
 
+gulp.task('less', function() {
+    gulp.src('./less/**/*.less')
+    .pipe(less({
+        paths: [path.join(__dirname, 'less', 'includes') ]
+    }))
+    .pipe(gulp.dest('./assets/css/'));
+});
+
 gulp.task('build', build);
 
-gulp.task('default', ['server'], function(){
+gulp.task('default', ['less', 'server'], function(){
   gulp.watch('./src/**/*', build);
   gulp.watch('./templates/**/*', build);
 
