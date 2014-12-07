@@ -25,7 +25,6 @@ module.exports = function build(){
     scratch: 'scratch/**/*.md'
   }))
   // convert to html
-//  .use(markdown())
   .use(pandoc({
     to: 'html5',
     args: ['--section-divs', '--smart']
