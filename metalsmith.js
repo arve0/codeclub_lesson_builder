@@ -25,19 +25,10 @@ module.exports = function build(){
     scratch: 'scratch/**/*.md'
   }))
   // convert to html
-  //.use(markdown())
-  .use(function(files, ms, done){
-    console.log('------------------ PANDOC ----------------');
-    done();
-  })
   .use(pandoc({
     to: 'html5',
     args: ['--section-divs', '--smart']
   }))
-  .use(function(files, ms, done){
-    console.log('------------------ PANDOC DONE! ----------------');
-    done();
-  })
   // add file.link metadata
   .use(filepath())
   // apply templates
