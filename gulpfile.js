@@ -20,9 +20,9 @@ gulp.task('less', function() {
     .pipe(gulp.dest('./assets/css/'));
 });
 
-gulp.task('build', build);
+gulp.task('build', ['less'], build);
 
-gulp.task('default', ['less', 'server'], function(){
+gulp.task('default', ['server'], function(){
   gulp.watch('./src/**/*', build);
   gulp.watch('./templates/**/*', build);
 
