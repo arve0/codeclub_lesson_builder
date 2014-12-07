@@ -4,11 +4,10 @@
   "description": "test of building kodeklubben docs with metalsmith",
   "main": "build.js",
   "dependencies": {
+    "bootstrap": "^3.3.1",
     "metalsmith": "^1.0.1",
     "metalsmith-markdown": "^0.2.1",
-    "metalsmith-pandoc": "0.0.1"
-  },
-  "devDependencies": {
+    "metalsmith-pandoc": "0.0.1",
     "browser-sync": "^1.7.2",
     "gulp": "^3.8.10",
     "gulp-less": "^2.0.1",
