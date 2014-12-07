@@ -7,7 +7,7 @@ npm install
 ```
 
 ## Do initial build
-`node build.js`
+`gulp build`
 
 ## Run server
 `gulp`
