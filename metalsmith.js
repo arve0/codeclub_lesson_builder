@@ -4,7 +4,8 @@ var Metalsmith = require('metalsmith'),
   collections = require('metalsmith-collections'),
   setMetadata = require('metalsmith-filemetadata'),
   filepath = require('metalsmith-filepath'),
-  assets = require('metalsmith-assets');
+  assets = require('metalsmith-assets'),
+  pandoc = require('metalsmith-pandoc');
 
 
 module.exports = function build(){
@@ -24,7 +25,11 @@ module.exports = function build(){
     scratch: 'scratch/**/*.md'
   }))
   // convert to html
-  .use(markdown())
+//  .use(markdown())
+  .use(pandoc({
+    to: 'html5',
+    args: ['--section-divs', '--smart']
+  }))
   // add file.link metadata
   .use(filepath())
   // apply templates
