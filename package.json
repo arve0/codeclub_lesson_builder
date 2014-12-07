@@ -10,7 +10,6 @@
   },
   "devDependencies": {
     "browser-sync": "^1.7.2",
-    "css2less": "^0.1.4",
     "gulp": "^3.8.10",
     "gulp-less": "^2.0.1",
     "jade": "^1.8.1",
