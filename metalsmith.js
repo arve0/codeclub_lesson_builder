@@ -26,7 +26,10 @@ module.exports = function build(){
   }))
   // convert to html
 //  .use(markdown())
-  .use(pandoc())
+  .use(pandoc({
+    to: 'html5',
+    args: ['--section-divs', '--smart']
+  }))
   // add file.link metadata
   .use(filepath())
   // apply templates
