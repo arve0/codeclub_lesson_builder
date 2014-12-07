@@ -5,7 +5,7 @@ block content
   script(src='https://code.jquery.com/jquery-2.1.1.min.js')
   script(src='/assets/scratchblocks2.js' type='text/javascript')
   script.
-        scratchblocks2.parse("code");
+        $(document).ready(function(){scratchblocks2.parse("pre.blocks");});
 
   a(href="/") <-- Hjem
   .content!= contents
