@@ -5,6 +5,10 @@
 npm install
 (sudo) npm install -g gulp
 ```
+**Note Ubuntu users:** nodejs is not installed as *node*, and this causes problems for some packages. To fix this, link *node* to *nodejs* like so:
+```
+sudo ln -s /usr/bin/nodejs /usr/local/bin/node
+```
 
 ## Do initial build
 `gulp build`
