@@ -18,7 +18,8 @@ module.exports = function build(){
   // set template for exercises
   .use(setMetadata([
     { pattern: 'oppgaver/python/**/*.md',  metadata: { template: 'python.jade' }},
-    { pattern: 'oppgaver/scratch/**/*.md', metadata: { template: 'scratch.jade' }}
+    { pattern: 'oppgaver/scratch/**/*.md', metadata: { template: 'scratch.jade' }},
+    { pattern: 'oppgaver/htmlcss/**/*.md', metadata: { template: 'python.jade' }}
   ]))
   .use(ignore([
       'oppgaver/**/README.md'
@@ -26,7 +27,8 @@ module.exports = function build(){
   // create collections for index scaffolding
   .use(collections({
     python: 'oppgaver/python/**/*.md',
-    scratch: 'oppgaver/scratch/**/*.md'
+    scratch: 'oppgaver/scratch/**/*.md',
+    web: 'oppgaver/htmlcss/**/*.md'
   }))
   // convert to html
   .use(pandoc({
