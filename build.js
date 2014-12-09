@@ -5,7 +5,8 @@ var Metalsmith = require('metalsmith'),
   setMetadata = require('metalsmith-filemetadata'),
   filepath = require('metalsmith-filepath'),
   assets = require('metalsmith-assets'),
-  pandoc = require('metalsmith-pandoc');
+  pandoc = require('metalsmith-pandoc'),
+  ignore = require('metalsmith-ignore');
 
 
 module.exports = function build(){
@@ -16,13 +17,16 @@ module.exports = function build(){
   }))
   // set template for exercises
   .use(setMetadata([
-    { pattern: 'python/**/*.md',  metadata: { template: 'python.jade' }},
-    { pattern: 'scratch/**/*.md', metadata: { template: 'scratch.jade' }}
+    { pattern: 'oppgaver/python/**/*.md',  metadata: { template: 'python.jade' }},
+    { pattern: 'oppgaver/scratch/**/*.md', metadata: { template: 'scratch.jade' }}
+  ]))
+  .use(ignore([
+      'oppgaver/**/README.md'
   ]))
   // create collections for index scaffolding
   .use(collections({
-    python: 'python/**/*.md',
-    scratch: 'scratch/**/*.md'
+    python: 'oppgaver/python/**/*.md',
+    scratch: 'oppgaver/scratch/**/*.md'
   }))
   // convert to html
   .use(pandoc({
