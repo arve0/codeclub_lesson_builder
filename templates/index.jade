@@ -12,13 +12,14 @@ block content
   .content!= contents
 
   //- create links to exercises
-  #python.col-md-6
-    h2 Python
-    each exercise in collections.python
-      a(href=exercise.link)
-        li.list-group-item= exercise.title
-  #scratch.col-md-6
-    h2 Scratch
-    each exercise in collections.scratch
-      a(href=exercise.link)
-        li.list-group-item= exercise.title
+  .row
+    #python.col-md-6
+      h2 Python
+      each exercise in collections.python
+        a(href=exercise.link)
+          li.list-group-item= exercise.title
+    #scratch.col-md-6
+      h2 Scratch
+      each exercise in collections.scratch
+        a(href=exercise.link)
+          li.list-group-item= exercise.title
