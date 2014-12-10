@@ -4,16 +4,11 @@ var Metalsmith = require('metalsmith'),
   collections = require('metalsmith-collections'),
   setMetadata = require('metalsmith-filemetadata'),
   filepath = require('metalsmith-filepath'),
-  assets = require('metalsmith-assets'),
   pandoc = require('metalsmith-pandoc');
 
 
 module.exports = function build(){
   Metalsmith(__dirname)
-  .use(assets({
-      source:'./assets',
-      destination:'./assets'
-  }))
   // set template for exercises
   .use(setMetadata([
     { pattern: 'python/**/*.md',  metadata: { template: 'python.jade' }},
@@ -34,6 +29,7 @@ module.exports = function build(){
   // apply templates
   .use(templates('jade'))
   //build
+  .clean(false) // do not delete files - allows for separate tasks in gulp
   .destination('./build')
   .build(function(err){
     if (err) console.log(err);
