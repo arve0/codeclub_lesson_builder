@@ -5,27 +5,78 @@ var path = require('path');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 
-// server
+/*
+ * # TASKS #
+ */
+
+/*
+ * serve build directory
+ */
 gulp.task('server', function () {
   browserSync.init({
       server: { baseDir: './build' }
   });
 });
 
+/*
+ * build less files to css
+ */
 gulp.task('less', function() {
-    gulp.src('./less/**/*.less')
+    gulp.src('./styles/**/*.less')
     .pipe(less({
-        paths: [path.join(__dirname, 'less', 'includes') ]
+        paths: [path.join(__dirname, 'styles', 'includes') ]
     }))
-    .pipe(gulp.dest('./assets/css/'));
+    .pipe(gulp.dest('./build/assets/css/'));
 });
 
-gulp.task('build', ['less'], build);
+/*
+ * copy all assets to build directory
+ */
+gulp.task('assets', function(){
+  gulp.src('./assets/**/*')
+  .pipe(gulp.dest('./build/assets/'));
+})
 
-gulp.task('default', ['server'], function(){
-  gulp.watch('./src/**/*', build);
-  gulp.watch('./templates/**/*', build);
+/*
+ * metalsmith building
+ */
+gulp.task('build', build);
 
-  // wait for build, then reload
-  gulp.watch('./build/index.html', browserSync.reload);
+/*
+ * reload shorthand
+ */
+var reload = browserSync.reload;
+
+
+/*
+ * # DEFAULT TASK #
+ * do metalsmith and css build
+ * copy assets
+ * serve build directory with livereload
+ * watch files -> build
+ * watch build folder -> reload browser
+ */
+gulp.task('default', ['build', 'less', 'assets', 'server'], function(){
+  /*
+   * ## WATCHES ##
+   */
+  // files which are built with metalsmith
+  gulp.watch('./src/**/*', ['build']);
+  gulp.watch('./templates/**/*', ['build']);
+
+  // styles
+  gulp.watch('./styles/**/*', ['less']);
+
+  // assets
+  gulp.watch('./assets/**/*', ['assets']);
+
+
+  /*
+   * ## RELOAD ##
+   */
+  // metalsmith
+  gulp.watch('./build/index.html', reload);
+
+  // assets
+  gulp.watch('./build/assets/**/*', reload);
 });
