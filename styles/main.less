@@ -32,14 +32,8 @@ html {
     background: #FFF;
 }
 body {
-    max-width: 800px;
-    margin: 15px auto;
-    background: #FFFFFF;
-    text-align: left;
-    padding: 20px;
-    font-size: 16px;
-    margin: 20px auto;
-    clear:both;
+  margin-left: auto;
+  margin-right: auto;
 }
 h1, h2 {
     font-size: 20px;
@@ -132,3 +126,7 @@ ul, ol, pre, p {
     page-break-inside:avoid;
 }
 
+// responsive images
+img {
+  &:extend(.img-responsive);
+}
