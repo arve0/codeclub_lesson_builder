@@ -14,7 +14,7 @@ var reload = browserSync.reload;
 /*
  * serve build directory
  */
-gulp.task('server', function () {
+gulp.task('server', ['build', 'less', 'assets'], function () {
   browserSync.init({
     server: { baseDir: './build' }
   });
@@ -52,7 +52,7 @@ gulp.task('build', build);
  * serve build directory with livereload
  * watch files -> build
  */
-gulp.task('default', ['build', 'less', 'assets', 'server'], function(){
+gulp.task('default', ['server'], function(){
   /*
    * ## WATCHES ##
    */
