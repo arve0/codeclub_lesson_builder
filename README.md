@@ -5,20 +5,20 @@
 npm install
 (sudo) npm install -g gulp
 ```
-**Note Ubuntu users:** nodejs is not installed as *node*, and this causes problems for some packages. To fix this, link *node* to *nodejs* like so:
+### Note Ubuntu users!
+nodejs is not installed as *node*, and this causes problems for some packages. To fix this, link *node* to *nodejs* like so **BEFORE** installing packages through npm:
 ```
 sudo ln -s /usr/bin/nodejs /usr/local/bin/node
 ```
 
-## Do initial build
-`gulp build`
-
 ## Run server
-`gulp`
+```
+gulp
+```
 
 
 # Spesifikasjoner
-Dette er kopiert fra Geir Arne Hjelle(@gahjelle) på facebookgruppen (http://on.fb.me/1vSzZ6A):
+Dette er kopiert fra Geir Arne Hjelle([@gahjelle](https://github.com/gahjelle)) på facebookgruppen (http://on.fb.me/1vSzZ6A):
 
 Vi er mye løsere organisert enn CodeClub UK og ønsker mindre sentralstyring av oppgavene enn de har, slik at våre krav til et slikt byggeverktøy er litt annerledes enn de har i UK. Jeg har mailet litt med Andy Lulham som vedlikeholder den engelske originalen, og han er veldig interessert i eventuell utvikling vi gjør, slik at vi vil i utgangspunktet forsøke å beholde vårt og deres byggeskript som en code base.
 
@@ -46,4 +46,4 @@ Litt mer konkrete requirements:
 
 Dette virker muligens litt voldsomt, men vi er ikke veldig langt unna på de fleste punktene.
 
-Håkon (@kwrl) har allerede gjort en kjempeinnsats for å bringe oss nærmere målet, og jeg håper å ha litt tid til å bidra en del i ukene fram mot jul også. Om dere andre har ideer så si ifra!
+Håkon ([@kwrl](https://github.com/kwrl)) har allerede gjort en kjempeinnsats for å bringe oss nærmere målet, og jeg håper å ha litt tid til å bidra en del i ukene fram mot jul også. Om dere andre har ideer så si ifra!
