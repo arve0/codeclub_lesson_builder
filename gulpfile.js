@@ -14,7 +14,7 @@ var reload = browserSync.reload;
  */
 gulp.task('server', function () {
   browserSync.init({
-      server: { baseDir: './build' }
+    server: { baseDir: './build' }
   });
 });
 
@@ -22,9 +22,9 @@ gulp.task('server', function () {
  * build less files to css
  */
 gulp.task('less', function() {
-    gulp.src('./styles/**/*.less')
+  return gulp.src('./styles/**/*.less')
     .pipe(less({
-        paths: [path.join(__dirname, 'styles', 'includes') ]
+      paths: [path.join(__dirname, 'styles', 'includes') ]
     }))
     .pipe(gulp.dest('./build/assets/css/'));
 });
@@ -33,8 +33,8 @@ gulp.task('less', function() {
  * copy all assets to build directory
  */
 gulp.task('assets', function(){
-  gulp.src('./assets/**/*')
-  .pipe(gulp.dest('./build/assets/'));
+  return gulp.src('./assets/**/*')
+    .pipe(gulp.dest('./build/assets/'));
 })
 
 /*
@@ -54,7 +54,6 @@ var reload = browserSync.reload;
  * copy assets
  * serve build directory with livereload
  * watch files -> build
- * watch build folder -> reload browser
  */
 gulp.task('default', ['build', 'less', 'assets', 'server'], function(){
   /*
@@ -65,18 +64,11 @@ gulp.task('default', ['build', 'less', 'assets', 'server'], function(){
   gulp.watch('./templates/**/*', ['build']);
 
   // styles
-  gulp.watch('./styles/**/*', ['less']);
+  gulp.watch('./styles/**/*', ['less', reload]);
 
   // assets
-  gulp.watch('./assets/**/*', ['assets']);
+  gulp.watch('./assets/**/*', ['assets', reload]);
 
-
-  /*
-   * ## RELOAD ##
-   */
-  // metalsmith
+  // workaround build not returning gulp stream, reload upon changes in build
   gulp.watch('./build/index.html', reload);
-
-  // assets
-  gulp.watch('./build/assets/**/*', reload);
 });
