@@ -3,6 +3,8 @@ var gulp = require("gulp");
 var less = require('gulp-less');
 var path = require('path');
 var browserSync = require('browser-sync');
+
+// reload shorthand
 var reload = browserSync.reload;
 
 /*
@@ -42,11 +44,6 @@ gulp.task('assets', function(){
  */
 gulp.task('build', build);
 
-/*
- * reload shorthand
- */
-var reload = browserSync.reload;
-
 
 /*
  * # DEFAULT TASK #
@@ -60,15 +57,12 @@ gulp.task('default', ['build', 'less', 'assets', 'server'], function(){
    * ## WATCHES ##
    */
   // files which are built with metalsmith
-  gulp.watch('./src/**/*', ['build']);
-  gulp.watch('./templates/**/*', ['build']);
+  gulp.watch('./src/**/*', ['build', reload]);
+  gulp.watch('./templates/**/*', ['build', reload]);
 
   // styles
   gulp.watch('./styles/**/*', ['less', reload]);
 
   // assets
   gulp.watch('./assets/**/*', ['assets', reload]);
-
-  // workaround build not returning gulp stream, reload upon changes in build
-  gulp.watch('./build/index.html', reload);
 });
