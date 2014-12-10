@@ -27,12 +27,12 @@ Her er noen av mine tanker rundt kravspek til dette byggeskriptet, kom gjerne me
 Aller først, byggeskriptet skal gjøre to ganske forskjellige ting (tror det muligens likevel gir mening at det er ett skript?): Konvertere MarkDown til forskjellige output-formater (ihvertfall HTML og PDF, muligens noe doc-kompatibelt i tillegg?) og lage et statisk nettsted hvor hvem-som-helst kan hente ut disse oppgavene.
 
 Litt mer konkrete requirements:
-- Kunne konvertere MarkDown til stylet HTML
+- [x] Kunne konvertere MarkDown til stylet HTML
 - Kunne konvertere MarkDown til stylet PDF, muligens via HTML
-- MarkDown'en kan inneholde Scratch-kode som rendres som scratch-klosser
+- [x] MarkDown'en kan inneholde Scratch-kode som rendres som scratch-klosser
 - (Kanskje) kunne konvertere MarkDown til et format som kan leses av Word. Dette vil gjøre det enkelt for lærere å legge sine personlige vrier på oppgavene (men vi vil neppe ha noe system for enkelt å ta disse variasjonene tilbake til github etc)
 - Legge på forskjellige headers og footers, for eksempel vil vi ha en litt annen footertekst på oppgaver vi har oversatt enn oppgaver vi lager selv.
-- Kan rendre en oppgave av gangen, viktig for at vi effektivt kan rendre oppgaver mens brukerne skriver dem i et webgrensesnitt (uten at oppgavene går den litt tunge veien via github)
+- [x] Kan rendre en oppgave av gangen, viktig for at vi effektivt kan rendre oppgaver mens brukerne skriver dem i et webgrensesnitt (uten at oppgavene går den litt tunge veien via github)
 - Tagging av oppgaver med ting som vanskelighetsgrad, læringsmål som dekkes, opprinnelse osv.
 - Nettside med oversikt over alle oppgaver (innen et tema / programmeringsspråk) med mulig sortering / filtrering på taggene
 - Mulighet for å lage "spillelister" med oppgavene. Disse vil kunne representere anbefalte kurs med flere oppgaver.
