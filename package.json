@@ -26,12 +26,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/arve0/metalsmith-test"
+    "url": "https://github.com/arve0/metalsmith-kodeklubben"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/arve0/metalsmith-test/issues"
+    "url": "https://github.com/arve0/metalsmith-kodeklubben/issues"
   },
-  "homepage": "https://github.com/arve0/metalsmith-test"
+  "homepage": "https://github.com/arve0/metalsmith-kodeklubben"
 }
