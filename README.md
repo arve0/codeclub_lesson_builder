@@ -37,7 +37,7 @@ gulp
 
 # Specification
 This is in norwegian, but will be updated to english when project have reached are more stable state. Especially, we need:
-- format specification
+- format specification - should be very similar to [CodeClubUK format](//github.com/CodeClub/lesson_format/blob/master/FORMATTING.md)
 - description of builder internal workings
 
 ## Spesifikasjoner på norsk
