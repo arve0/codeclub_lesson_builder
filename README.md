@@ -32,7 +32,7 @@ Litt mer konkrete requirements:
 - [x] Kunne konvertere MarkDown til stylet HTML
 - [ ] Kunne konvertere MarkDown til stylet PDF, muligens via HTML
 - [x] MarkDown'en kan inneholde Scratch-kode som rendres som scratch-klosser
-- [ ] (Kanskje) kunne konvertere MarkDown til et format som kan leses av Word. Dette vil gjøre det enkelt for lærere å legge sine personlige vrier på oppgavene (men vi vil neppe ha noe system for enkelt å ta disse variasjonene tilbake til github etc)
+- [ ] *Kanskje* kunne konvertere MarkDown til et format som kan leses av Word. Dette vil gjøre det enkelt for lærere å legge sine personlige vrier på oppgavene (men vi vil neppe ha noe system for enkelt å ta disse variasjonene tilbake til github etc)
 - [ ] Legge på forskjellige headers og footers, for eksempel vil vi ha en litt annen footertekst på oppgaver vi har oversatt enn oppgaver vi lager selv.
 - [x] Kan rendre en oppgave av gangen, viktig for at vi effektivt kan rendre oppgaver mens brukerne skriver dem i et webgrensesnitt (uten at oppgavene går den litt tunge veien via github)
 - [ ] Tagging av oppgaver med ting som vanskelighetsgrad, læringsmål som dekkes, opprinnelse osv.
