@@ -1,5 +1,7 @@
 # Development
 
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/arve0/metalsmith-kodeklubben?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## Install requirements
 ```
 npm install
