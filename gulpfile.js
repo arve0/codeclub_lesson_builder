@@ -1,4 +1,4 @@
-var build = require('./build');
+var build = require('./build'); // build.js in same folder
 var gulp = require("gulp");
 var less = require('gulp-less');
 var path = require('path');
@@ -16,7 +16,7 @@ var reload = browserSync.reload;
  */
 gulp.task('server', ['build', 'less', 'assets'], function () {
   browserSync.init({
-    server: { baseDir: './build' }
+    server: { baseDir: 'build' }
   });
 });
 
@@ -24,19 +24,19 @@ gulp.task('server', ['build', 'less', 'assets'], function () {
  * build less files to css
  */
 gulp.task('less', function() {
-  return gulp.src('./styles/**/*.less')
+  return gulp.src('styles/**/*.less')
     .pipe(less({
       paths: [path.join(__dirname, 'styles', 'includes') ]
     }))
-    .pipe(gulp.dest('./build/assets/css/'));
+    .pipe(gulp.dest('build/assets/css/'));
 });
 
 /*
  * copy all assets to build directory
  */
 gulp.task('assets', function(){
-  return gulp.src('./assets/**/*')
-    .pipe(gulp.dest('./build/assets/'));
+  return gulp.src('assets/**/*')
+    .pipe(gulp.dest('build/assets/'));
 })
 
 /*
@@ -57,12 +57,12 @@ gulp.task('default', ['server'], function(){
    * ## WATCHES ##
    */
   // files which are built with metalsmith
-  gulp.watch('./src/**/*', ['build', reload]);
-  gulp.watch('./templates/**/*', ['build', reload]);
+  gulp.watch('src/**/*', ['build', reload]);
+  gulp.watch('templates/**/*', ['build', reload]);
 
   // styles
-  gulp.watch('./styles/**/*', ['less', reload]);
+  gulp.watch('styles/**/*', ['less', reload]);
 
   // assets
-  gulp.watch('./assets/**/*', ['assets', reload]);
+  gulp.watch('assets/**/*', ['assets', reload]);
 });

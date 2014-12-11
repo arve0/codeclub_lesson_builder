@@ -36,7 +36,7 @@ module.exports = function build(callback){
   .use(templates('jade'))
   //build
   .clean(false) // do not delete files - allows for separate tasks in gulp
-  .destination('./build')
+  .destination('build')
   .build(function(err){
     if (err) console.log(err);
     // callback when build is done
