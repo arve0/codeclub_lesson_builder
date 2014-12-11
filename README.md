@@ -11,7 +11,7 @@ You will need [node](//nodejs.org) and [git](//help.github.com/articles/set-up-g
 
 ## Clone repository
 ```
-git clone https://github.com/arve0/metalsmith-kodeklubben
+git clone --recursive https://github.com/arve0/metalsmith-kodeklubben
 ```
 
 ## Requirements
