@@ -1,16 +1,32 @@
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/arve0/metalsmith-kodeklubben?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-# Development
+# metalsmith-kodeklubben
+This project builds codeclub exercises from markdown to styled webpages. A file watcher builds upon changes and refreshes the browser. Watching is done through [gulp](//gulpjs.com) and build are done with [metalsmith](//metalsmith.io).
 
-## Install requirements
+Here is a screenshot with exmaple of workflow:
+![](assets/img/workflow.png)
+
+# Development
+You will need [node](//nodejs.org) and [git](//help.github.com/articles/set-up-git/) for using this software. When you have, follow instructions below.
+
+## Clone repository
 ```
-npm install
-(sudo) npm install -g gulp
+git clone https://github.com/arve0/metalsmith-kodeklubben
 ```
+
+## Requirements
+
 ### Note Ubuntu users!
-node.js from apt-get is not installed as *node* but *nodejs*. This causes problems for installation of some packages. To fix this, link *node* to *nodejs* **BEFORE** installing packages with npm:
+nodejs is not installed as *node*, and this causes problems for some packages. To fix this, link *node* to *nodejs* like so **BEFORE** installing packages through npm:
 ```
 sudo ln -s /usr/bin/nodejs /usr/local/bin/node
+```
+
+### Installing requirements
+```
+cd metalsmith-kodeklubben
+npm install
+(sudo) npm install -g gulp
 ```
 
 ## Run server
@@ -19,7 +35,12 @@ gulp
 ```
 
 
-# Spesifikasjoner
+# Specification
+This is in norwegian, but will be updated to english when project have reached are more stable state. Especially, we need:
+- format specification
+- description of builder internal workings
+
+## Spesifikasjoner på norsk
 Dette er kopiert fra [Geir Arne Hjelle](https://github.com/gahjelle) på facebookgruppen (http://on.fb.me/1vSzZ6A):
 
 Vi er mye løsere organisert enn CodeClub UK og ønsker mindre sentralstyring av oppgavene enn de har, slik at våre krav til et slikt byggeverktøy er litt annerledes enn de har i UK. Jeg har mailet litt med Andy Lulham som vedlikeholder den engelske originalen, og han er veldig interessert i eventuell utvikling vi gjør, slik at vi vil i utgangspunktet forsøke å beholde vårt og deres byggeskript som en code base.
