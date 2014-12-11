@@ -7,7 +7,7 @@ var Metalsmith = require('metalsmith'),
   pandoc = require('metalsmith-pandoc');
 
 
-module.exports = function build(){
+module.exports = function build(callback){
   Metalsmith(__dirname)
   // set template for exercises
   .use(setMetadata([
@@ -33,5 +33,7 @@ module.exports = function build(){
   .destination('./build')
   .build(function(err){
     if (err) console.log(err);
+    // callback when build is done
+    callback(err);
   });
 }
