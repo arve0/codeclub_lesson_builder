@@ -1,8 +1,10 @@
 var build = require('./build'); // build.js in same folder
 var gulp = require("gulp");
 var less = require('gulp-less');
+var zip = require('gulp-zip');
 var path = require('path');
 var browserSync = require('browser-sync');
+var fs = require("fs");
 
 // reload shorthand
 var reload = browserSync.reload;
@@ -10,6 +12,29 @@ var reload = browserSync.reload;
 /*
  * # TASKS #
  */
+
+/*
+ * Create archive files for each subdir of build/oppgaver.
+ * Each archive includes all assets.
+ */
+gulp.task('archive', function() {
+    var source = 'build/oppgaver';
+    var src_dirs = fs.readdirSync(source).filter(function(file) {
+        return fs.statSync(path.join(source), file).isDirectory();
+    });
+    var last_pass;
+    for(dir in src_dirs) {
+        var dirname = src_dirs[dir];
+        last_pass = gulp.src([
+            'build/{assets,assets/**}', 
+            'build/{oppgaver,oppgaver/{'+dirname+','+dirname+'/**}}',
+        ])
+        .pipe(zip(dirname+'.zip'))
+        .pipe(gulp.dest(source+'/'+dirname));
+    } 
+    return last_pass;
+});
+
 
 /*
  * serve build directory

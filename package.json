@@ -30,5 +30,8 @@
   "bugs": {
     "url": "https://github.com/arve0/metalsmith-kodeklubben/issues"
   },
-  "homepage": "https://github.com/arve0/metalsmith-kodeklubben"
+  "homepage": "https://github.com/arve0/metalsmith-kodeklubben",
+  "devDependencies": {
+    "gulp-zip": "^2.0.2"
+  }
 }

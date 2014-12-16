@@ -16,7 +16,9 @@ module.exports = function build(callback){
     { pattern: 'oppgaver/htmlcss/**/*.md', metadata: { template: 'python.jade' }}
   ]))
   .use(ignore([
-      'oppgaver/**/README.md'
+      'oppgaver/**/README.md',
+      'oppgaver/{.git,.git/**}',
+      'oppgaver/.gitignore',
   ]))
   // create collections for index scaffolding
   .use(collections({
