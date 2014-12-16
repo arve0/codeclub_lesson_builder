@@ -8,6 +8,7 @@
     "browser-sync": "^1.7.2",
     "gulp": "^3.8.10",
     "gulp-less": "^2.0.1",
+    "gulp-zip": "^2.0.2",
     "jade": "^1.8.1",
     "metalsmith": "^1.0.1",
     "metalsmith-collections": "^0.6.0",
