@@ -5,20 +5,17 @@
   "main": "build.js",
   "dependencies": {
     "bootstrap": "^3.3.1",
-    "metalsmith": "^1.0.1",
-    "metalsmith-markdown": "^0.2.1",
-    "metalsmith-pandoc": "0.0.4",
     "browser-sync": "^1.7.2",
     "gulp": "^3.8.10",
     "gulp-less": "^2.0.1",
     "jade": "^1.8.1",
     "metalsmith": "^1.0.1",
-    "metalsmith-assets": "^0.1.0",
     "metalsmith-collections": "^0.6.0",
     "metalsmith-filemetadata": "0.0.4",
     "metalsmith-filepath": "^1.0.1",
+    "metalsmith-ignore": "^0.1.2",
     "metalsmith-jade": "0.0.3",
-    "metalsmith-markdown": "^0.2.1",
+    "metalsmith-pandoc": "0.0.3",
     "metalsmith-templates": "^0.6.0"
   },
   "scripts": {
@@ -26,12 +23,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/arve0/metalsmith-test"
+    "url": "https://github.com/arve0/metalsmith-kodeklubben"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/arve0/metalsmith-test/issues"
+    "url": "https://github.com/arve0/metalsmith-kodeklubben/issues"
   },
-  "homepage": "https://github.com/arve0/metalsmith-test"
+  "homepage": "https://github.com/arve0/metalsmith-kodeklubben",
+  "devDependencies": {
+    "gulp-zip": "^2.0.2"
+  }
 }

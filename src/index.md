@@ -1,9 +1,8 @@
 ---
-title: iiiin
+title: Oppgaver
 template: index.jade
-permalink: false
 ---
 
-# overskrift
+# Velkommen
 
-litt tekst **her**
+Her vil du finne alle av kodeklubbens oppgaver.

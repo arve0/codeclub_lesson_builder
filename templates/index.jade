@@ -12,6 +12,7 @@ block content
   .content!= contents
 
   //- create links to exercises
+<<<<<<< HEAD
   .row
     #python.col-md-6
       h2 Python
@@ -23,3 +24,20 @@ block content
       each exercise in collections.scratch
         a(href=exercise.link)
           li.list-group-item= exercise.title
+=======
+  #scratch(class='col-sm-6 col-md-4')
+    h2 Scratch
+    each exercise in collections.scratch
+      a(href=exercise.link)
+        li(class='list-group-item')= exercise.title
+  #python(class='col-sm-6 col-md-4')
+    h2 Python
+    each exercise in collections.python
+      a(href=exercise.link)
+        li(class='list-group-item')= exercise.title
+  #web(class='col-sm-6 col-sm-6 col-md-4')
+    h2 HTML / CSS
+    each exercise in collections.web
+      a(href=exercise.link)
+        li(class='list-group-item')= exercise.title
+>>>>>>> master
