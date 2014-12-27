@@ -11,5 +11,11 @@ block content
             scratchblocks2.parse("pre.blocks");
         });
 
-  a(href="/") <-- Hjem
+  header
+    if level
+      .level
+        h1= level
+    h1.title= title
+    img.logo(src="/assets/img/ccno_logo.png")
+
   .content!= contents
