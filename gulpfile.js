@@ -23,15 +23,15 @@ gulp.task('archive', function() {
         return fs.statSync(path.join(source), file).isDirectory();
     });
     var last_pass;
-    for(dir in src_dirs) {
+    for(var dir in src_dirs) {
         var dirname = src_dirs[dir];
         last_pass = gulp.src([
-            'build/{assets,assets/**}', 
+            'build/{assets,assets/**}',
             'build/{oppgaver,oppgaver/{'+dirname+','+dirname+'/**}}',
         ])
         .pipe(zip(dirname+'.zip'))
         .pipe(gulp.dest(source+'/'+dirname));
-    } 
+    }
     return last_pass;
 });
 
@@ -48,7 +48,8 @@ gulp.task('server', ['build', 'less', 'assets'], function () {
 /*
  * build less files to css
  */
-gulp.task('less', function() {
+gulp.task('less', ['fonts'], function() {
+  console.log('debug less');
   return gulp.src('styles/**/*.less')
     .pipe(less({
       paths: [path.join(__dirname, 'styles', 'includes') ]
@@ -57,12 +58,20 @@ gulp.task('less', function() {
 });
 
 /*
+ * copy glyphicon fonts from bootstrap
+ */
+gulp.task('fonts', function(){
+  return gulp.src('node_modules/bootstrap/fonts/*')
+    .pipe(gulp.dest('build/assets/fonts/'));
+});
+
+/*
  * copy all assets to build directory
  */
 gulp.task('assets', function(){
   return gulp.src('assets/**/*')
     .pipe(gulp.dest('build/assets/'));
-})
+});
 
 /*
  * metalsmith building
