@@ -20,19 +20,28 @@ module.exports = function build(callback){
       'oppgaver/{.git,.git/**}',
       'oppgaver/.gitignore',
   ]))
+  // add file.link metadata
+  .use(filepath())
   // create collections for index scaffolding
   .use(collections({
-    python: 'oppgaver/python/**/*.md',
-    scratch: 'oppgaver/scratch/**/*.md',
-    web: 'oppgaver/htmlcss/**/*.md'
+    python: {
+      pattern: 'oppgaver/python/**/*.md',
+      sortBy: 'link'
+    },
+    scratch: {
+      pattern: 'oppgaver/scratch/**/*.md',
+      sortBy: 'link'
+    },
+    web: {
+      pattern: 'oppgaver/htmlcss/**/*.md',
+      sortBy: 'link'
+    }
   }))
   // convert to html
   .use(pandoc({
     to: 'html5',
     args: ['--section-divs', '--smart']
   }))
-  // add file.link metadata
-  .use(filepath())
   // apply templates
   .use(templates('jade'))
   //build
