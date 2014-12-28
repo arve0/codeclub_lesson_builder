@@ -5,7 +5,7 @@ mixin collection(name, collection)
     h2= name.charAt(0).toUpperCase() + name.substr(1)
     each exercise in collection
       if !exercise.level
-        a(href=exercise.link)
+        a(href=relative(exercise.link))
           li.list-group-item= exercise.title
       else if (typeof exercise.level === 'number' && exercise.level % 1 === 0)
         //- level is int, ie 1
@@ -14,7 +14,7 @@ mixin collection(name, collection)
           |  #{exercise.title}
       else if typeof exercise.level === 'number' && exercise.level % 1 != 0
         //- level is float, ie 1.1
-        a(href=exercise.link)
+        a(href=relative(exercise.link))
           li.list-group-item #{exercise.level.toString().substring(2)} #{exercise.title}
 
 

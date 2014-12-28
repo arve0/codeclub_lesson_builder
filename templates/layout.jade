@@ -2,13 +2,13 @@ html
   head
     meta(charset="utf-8")
     title #{title} | kodeklubben
-    link(href='/assets/css/main.css', rel='stylesheet')
-    link(href='/assets/css/lesson.css', rel='stylesheet')
+    link(href=relative("/assets/css/main.css"), rel="stylesheet")
+    link(href=relative("/assets/css/lesson.css"), rel="stylesheet")
   body
     .container
       .row
         .top-menu.col-md-11.col-md-offset-1
-          a.btn.btn-default(href="/")
+          a.btn.btn-default(href=relative("/index.html"))
             span.glyphicon.glyphicon-home(aria-hidden="true")
             |  Hjem
         .col-md-11.col-md-offset-1

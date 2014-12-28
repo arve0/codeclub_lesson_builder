@@ -17,6 +17,7 @@
     "metalsmith-ignore": "^0.1.2",
     "metalsmith-jade": "0.0.3",
     "metalsmith-pandoc": "0.0.3",
+    "metalsmith-relative": "^1.0.3",
     "metalsmith-templates": "^0.6.0"
   },
   "scripts": {
