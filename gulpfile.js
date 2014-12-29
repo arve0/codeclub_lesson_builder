@@ -60,17 +60,31 @@ gulp.task('less', ['fonts'], function() {
 /*
  * copy glyphicon fonts from bootstrap
  */
-gulp.task('fonts', function(){
-  return gulp.src('node_modules/bootstrap/fonts/*')
-    .pipe(gulp.dest('build/assets/fonts/'));
+gulp.task('assets', function(){
+  return gulp.src([
+      'assets/**/*',
+      'node_modules/scratchblocks2/build/*/*.png',
+      'node_modules/bootstrap/dist/*/glyphicons-halflings-regular.*',
+      'node_modules/jquery/dist/jquery.min.map'
+    ])
+    .pipe(gulp.dest('build/assets'));
 });
 
 /*
  * copy all assets to build directory
  */
-gulp.task('assets', function(){
-  return gulp.src('assets/**/*')
-    .pipe(gulp.dest('build/assets/'));
+gulp.task('js', function(){
+  return gulp.src([
+    'scripts/**/*.js',
+    'node_modules/scratchblocks2/build/scratchblocks2.js',
+    'node_modules/scratchblocks2/src/translations.js'
+  ])
+  .pipe(uglify())
+  .pipe(addsrc.prepend([
+    'node_modules/jquery/dist/jquery.min.js'
+  ]))
+  .pipe(concat('script.min.js'))
+  .pipe(gulp.dest('build/assets'));
 });
 
 /*
@@ -78,6 +92,10 @@ gulp.task('assets', function(){
  */
 gulp.task('build', build);
 
+/*
+ * dist - build all without serving
+ */
+gulp.task('dist', ['assets', 'build', 'css', 'js']);
 
 /*
  * # DEFAULT TASK #

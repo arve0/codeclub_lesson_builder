@@ -9,29 +9,24 @@ mixin collection(name, collection)
       if !exercise.playlist
         a(href=relative(exercise.link))
           li.list-group-item= exercise.title
-      if exercise.playlist && !playlistPrinted[exercise.playlist.replace(' ', '_')]
-        //- first exercise in playlist
-        li.list-group-item
-          span.glyphicon.glyphicon-play-circle
-          |  #{exercise.playlist}
-        -playlistPrinted[exercise.playlist.replace(' ', '_')] = true;
-      if exercise.playlist
-        //- exercise in playlist
-        a(href=relative(exercise.link) class=exercise.playlist.replace(' ', '_'))
-          li.list-group-item #{exercise.level} #{exercise.title}
+      else
+        //- lesson is in a playlist
+        - var id = playlistId(exercise.playlist)
+        if !playlistPrinted[id]
+          //- first exercise in playlist
+          li.list-group-item.playlist(id=id)
+            span.glyphicon.glyphicon-play-circle
+            |  #{exercise.playlist}
+          -playlistPrinted[id] = true;
+        a(href=relative(exercise.link))
+          li.list-group-item(style="display:none" class=id)= exercise.title
 
 
 block content
-  //- HACKHACK
-  //- filter out circular references and key==contents of js-objects
-  - function f(k,v){if (k=='next' || k=='contents' || k=='previous') return undefined; else return v;}
-  //- Send variable to client, for debugging
-  script.
-    collections = !{JSON.stringify(collections, f)};
-
   //- insert contents from index.md
   .content!= contents
 
   //- create links to exercises
-  each collection, name in collections
-    +collection(name, collection)
+  .row
+    each collection, name in collections
+      +collection(name, collection)

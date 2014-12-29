@@ -5,7 +5,8 @@ var Metalsmith  = require('metalsmith'),
     filepath    = require('metalsmith-filepath'),
     pandoc      = require('metalsmith-pandoc'),
     ignore      = require('metalsmith-ignore'),
-    relative    = require('metalsmith-relative');
+    relative    = require('metalsmith-relative'),
+    define      = require('metalsmith-define');
 
 
 module.exports = function build(callback){
@@ -48,6 +49,15 @@ module.exports = function build(callback){
   }))
   // add file.link metadata (now files are .html)
   .use(filepath())
+  // globals for use in templates
+  .use(define({
+    playlistId: function(name){
+      // replace chars in playlist-name, so that it can be used as id or class
+      name = name.replace(/ /g, '_');
+      name = name.replace(/[,.-?]/g, '');
+      return name;
+    }
+  }))
   // apply templates
   .use(templates('jade'))
   //build
