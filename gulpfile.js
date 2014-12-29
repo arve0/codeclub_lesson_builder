@@ -6,6 +6,7 @@ var browserSync = require('browser-sync');
 var reload = browserSync.reload; // reload shorthand
 var path = require('path');
 var addsrc = require('gulp-add-src');
+var gutil = require('gulp-util');
 // html building
 var build = require('./build'); // build.js in same folder
 // styles and scripts
@@ -63,6 +64,7 @@ gulp.task('css', function() {
     .pipe(less({
       paths: [path.join(__dirname, 'styles', 'includes') ]
     }))
+    .on('error', gutil.log)
     .pipe(addsrc([
       'node_modules/scratchblocks2/build/scratchblocks2.css'
     ]))
