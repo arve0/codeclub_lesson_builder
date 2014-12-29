@@ -4,7 +4,8 @@ var Metalsmith  = require('metalsmith'),
     setMetadata = require('metalsmith-filemetadata'),
     filepath    = require('metalsmith-filepath'),
     pandoc      = require('metalsmith-pandoc'),
-    ignore      = require('metalsmith-ignore');
+    ignore      = require('metalsmith-ignore'),
+    relative    = require('metalsmith-relative');
 
 
 module.exports = function build(callback){
@@ -20,18 +21,32 @@ module.exports = function build(callback){
       'oppgaver/{.git,.git/**}',
       'oppgaver/.gitignore',
   ]))
+  // add file.link metadata (for sorting)
+  // TODO: better way to sort files?
+  .use(filepath())
+  // add relative(path) for use in templates
+  .use(relative())
   // create collections for index scaffolding
   .use(collections({
-    python: 'oppgaver/python/**/*.md',
-    scratch: 'oppgaver/scratch/**/*.md',
-    web: 'oppgaver/htmlcss/**/*.md'
+    python: {
+      pattern: 'oppgaver/python/**/*.md',
+      sortBy: 'link'
+    },
+    scratch: {
+      pattern: 'oppgaver/scratch/**/*.md',
+      sortBy: 'link'
+    },
+    web: {
+      pattern: 'oppgaver/htmlcss/**/*.md',
+      sortBy: 'link'
+    }
   }))
   // convert to html
   .use(pandoc({
     to: 'html5',
     args: ['--section-divs', '--smart']
   }))
-  // add file.link metadata
+  // add file.link metadata (now files are .html)
   .use(filepath())
   // apply templates
   .use(templates('jade'))

@@ -2,8 +2,7 @@ html
   head
     meta(charset="utf-8")
     title #{title} | kodeklubben
-    link(href='/assets/css/main.css', rel='stylesheet')
-    link(href='/assets/css/lesson.css', rel='stylesheet')
+    link(href=relative("/assets/style.min.css") rel="stylesheet")
   body
     .container
       .row
@@ -15,3 +14,4 @@ html
             block content
     #footer
       p creative commons
+    script(src=relative("/assets/script.min.js"))
