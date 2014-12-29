@@ -1,29 +1,32 @@
 extends ./layout.jade
 
-block content
-  //- HACKHACK
-  //- filter out circular references and key==contents of js-objects
-  - function f(k,v){if (k=='next' || k=='contents' || k=='previous') return undefined; else return v;}
-  //- Send variable to client, for debugging
-  script.
-    collections = !{JSON.stringify(collections, f)};
+//- Mixin for indexing exercises
+mixin collection(name, collection)
+  -var playlistPrinted = playlist || {};
+  div.col-sm-6.col-md-4(id=name)
+    h2= name.charAt(0).toUpperCase() + name.substr(1)
+    each exercise in collection
+      if !exercise.playlist
+        a(href=relative(exercise.link))
+          li.list-group-item= exercise.title
+      if exercise.playlist
+        //- lesson is in playlist
+        - var className = playlistId(exercise.playlist)
+        if !playlistPrinted[className]
+          //- first exercise in playlist
+          li.list-group-item.playlist(id=className)
+            span.glyphicon.glyphicon-play-circle
+            |  #{exercise.playlist}
+          -playlistPrinted[className] = true;
+        a(href=relative(exercise.link))
+          li.list-group-item(style="display:none" class=className)= exercise.title
 
+
+block content
   //- insert contents from index.md
   .content!= contents
 
   //- create links to exercises
-  #scratch(class='col-sm-6 col-md-4')
-    h2 Scratch
-    each exercise in collections.scratch
-      a(href=exercise.link)
-        li(class='list-group-item')= exercise.title
-  #python(class='col-sm-6 col-md-4')
-    h2 Python
-    each exercise in collections.python
-      a(href=exercise.link)
-        li(class='list-group-item')= exercise.title
-  #web(class='col-sm-6 col-sm-6 col-md-4')
-    h2 HTML / CSS
-    each exercise in collections.web
-      a(href=exercise.link)
-        li(class='list-group-item')= exercise.title
+  .row
+    each collection, name in collections
+      +collection(name, collection)

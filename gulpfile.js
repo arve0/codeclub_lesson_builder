@@ -79,7 +79,8 @@ gulp.task('assets', function(){
   return gulp.src([
       'assets/**/*',
       'node_modules/scratchblocks2/build/*/*.png',
-      'node_modules/bootstrap/dist/*/glyphicons-halflings-regular.*'
+      'node_modules/bootstrap/dist/*/glyphicons-halflings-regular.*',
+      'node_modules/jquery/dist/jquery.min.map'
     ])
     .pipe(gulp.dest('build/assets'));
 });
@@ -94,7 +95,7 @@ gulp.task('js', function(){
     'node_modules/scratchblocks2/src/translations.js'
   ])
   .pipe(uglify())
-  .pipe(addsrc([
+  .pipe(addsrc.prepend([
     'node_modules/jquery/dist/jquery.min.js'
   ]))
   .pipe(concat('script.min.js'))
@@ -106,6 +107,10 @@ gulp.task('js', function(){
  */
 gulp.task('build', build);
 
+/*
+ * dist - build all without serving
+ */
+gulp.task('dist', ['assets', 'build', 'css', 'js']);
 
 /*
  * # DEFAULT TASK #

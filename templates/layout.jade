@@ -7,11 +7,11 @@ html
     .container
       .row
         .top-menu.col-md-11.col-md-offset-1
-          a.btn.btn-default(href="/")
+          a.btn.btn-default(href=relative("/index.html"))
             span.glyphicon.glyphicon-home(aria-hidden="true")
             |  Hjem
         .col-md-11.col-md-offset-1
             block content
-    #footer
-      p creative commons
+        #footer.col-md-11.col-md-offset-1
+          p creative commons
     script(src=relative("/assets/script.min.js"))
