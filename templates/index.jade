@@ -1,21 +1,24 @@
 extends ./layout.jade
 
+//- Mixin for indexing exercises
 mixin collection(name, collection)
+  -var playlistPrinted = playlist || {};
   div.col-sm-6.col-md-4(id=name)
     h2= name.charAt(0).toUpperCase() + name.substr(1)
     each exercise in collection
-      if !exercise.level
+      if !exercise.playlist
         a(href=relative(exercise.link))
           li.list-group-item= exercise.title
-      else if (typeof exercise.level === 'number' && exercise.level % 1 === 0)
-        //- level is int, ie 1
+      if exercise.playlist && !playlistPrinted[exercise.playlist.replace(' ', '_')]
+        //- first exercise in playlist
         li.list-group-item
           span.glyphicon.glyphicon-play-circle
-          |  #{exercise.title}
-      else if typeof exercise.level === 'number' && exercise.level % 1 != 0
-        //- level is float, ie 1.1
-        a(href=relative(exercise.link))
-          li.list-group-item #{exercise.level.toString().substring(2)} #{exercise.title}
+          |  #{exercise.playlist}
+        -playlistPrinted[exercise.playlist.replace(' ', '_')] = true;
+      if exercise.playlist
+        //- exercise in playlist
+        a(href=relative(exercise.link) class=exercise.playlist.replace(' ', '_'))
+          li.list-group-item #{exercise.level} #{exercise.title}
 
 
 block content
