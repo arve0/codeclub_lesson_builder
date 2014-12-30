@@ -1,5 +1,5 @@
 # The Codeclub Lesson Builder format
-The format used by this builder is heavily based on the format used by Code Club UK. This builder is capable of building lessons intended for the Code Club UK's builder, but some functionality has been removed, and some new features have been added. The main differences between this builder and Code Club UK's builder are related meta data.
+The format used by this builder is heavily based on the format used by Code Club UK. This builder is capable of building lessons intended for the Code Club UK's builder, but some functionality has been removed, and some new features have been added. The main differences between this builder and Code Club UK's builder are related meta data, there are no syntactical differences.
 
 ## Markdown
 We use the GitHub flavoured Markdown that pandoc understands, in particular the format `markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes`. Pandoc's documentation covers these options and more http://johnmacfarlane.net/pandoc/demo/example9/pandocs-markdown.html
@@ -9,13 +9,16 @@ Lessons need to provide some basic metadata in the form of a YAML header. The he
 
 There are some required attributes in the header, and some optional. 
 ### Required attributes:
-    title : Name of your lesson
-    level : Difficulty of the lesson, represented as an integer from 1 to 3.
+    title : Name of the lesson lesson. String.
+    level : Difficulty of the lesson. Positive integer.
+        1 - Easy
+        2 - Medium
+        3 - Hard
 
 ### Optional attributes:
-    playlist : Lessons with the same playlist attribute will be grouped together, and presented as a list of consecutive lessons.
-    language : Language the lesson is written in.  
-    author : The lesson's author. 
+    playlist : Used to group related lessons together. String.
+    language : Language the lesson is written in. [name of language tag standard] 
+    author : The lesson's author. String. 
 
 ## Using classes
 Classes can be added to the generated HTML tags by using the following syntax:
