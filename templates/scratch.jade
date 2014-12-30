@@ -1,16 +1,6 @@
 extends ./layout.jade
 
 block content
-  link(rel='stylesheet' href='//blob8108.github.io/scratchblocks2/scratchblocks2.css')
-  script(src='https://code.jquery.com/jquery-2.1.1.min.js')
-  script(src='//blob8108.github.io/scratchblocks2/scratchblocks2.js')
-  script(src='/assets/translations.js')
-  script.
-        $(document).ready(function(){
-            scratchblocks2.load_language(scratchblocks2._translations['nb']);
-            scratchblocks2.parse("pre.blocks");
-        });
-
   header
     if level
       .level
@@ -19,3 +9,9 @@ block content
     img.logo(src=relative("/assets/img/ccno_logo.png"))
 
   .content!= contents
+
+  script.
+    $(document).ready(function(){
+      scratchblocks2.load_language(scratchblocks2._translations['nb']);
+      scratchblocks2.parse("pre.blocks");
+    });

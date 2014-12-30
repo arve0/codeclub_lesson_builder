@@ -1,13 +1,23 @@
-var build = require('./build'); // build.js in same folder
+/*
+ * # DEPENDENCIES #
+ */
 var gulp = require("gulp");
-var less = require('gulp-less');
-var zip = require('gulp-zip');
-var path = require('path');
 var browserSync = require('browser-sync');
+var reload = browserSync.reload; // reload shorthand
+var path = require('path');
+var addsrc = require('gulp-add-src');
+// html building
+var build = require('./build'); // build.js in same folder
+// styles and scripts
+var less = require('gulp-less');
+var concat = require('gulp-concat');
+var autoprefixer = require('gulp-autoprefixer');
+var minify = require('gulp-minify-css');
+var uglify = require('gulp-uglify');
+// archive
+var zip = require('gulp-zip');
 var fs = require("fs");
 
-// reload shorthand
-var reload = browserSync.reload;
 
 /*
  * # TASKS #
@@ -39,25 +49,31 @@ gulp.task('archive', function() {
 /*
  * serve build directory
  */
-gulp.task('server', ['build', 'less', 'assets'], function () {
+gulp.task('server', ['build', 'css', 'js', 'assets'], function () {
   browserSync.init({
     server: { baseDir: 'build' }
   });
 });
 
 /*
- * build less files to css
+ * build less files to css, prefix and minify
  */
-gulp.task('less', function() {
+gulp.task('css', function() {
   return gulp.src('styles/**/*.less')
     .pipe(less({
       paths: [path.join(__dirname, 'styles', 'includes') ]
     }))
-    .pipe(gulp.dest('build/assets/css/'));
+    .pipe(addsrc([
+      'node_modules/scratchblocks2/build/scratchblocks2.css'
+    ]))
+    .pipe(autoprefixer())
+    .pipe(minify())
+    .pipe(concat('style.min.css'))
+    .pipe(gulp.dest('build/assets'));
 });
 
 /*
- * copy assets
+ * copy all assets to build directory
  */
 gulp.task('assets', function(){
   return gulp.src([
@@ -70,7 +86,7 @@ gulp.task('assets', function(){
 });
 
 /*
- * copy all assets to build directory
+ * concat and uglify scripts
  */
 gulp.task('js', function(){
   return gulp.src([
@@ -98,10 +114,12 @@ gulp.task('dist', ['assets', 'build', 'css', 'js']);
 
 /*
  * # DEFAULT TASK #
- * do metalsmith and css build
+ * do metalsmith build
+ * build, concat and minify styles
+ * concat and uglify scripts
  * copy assets
  * serve build directory with livereload
- * watch files -> build
+ * watch files -> build and reload upon changes
  */
 gulp.task('default', ['server'], function(){
   /*
@@ -112,7 +130,10 @@ gulp.task('default', ['server'], function(){
   gulp.watch('templates/**/*', ['build', reload]);
 
   // styles
-  gulp.watch('styles/**/*', ['less', reload]);
+  gulp.watch('styles/**/*', ['css', reload]);
+
+  // scripts
+  gulp.watch('scripts/**/*', ['js', reload]);
 
   // assets
   gulp.watch('assets/**/*', ['assets', reload]);
