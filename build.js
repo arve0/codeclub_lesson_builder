@@ -55,7 +55,8 @@ module.exports = function build(callback){
       name = name.replace(/ /g, '_');
       name = name.replace(/[,.-?]/g, '');
       return name;
-    }
+    },
+    marked: require('marked') // for md strings in YAML header
   }))
   // apply templates
   .use(templates('jade'))
