@@ -48,8 +48,7 @@ gulp.task('server', ['build', 'less', 'assets'], function () {
 /*
  * build less files to css
  */
-gulp.task('less', ['fonts'], function() {
-  console.log('debug less');
+gulp.task('less', function() {
   return gulp.src('styles/**/*.less')
     .pipe(less({
       paths: [path.join(__dirname, 'styles', 'includes') ]
@@ -58,7 +57,7 @@ gulp.task('less', ['fonts'], function() {
 });
 
 /*
- * copy glyphicon fonts from bootstrap
+ * copy assets
  */
 gulp.task('assets', function(){
   return gulp.src([
