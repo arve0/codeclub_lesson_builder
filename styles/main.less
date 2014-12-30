@@ -2,14 +2,24 @@
 @font-size-base: 15px;
 @icon-font-path: 'fonts/';
 
+@light-background: #B1DAAE;
+
 // responsive images
 img {
   &:extend(.img-responsive);
+}
+// header
+#header {
 }
 
 // top menu
 .top-menu {
   margin-top: 20px;
+  background-color: @light-background;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 // playlists
@@ -20,14 +30,20 @@ img {
 
 // footer
 #footer {
+  background-color: @light-background;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   .license, .author {
     float: left;
     > * {
       float: left;
-      padding-right: 5px;
+      margin: 0;
+      margin-right: 5px;
     }
   }
-  .license {
+  .author {
     margin-left: 10px;
   }
 }
