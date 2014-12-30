@@ -1,11 +1,11 @@
 # The Codeclub Lesson Builder format
-The format used by this builder is heavily based on the format used by Code Club UK. This builder is capable of building lessons intended for the Code Club UK's builder, but some functionality has been removed, and some new features have been added. The main differences between this builder and Code Club UK's builder are related meta data, there are no syntactical differences.
+This builder uses a format that is heavily based on the format used by Code Club UK. It is capable of building lessons intended for the Code Club UK's builder, but there are some differences. The main differendces are related to meta data, and in general we require less meta data than the UK builder. 
 
 ## Markdown
 We use the GitHub flavoured Markdown that pandoc understands, in particular the format `markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes`. Pandoc's documentation covers these options and more http://johnmacfarlane.net/pandoc/demo/example9/pandocs-markdown.html
 
 ## YAML header 
-Lessons need to provide some basic metadata in the form of a YAML header. The header should be added to the beginning of the lesson's markdown file. The following three characters signify the beginning and end of the header: --- 
+Lessons need to provide some basic metadata in the form of a YAML header. The header should be added to the beginning of the lesson's markdown file. The following three characters signify the beginning and end of the header: ---.
 
 There are some required attributes in the header, and some optional. 
 ### Required attributes:
