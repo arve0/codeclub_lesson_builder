@@ -21,14 +21,12 @@ There are some required attributes in the header, and some optional.
     author : The lesson's author. String. 
 
 ### Example file
-    ```
     ---
     title: Felix and Herbert
     level: 1
     language: en-GB
     ---
     #Hello world!
-    ```
 
 
 ## Using classes
