@@ -5,7 +5,7 @@ This builder uses a format that is heavily based on the format used by Code Club
 We use the GitHub flavoured Markdown that pandoc understands, in particular the format `markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes`. Pandoc's documentation covers these options and more http://johnmacfarlane.net/pandoc/demo/example9/pandocs-markdown.html
 
 ## YAML header 
-Lessons need to provide some basic metadata in the form of a YAML header. The header should be added to the beginning of the lesson's markdown file. The following three characters signify the beginning and end of the header: ---.
+Lessons need to provide some basic meta data in the form of a YAML header. The header should be added to the beginning of the lesson's markdown file. The following three characters signify the beginning and end of the header: ---.
 
 There are some required attributes in the header, and some optional. 
 ### Required attributes:
@@ -19,6 +19,17 @@ There are some required attributes in the header, and some optional.
     playlist : Used to group related lessons together. String.
     language : Language the lesson is written in. [name of language tag standard] 
     author : The lesson's author. String. 
+
+### Example file
+    ```
+    ---
+    title: Felix and Herbert
+    level: 1
+    language: en-GB
+    ---
+    #Hello world!
+    ```
+
 
 ## Using classes
 Classes can be added to the generated HTML tags by using the following syntax:
