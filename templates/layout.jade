@@ -6,13 +6,12 @@ html
   body
     .container
       .row
-        .top-menu.col-md-11.col-md-offset-1
+        .top-menu.col-xs-12
           a.btn.btn-default(href=relative("/index.html"))
             span.glyphicon.glyphicon-home(aria-hidden="true")
             |  Hjem
-        .col-md-11.col-md-offset-1
-            block content
-        #footer.col-md-11.col-md-offset-1
+        block content
+        #footer.col-xs-12
           if author
             - author = marked(author)
             .author

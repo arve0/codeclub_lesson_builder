@@ -28,6 +28,10 @@ module.exports = function build(callback){
   .use(relative())
   // create collections for index scaffolding
   .use(collections({
+    computercraft: {
+      pattern: 'oppgaver/computercraft/**/*.md',
+      sortBy: 'link'
+    },
     python: {
       pattern: 'oppgaver/python/**/*.md',
       sortBy: 'link'
