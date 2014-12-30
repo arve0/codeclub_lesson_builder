@@ -13,9 +13,8 @@ module.exports = function build(callback){
   Metalsmith(__dirname)
   // set template for exercises
   .use(setMetadata([
-    { pattern: 'oppgaver/python/**/*.md',  metadata: { template: 'lesson.jade' }},
-    { pattern: 'oppgaver/scratch/**/*.md', metadata: { template: 'scratch.jade' }},
-    { pattern: 'oppgaver/htmlcss/**/*.md', metadata: { template: 'lesson.jade' }}
+    { pattern: 'oppgaver/**/*.md',  metadata: { template: 'lesson.jade' }},
+    { pattern: 'oppgaver/scratch/**/*.md', metadata: { template: 'scratch.jade' }}
   ]))
   .use(ignore([
       'oppgaver/**/README.md',
