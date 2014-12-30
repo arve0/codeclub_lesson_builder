@@ -13,6 +13,20 @@ html
         .col-md-11.col-md-offset-1
             block content
         #footer.col-md-11.col-md-offset-1
-          p creative commons
+          if author
+            - author = marked(author)
+            .author
+              strong Forfatter:
+              != author
+          .license
+            if license
+              - license = marked(license)
+              strong Lisens:
+              != license
+            else
+              strong Lisens:
+              a(rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.no").
+                CC-BY 4.0 Internasjonal
+
     script(src=relative("/assets/script.min.js"))
     block scripts
