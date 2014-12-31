@@ -6,6 +6,7 @@
   "dependencies": {
     "bootstrap": "^3.3.1",
     "browser-sync": "^1.7.2",
+    "del": "^1.1.1",
     "gulp": "^3.8.10",
     "gulp-add-src": "^0.2.0",
     "gulp-autoprefixer": "^2.0.0",
@@ -27,7 +28,8 @@
     "metalsmith-pandoc": "0.0.6",
     "metalsmith-relative": "^1.0.3",
     "metalsmith-templates": "^0.6.0",
-    "napa": "^1.1.0"
+    "napa": "^1.1.0",
+    "run-sequence": "^1.0.2"
   },
   "napa": {
     "scratchblocks2": "blob8108/scratchblocks2#f6aecc77a9"
