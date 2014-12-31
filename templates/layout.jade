@@ -6,26 +6,34 @@ html
   body
     .container
       .row
-        .top-menu.col-xs-12
-          a.btn.btn-default(href=relative("/index.html"))
-            span.glyphicon.glyphicon-home(aria-hidden="true")
-            |  Hjem
+        .col-xs-12
+          .top-menu
+            a.btn.btn-default(href=relative("/index.html"))
+              span.glyphicon.glyphicon-home(aria-hidden="true")
+              |  Hjem
         block content
-        #footer.col-xs-12
-          if author
-            - author = marked(author)
-            .author
-              strong Forfatter:
-              != author
-          .license
-            if license
-              - license = marked(license)
-              strong Lisens:
-              != license
-            else
-              strong Lisens:
-              a(rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.no").
-                CC-BY 4.0 Internasjonal
+        .col-xs-12
+          #footer.clearfix
+            if author
+              - author = marked(author)
+              .author
+                strong Forfatter:
+                != author
+            .license
+              if license
+                - license = marked(license)
+                p: strong Lisens:
+                != license
+              else
+                p: strong Lisens:
+                a(rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.no").
+                  CC-BY 4.0 Internasjonal
+            if author
+              - author = marked(author)
+              .author
+                p: strong Forfatter:
+                != author
 
-    script(src=relative("/assets/script.min.js"))
-    block scripts
+
+      script(src=relative("/assets/script.min.js"))
+      block scripts
