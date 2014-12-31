@@ -1,6 +1,14 @@
 # The Codeclub Lesson Builder format
 This builder uses a format that is heavily based on the format used by Code Club UK. It is capable of building lessons intended for the Code Club UK's builder, but there are some differences. The main differendces are related to meta data, and in general we require less meta data than the UK builder. 
 
+## src directory file structure
+src/                
+    oppgaver/       - categories
+        scratch/        - scratch lessons
+        python/         - python lessons
+            hello_world/    - a python lesson 
+                hello_world.md - lesson markdown file 
+
 ## Markdown
 We use the GitHub flavoured Markdown that pandoc understands, in particular the format `markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes`. Pandoc's documentation covers these options and more http://johnmacfarlane.net/pandoc/demo/example9/pandocs-markdown.html
 
@@ -59,9 +67,7 @@ A note to test:
 ## Scratchblocks
 
 We use the scratchblocks2 library to render scratch blocks as png files.
-
 Scratch blocks inside lessons must follow [the syntax set out here](http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax).
-
 We use `scratch` to denote a scratch block in markdown:
 
     Some paragraph
