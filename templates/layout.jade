@@ -12,21 +12,22 @@ html
             |  Hjem
         .col-md-11.col-md-offset-1
             block content
-        #footer.col-md-11.col-md-offset-1
-          if author
-            - author = marked(author)
-            .author
-              strong Forfatter:
-              != author
+        #footer.col-md-11.col-md-offset-1.clearfix
           .license
             if license
               - license = marked(license)
-              strong Lisens:
+              p: strong Lisens:
               != license
             else
-              strong Lisens:
+              p: strong Lisens:
               a(rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.no").
                 CC-BY 4.0 Internasjonal
+          if author
+            - author = marked(author)
+            .author
+              p: strong Forfatter:
+              != author
+
 
     script(src=relative("/assets/script.min.js"))
     block scripts
