@@ -1,25 +1,27 @@
 extends ./layout.jade
 
-//- Mixin for indexing exercises
+//- Mixin for indexing lessons
 mixin collection(name, collection)
   -var playlistPrinted = playlist || {};
-  div.col-sm-6.col-md-3(id=name)
+  .col-sm-6.col-md-3(id=name)
     h2= name.charAt(0).toUpperCase() + name.substr(1)
-    each exercise in collection
-      if !exercise.playlist
-        a(href=relative(exercise.link))
-          li.list-group-item= exercise.title
+    each lesson in collection
+      if !lesson.playlist
+        a(href=relative(lesson.link))
+          li.list-group-item= lesson.title
       else
         //- lesson is in a playlist
-        - var id = playlistId(exercise.playlist)
+        - var id = playlistId(lesson.playlist)
         if !playlistPrinted[id]
-          //- first exercise in playlist
+          //- first lesson in playlist
           li.list-group-item.playlist(id=id)
-            span.glyphicon.glyphicon-play-circle
-            |  #{exercise.playlist}
+            span.glyphicon.glyphicon-play
+            |  #{lesson.playlist}
           -playlistPrinted[id] = true;
-        a(href=relative(exercise.link))
-          li.list-group-item(style="display:none" class=id)= exercise.title
+        a(href=relative(lesson.link))
+          li.list-group-item.playlist-item(style="display:none" class=id)
+            span.glyphicon.glyphicon-play-circle
+            = ' ' + lesson.title
 
 
 block content
@@ -27,6 +29,6 @@ block content
   .col-xs-12
     .content!= contents
 
-  //- create links to exercises
+  //- create links to lessons
   each collection, name in collections
     +collection(name, collection)
