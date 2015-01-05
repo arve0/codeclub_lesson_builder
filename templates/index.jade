@@ -3,7 +3,7 @@ extends ./layout.jade
 //- Mixin for indexing exercises
 mixin collection(name, collection)
   -var playlistPrinted = playlist || {};
-  div.col-sm-6.col-md-4(id=name)
+  div.col-sm-6.col-md-3(id=name)
     h2= name.charAt(0).toUpperCase() + name.substr(1)
     each exercise in collection
       if !exercise.playlist
@@ -24,9 +24,9 @@ mixin collection(name, collection)
 
 block content
   //- insert contents from index.md
-  .content!= contents
+  .col-xs-12
+    .content!= contents
 
   //- create links to exercises
-  .row
-    each collection, name in collections
-      +collection(name, collection)
+  each collection, name in collections
+    +collection(name, collection)
