@@ -6,6 +6,8 @@ var browserSync = require('browser-sync');
 var reload = browserSync.reload; // reload shorthand
 var path = require('path');
 var addsrc = require('gulp-add-src');
+var del = require('del');
+var run = require('run-sequence');
 // html building
 var build = require('./build'); // build.js in same folder
 // styles and scripts
@@ -111,7 +113,20 @@ gulp.task('build', build);
 /*
  * dist - build all without serving
  */
-gulp.task('dist', ['assets', 'build', 'css', 'js']);
+gulp.task('dist', function(cb){
+  // preferred way to this will change in gulp 4
+  // see https://github.com/gulpjs/gulp/issues/96
+  run('clean',
+      ['assets', 'build', 'css', 'js'],
+      cb);
+});
+
+/*
+ * clean - remove files in build directory
+ */
+gulp.task('clean', function(cb){
+  del(['build'], cb);
+});
 
 /*
  * # DEFAULT TASK #
