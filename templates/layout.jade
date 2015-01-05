@@ -14,11 +14,6 @@ html
         block content
         .col-xs-12
           #footer.clearfix
-            if author
-              - author = marked(author)
-              .author
-                strong Forfatter:
-                != author
             .license
               if license
                 - license = marked(license)
