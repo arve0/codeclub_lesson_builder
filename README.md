@@ -1,6 +1,6 @@
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/arve0/metalsmith-kodeklubben?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/arve0/codeclub_lesson_builder)
 
-# metalsmith-kodeklubben
+# codeclub_lesson_builder
 This project builds codeclub exercises from markdown to styled webpages. A file watcher builds upon changes and refreshes the browser. Watching is done through [gulp](//gulpjs.com) and build are done with [metalsmith](//metalsmith.io).
 
 Here is a screenshot with exmaple of workflow:
@@ -53,14 +53,14 @@ Litt mer konkrete requirements:
 - [ ] Kunne konvertere MarkDown til stylet PDF, muligens via HTML
 - [x] MarkDown'en kan inneholde Scratch-kode som rendres som scratch-klosser
 - [ ] *Kanskje* kunne konvertere MarkDown til et format som kan leses av Word. Dette vil gjøre det enkelt for lærere å legge sine personlige vrier på oppgavene (men vi vil neppe ha noe system for enkelt å ta disse variasjonene tilbake til github etc)
-- [ ] Legge på forskjellige headers og footers, for eksempel vil vi ha en litt annen footertekst på oppgaver vi har oversatt enn oppgaver vi lager selv.
+- [x] Legge på forskjellige headers og footers, for eksempel vil vi ha en litt annen footertekst på oppgaver vi har oversatt enn oppgaver vi lager selv.
 - [x] Kan rendre en oppgave av gangen, viktig for at vi effektivt kan rendre oppgaver mens brukerne skriver dem i et webgrensesnitt (uten at oppgavene går den litt tunge veien via github)
 - [ ] Tagging av oppgaver med ting som vanskelighetsgrad, læringsmål som dekkes, opprinnelse osv.
 - [ ] Nettside med oversikt over alle oppgaver (innen et tema / programmeringsspråk) med mulig sortering / filtrering på taggene
-- [ ] Mulighet for å lage "spillelister" med oppgavene. Disse vil kunne representere anbefalte kurs med flere oppgaver.
+- [x] Mulighet for å lage "spillelister" med oppgavene. Disse vil kunne representere anbefalte kurs med flere oppgaver.
 - [ ] Bygging av en enkelt oppgave i et webgrensesnitt (slik Håkon Kaurel har laget en prototyp på)
 - [ ] Automatisk bygging / oppdatering av nettsiden når nye oppgaver legges inn i github
-- [ ] Støtte oppgaver i flere deler. For eksempel har vi noen Scratchoppgaver som er lagt opp til å kjøres over flere sesjoner.
+- [x] Støtte oppgaver i flere deler. For eksempel har vi noen Scratchoppgaver som er lagt opp til å kjøres over flere sesjoner.
 - [ ] Støtte flere språk: I utgangspunktet er det meste av oppgavene våre på norsk, men det vil nok også kunne bli aktuelt med noen oppgaver / oversettelser på engelsk.
 - [ ] Mulighet til å koble inn materiell fra andre nettsteder, f.eks. kodegenet. Dette kan sikkert veldig enkelt løses ved å legge til en oppgave i github som bare lenker / videresender til det eksterne nettstedet?
 
