@@ -15,12 +15,11 @@ html
         .col-xs-12
           #footer.clearfix
             .license
+              p: strong Lisens
               if license
                 - license = marked(license)
-                p: strong Lisens:
                 != license
               else
-                p: strong Lisens:
                 a(rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.no").
                   CC-BY 4.0 Internasjonal
             if author
