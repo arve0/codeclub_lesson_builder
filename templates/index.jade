@@ -6,22 +6,23 @@ mixin collection(name, collection)
   .col-sm-6.col-md-3(id=name)
     h2= name.charAt(0).toUpperCase() + name.substr(1)
     each lesson in collection
-      if !lesson.playlist
-        a(href=relative(lesson.link))
-          li.list-group-item= lesson.title
-      else
-        //- lesson is in a playlist
-        - var id = playlistId(lesson.playlist)
-        if !playlistPrinted[id]
-          //- first lesson in playlist
-          li.list-group-item.playlist(id=id)
-            span.glyphicon.glyphicon-play
-            |  #{lesson.playlist}
-          -playlistPrinted[id] = true;
-        a(href=relative(lesson.link))
-          li.list-group-item.playlist-item(style="display:none" class=id)
-            span.glyphicon.glyphicon-play-circle
-            = ' ' + lesson.title
+      if lesson.published !== false
+        if !lesson.playlist
+          a(href=relative(lesson.link))
+            li.list-group-item= lesson.title
+        else
+          //- lesson is in a playlist
+          - var id = playlistId(lesson.playlist)
+          if !playlistPrinted[id]
+            //- first lesson in playlist
+            li.list-group-item.playlist(id=id)
+              span.glyphicon.glyphicon-play
+              |  #{lesson.playlist}
+            -playlistPrinted[id] = true;
+          a(href=relative(lesson.link))
+            li.list-group-item.playlist-item(style="display:none" class=id)
+              span.glyphicon.glyphicon-play-circle
+              = ' ' + lesson.title
 
 
 block content
