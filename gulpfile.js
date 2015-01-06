@@ -1,13 +1,14 @@
 /*
  * # DEPENDENCIES #
  */
-var gulp = require("gulp");
+var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload; // reload shorthand
 var path = require('path');
 var addsrc = require('gulp-add-src');
 var del = require('del');
 var run = require('run-sequence');
+var async = require('async');
 // html building
 var build = require('./build'); // build.js in same folder
 // styles and scripts
@@ -22,31 +23,31 @@ var fs = require("fs");
 
 
 /*
+ * # VARIABLES #
+ */
+buildRoot = path.join('..', 'build');
+
+/*
  * # TASKS #
  */
 
 /*
- * Create archive files for each subdir of build/oppgaver.
+ * Create archive files for each subdir of buildRoot
  * Each archive includes all assets.
  */
-gulp.task('archive', function() {
-    var source = 'build/oppgaver';
-    var src_dirs = fs.readdirSync(source).filter(function(file) {
-        return fs.statSync(path.join(source), file).isDirectory();
-    });
-    var last_pass;
-    for(var dir in src_dirs) {
-        var dirname = src_dirs[dir];
-        last_pass = gulp.src([
-            'build/{assets,assets/**}',
-            'build/{oppgaver,oppgaver/{'+dirname+','+dirname+'/**}}',
-        ])
-        .pipe(zip(dirname+'.zip'))
-        .pipe(gulp.dest(source+'/'+dirname));
-    }
-    return last_pass;
+gulp.task('archive', function(cb) {
+  var src_dirs = fs.readdirSync(buildRoot).filter(function(file) {
+    return fs.statSync(path.join(buildRoot, file)).isDirectory();
+  });
+  async.each(src_dirs, function (dirname){
+    gulp.src([
+      path.join(buildRoot, 'assets', '**'),
+      path.join(buildRoot, dirname, '**'),
+      ])
+      .pipe(zip(dirname + '.zip'))
+      .pipe(gulp.dest(buildRoot));
+    }, cb);
 });
-
 
 /*
  * serve build directory
