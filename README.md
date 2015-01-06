@@ -11,20 +11,12 @@ You will need [node](//nodejs.org) and [git](//help.github.com/articles/set-up-g
 
 ## Clone repository
 ```
-git clone --recursive https://github.com/arve0/metalsmith-kodeklubben
+git clone --recursive https://github.com/arve0/codeclub_lesson_builder
 ```
 
-## Requirements
-
-### Note Ubuntu users!
-nodejs is not installed as *node*, and this causes problems for some packages. To fix this, link *node* to *nodejs* like so **BEFORE** installing packages through npm:
+## Installing requirements
 ```
-sudo ln -s /usr/bin/nodejs /usr/local/bin/node
-```
-
-### Installing requirements
-```
-cd metalsmith-kodeklubben
+cd codeclub_lesson_builder
 npm install
 (sudo) npm install -g gulp
 ```
@@ -33,6 +25,22 @@ npm install
 ```
 gulp
 ```
+
+## Notes!
+
+### Ubuntu users
+nodejs is not installed as *node*, and this causes problems for some packages. To fix this, link *node* to *nodejs* like so **BEFORE** installing packages through npm:
+```
+sudo ln -s /usr/bin/nodejs /usr/local/bin/node
+```
+
+### Maximum number of open files
+Gulp and metalsmith read files in parallel, which might cause trouble for some users. In such case, one will get an *EMFILE* error code. Quickest solution is to increase number of allowed open files:
+
+- [Linux](http://unix.stackexchange.com/questions/85457/how-to-circumvent-too-many-open-files-in-debian#answers)
+- [Mac](http://superuser.com/questions/302754/increase-the-maximum-number-of-open-file-descriptors-in-snow-leopard#answers)
+- Windows: no known solution at given time.
+
 
 # Specification
 This is in norwegian, but will be updated to english when project have reached are more stable state. Especially, we need:
