@@ -35,10 +35,10 @@ function playlistId(name){
  */
 var metadataOptions = [
   // template for lessons
-  { pattern: path.join(lessonRoot, '**', '*.md'),
+  { pattern: path.join('*', '**', '*.md'),
     metadata: { template: 'lesson.jade' }},
   // template for scratch lessons
-  { pattern: path.join(lessonRoot, 'scratch', '**', '*.md'),
+  { pattern: path.join('scratch', '**', '*.md'),
     metadata: { template: 'scratch.jade' }},
 ];
 

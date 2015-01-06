@@ -1,0 +1,4 @@
+#!/bin/bash
+# shortcut for gulp
+cd codeclub_lesson_builder
+gulp "$@"

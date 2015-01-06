@@ -25,7 +25,9 @@ var fs = require("fs");
 /*
  * # VARIABLES #
  */
-buildRoot = path.join('..', 'build');
+var lessonRoot = '..';
+var buildRoot = path.join(lessonRoot, 'build');
+var assetsDest = path.join(buildRoot, 'assets'); // shorthand
 
 /*
  * # TASKS #
@@ -41,7 +43,7 @@ gulp.task('archive', function(cb) {
   });
   async.each(src_dirs, function (dirname){
     gulp.src([
-      path.join(buildRoot, 'assets', '**'),
+      path.join(assetsDest, '**'),
       path.join(buildRoot, dirname, '**'),
       ])
       .pipe(zip(dirname + '.zip'))
@@ -54,7 +56,7 @@ gulp.task('archive', function(cb) {
  */
 gulp.task('server', ['build', 'css', 'js', 'assets'], function () {
   browserSync.init({
-    server: { baseDir: 'build' }
+    server: { baseDir: buildRoot }
   });
 });
 
@@ -73,7 +75,7 @@ gulp.task('css', function(cb) {
     .pipe(autoprefixer())
     .pipe(minify())
     .pipe(concat('style.min.css'))
-    .pipe(gulp.dest('build/assets'));
+    .pipe(gulp.dest(assetsDest));
 });
 
 /*
@@ -86,7 +88,7 @@ gulp.task('assets', function(){
       'node_modules/bootstrap/dist/*/glyphicons-halflings-regular.*',
       'node_modules/jquery/dist/jquery.min.map'
     ])
-    .pipe(gulp.dest('build/assets'));
+    .pipe(gulp.dest(assetsDest));
 });
 
 /*
@@ -103,7 +105,7 @@ gulp.task('js', function(){
     'node_modules/jquery/dist/jquery.min.js'
   ]))
   .pipe(concat('script.min.js'))
-  .pipe(gulp.dest('build/assets'));
+  .pipe(gulp.dest(assetsDest));
 });
 
 /*
@@ -143,15 +145,15 @@ gulp.task('default', ['server'], function(){
    * ## WATCHES ##
    */
   // files which are built with metalsmith
-  gulp.watch('src/**/*', ['build', reload]);
-  gulp.watch('templates/**/*', ['build', reload]);
+  gulp.watch(path.join(lessonRoot, 'src', '**'), ['build', reload]);
+  gulp.watch(path.join(__dirname, 'templates', '**'), ['build', reload]);
 
   // styles
-  gulp.watch('styles/**/*', ['css', reload]);
+  gulp.watch(path.join(__dirname, 'styles', '**'), ['css', reload]);
 
   // scripts
-  gulp.watch('scripts/**/*', ['js', reload]);
+  gulp.watch(path.join(__dirname, 'scripts', '**'), ['js', reload]);
 
   // assets
-  gulp.watch('assets/**/*', ['assets', reload]);
+  gulp.watch(path.join(__dirname, 'assets', '**'), ['assets', reload]);
 });
