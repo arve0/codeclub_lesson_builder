@@ -1,2 +1,2 @@
 cd codeclub_lesson_builder
-gulp %*
+node_modules\gulp\bin\gulp.js %*

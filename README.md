@@ -7,34 +7,40 @@ Here is a screenshot with exmaple of workflow:
 ![](assets/img/workflow.png)
 
 # Development
-You will need [node](//nodejs.org) and [git](//help.github.com/articles/set-up-git/) for using this software. When you have, follow instructions below.
+You will need [node](//nodejs.org) and [git](//help.github.com/articles/set-up-git/) for using this software.
 
-## Clone repository
+*codeclub_lesson_builder* should be cloned into a lesson project where markdown lessons are in a `src` folder. This simplifies setup for contributors, as *codeclub_lesson_builder* can be included as a git submodule and cloned recursively. Cloning lesson repo for contributors (instead of this repo with lessons as submodule) will make pull request to the lesson repo a bit less complex. The steps below assumes this setup, and are only needed upon first time inclusion in the lesson repo. Steps for setting up lesson repo with local building should be similar to this.
+
+**Clone repository**
 ```
-git clone --recursive https://github.com/arve0/codeclub_lesson_builder
+git clone https://github.com/arve0/codeclub_lesson_builder
 ```
 
-## Installing requirements
+**Installing requirements**
 ```
 cd codeclub_lesson_builder
 npm install
-(sudo) npm install -g gulp
+cp utils/gulp utils/gulp.bat ..
+cd ..
 ```
 
-## Run server
+**Run server *nix**
 ```
-gulp
+./gulp
 ```
 
-## Notes!
+**Run server windows**
+```
+gulp.bat TODO: verify
+```
 
-### Ubuntu users
+## Note Ubuntu users!
 nodejs is not installed as *node*, and this causes problems for some packages. To fix this, link *node* to *nodejs* like so **BEFORE** installing packages through npm:
 ```
 sudo ln -s /usr/bin/nodejs /usr/local/bin/node
 ```
 
-### Maximum number of open files
+## Note - Maximum number of open files
 Gulp and metalsmith read files in parallel, which might cause trouble for some users. In such case, one will get an *EMFILE* error code. Quickest solution is to increase number of allowed open files:
 
 - [Linux](http://unix.stackexchange.com/questions/85457/how-to-circumvent-too-many-open-files-in-debian#answers)
