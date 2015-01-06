@@ -1,13 +1,14 @@
 /*
  * # DEPENDENCIES #
  */
-var gulp = require("gulp");
+var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload; // reload shorthand
 var path = require('path');
 var addsrc = require('gulp-add-src');
 var del = require('del');
 var run = require('run-sequence');
+var async = require('async');
 // html building
 var build = require('./build'); // build.js in same folder
 // styles and scripts
@@ -22,38 +23,40 @@ var fs = require("fs");
 
 
 /*
+ * # VARIABLES #
+ */
+var lessonRoot = '..';
+var buildRoot = path.join(lessonRoot, 'build');
+var assetsDest = path.join(buildRoot, 'assets'); // shorthand
+
+/*
  * # TASKS #
  */
 
 /*
- * Create archive files for each subdir of build/oppgaver.
+ * Create archive files for each subdir of buildRoot
  * Each archive includes all assets.
  */
-gulp.task('archive', function() {
-    var source = 'build/oppgaver';
-    var src_dirs = fs.readdirSync(source).filter(function(file) {
-        return fs.statSync(path.join(source), file).isDirectory();
-    });
-    var last_pass;
-    for(var dir in src_dirs) {
-        var dirname = src_dirs[dir];
-        last_pass = gulp.src([
-            'build/{assets,assets/**}',
-            'build/{oppgaver,oppgaver/{'+dirname+','+dirname+'/**}}',
-        ])
-        .pipe(zip(dirname+'.zip'))
-        .pipe(gulp.dest(source+'/'+dirname));
-    }
-    return last_pass;
+gulp.task('archive', function(cb) {
+  var src_dirs = fs.readdirSync(buildRoot).filter(function(file) {
+    return fs.statSync(path.join(buildRoot, file)).isDirectory();
+  });
+  async.each(src_dirs, function (dirname){
+    gulp.src([
+      path.join(assetsDest, '**'),
+      path.join(buildRoot, dirname, '**'),
+      ])
+      .pipe(zip(dirname + '.zip'))
+      .pipe(gulp.dest(buildRoot));
+    }, cb);
 });
-
 
 /*
  * serve build directory
  */
 gulp.task('server', ['build', 'css', 'js', 'assets'], function () {
   browserSync.init({
-    server: { baseDir: 'build' }
+    server: { baseDir: buildRoot }
   });
 });
 
@@ -72,7 +75,7 @@ gulp.task('css', function(cb) {
     .pipe(autoprefixer())
     .pipe(minify())
     .pipe(concat('style.min.css'))
-    .pipe(gulp.dest('build/assets'));
+    .pipe(gulp.dest(assetsDest));
 });
 
 /*
@@ -85,7 +88,7 @@ gulp.task('assets', function(){
       'node_modules/bootstrap/dist/*/glyphicons-halflings-regular.*',
       'node_modules/jquery/dist/jquery.min.map'
     ])
-    .pipe(gulp.dest('build/assets'));
+    .pipe(gulp.dest(assetsDest));
 });
 
 /*
@@ -102,7 +105,7 @@ gulp.task('js', function(){
     'node_modules/jquery/dist/jquery.min.js'
   ]))
   .pipe(concat('script.min.js'))
-  .pipe(gulp.dest('build/assets'));
+  .pipe(gulp.dest(assetsDest));
 });
 
 /*
@@ -142,15 +145,15 @@ gulp.task('default', ['server'], function(){
    * ## WATCHES ##
    */
   // files which are built with metalsmith
-  gulp.watch('src/**/*', ['build', reload]);
-  gulp.watch('templates/**/*', ['build', reload]);
+  gulp.watch(path.join(lessonRoot, 'src', '**'), ['build', reload]);
+  gulp.watch(path.join(__dirname, 'templates', '**'), ['build', reload]);
 
   // styles
-  gulp.watch('styles/**/*', ['css', reload]);
+  gulp.watch(path.join(__dirname, 'styles', '**'), ['css', reload]);
 
   // scripts
-  gulp.watch('scripts/**/*', ['js', reload]);
+  gulp.watch(path.join(__dirname, 'scripts', '**'), ['js', reload]);
 
   // assets
-  gulp.watch('assets/**/*', ['assets', reload]);
+  gulp.watch(path.join(__dirname, 'assets', '**'), ['assets', reload]);
 });

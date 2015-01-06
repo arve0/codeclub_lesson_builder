@@ -14,7 +14,8 @@ var Metalsmith  = require('metalsmith'),
 /*
  * Configuration variables
  */
-lessonRoot = 'oppgaver';
+lessonRoot = '..';
+builderRoot = path.basename(__dirname);
 collections = ['computercraft', 'python', 'scratch', 'web'];
 
 
@@ -34,24 +35,21 @@ function playlistId(name){
  */
 var metadataOptions = [
   // template for lessons
-  { pattern: path.join(lessonRoot, '**', '*.md'),
+  { pattern: path.join('*', '**', '*.md'),
     metadata: { template: 'lesson.jade' }},
   // template for scratch lessons
-  { pattern: path.join(lessonRoot, 'scratch', '**', '*.md'),
+  { pattern: path.join('scratch', '**', '*.md'),
     metadata: { template: 'scratch.jade' }},
 ];
 
 var ignoreOptions = [
-  path.join(lessonRoot, '**', 'README.md'),
-  path.join(lessonRoot, '.git'),
-  path.join(lessonRoot, '.git', '**'),
-  path.join(lessonRoot, '.gitignore'),
+  path.join('**', 'README.md'),
 ];
 
 var collectionOptions = {};
 collections.forEach(function(collection){
   var tmp = {};
-  tmp.pattern = path.join(lessonRoot, collection, '**', '*.md');
+  tmp.pattern = path.join(collection, '**', '*.md');
   tmp.sortBy = 'link';
   collectionOptions[collection] = tmp;
 });
@@ -61,15 +59,20 @@ var defineOptions = {
   marked: marked
 };
 
+var templateOptions = {
+  engine: 'jade',
+  directory: path.join(builderRoot, 'templates'),
+};
+
 
 /*
  * export build as function which takes callback
  */
 module.exports = function build(callback){
-  Metalsmith(__dirname)
+  Metalsmith(lessonRoot)
+  .use(ignore(ignoreOptions))
   // set template for exercises
   .use(setMetadata(metadataOptions))
-  .use(ignore(ignoreOptions))
   // add file.link metadata (for sorting)
   // TODO: better way to sort files?
   .use(filepath())
@@ -87,7 +90,7 @@ module.exports = function build(callback){
   // globals for use in templates
   .use(define(defineOptions))
   // apply templates
-  .use(templates('jade'))
+  .use(templates(templateOptions))
   //build
   .clean(false) // do not delete files - allows for separate tasks in gulp
   .destination('build')
