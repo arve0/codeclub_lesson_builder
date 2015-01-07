@@ -128,7 +128,7 @@ gulp.task('dist', function(cb){
  * clean - remove files in build directory
  */
 gulp.task('clean', function(cb){
-  del(['build'], cb);
+  del([path.join(lessonRoot, 'build')], {force: true}, cb);
 });
 
 /*
