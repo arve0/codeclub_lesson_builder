@@ -121,6 +121,7 @@ gulp.task('dist', function(cb){
   // see https://github.com/gulpjs/gulp/issues/96
   run('clean',
       ['assets', 'build', 'css', 'js'],
+      'archive',
       cb);
 });
 
