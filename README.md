@@ -41,11 +41,11 @@ sudo ln -s /usr/bin/nodejs /usr/local/bin/node
 ```
 
 ## Note - Maximum number of open files
-Gulp and metalsmith read files in parallel, which might cause trouble for some users. In such case, one will get an *EMFILE* error code. Quickest solution is to increase number of allowed open files:
+Gulp and metalsmith read files in parallel, which might cause trouble for some users. If number of open files exceeds operating system limits, one will get an *EMFILE* error code. Description for increasing number of allowed open files:
 
 - [Linux](http://unix.stackexchange.com/questions/85457/how-to-circumvent-too-many-open-files-in-debian#answers)
 - [Mac](http://superuser.com/questions/302754/increase-the-maximum-number-of-open-file-descriptors-in-snow-leopard#answers)
-- Windows: no known solution at given time.
+- Windows: Not affected. Report if you're experiencing any trouble.
 
 
 # Specification
