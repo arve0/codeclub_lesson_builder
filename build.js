@@ -18,7 +18,7 @@ var Metalsmith  = require('metalsmith'),
 lessonRoot = '..';
 builderRoot = path.basename(__dirname);
 collections = ['computercraft', 'python', 'scratch', 'web'];
-sourceFolder = 'src';
+sourceFolder = 'nb-NO';
 playlistFolder = 'spillelister';
 
 
@@ -73,6 +73,7 @@ var templateOptions = {
  */
 module.exports = function build(callback){
   Metalsmith(lessonRoot)
+  .source(sourceFolder)
   .use(ignore(ignoreOptions))
   // set template for exercises
   .use(setMetadata(metadataOptions))
