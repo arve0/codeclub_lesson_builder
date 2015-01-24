@@ -1,6 +1,5 @@
 var fs = require('fs');
 var path = require('path');
-var lineReader = require('line-reader');
 var yaml = require('yaml-front-matter');
 var _ = require('lodash');
 
