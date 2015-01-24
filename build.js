@@ -8,7 +8,8 @@ var Metalsmith  = require('metalsmith'),
     relative    = require('metalsmith-relative'),
     define      = require('metalsmith-define'),
     marked      = require('marked'), // for md strings in YAML header
-    path        = require('path');
+    path        = require('path'),
+    getPlaylists = require('./playlist');
 
 
 /*
@@ -17,22 +18,14 @@ var Metalsmith  = require('metalsmith'),
 lessonRoot = '..';
 builderRoot = path.basename(__dirname);
 collections = ['computercraft', 'python', 'scratch', 'web'];
-
-
-/*
-* functions
-*/
-function playlistId(name){
-  // replace chars in playlist-name, so that it can be used as id or class
-  name = name.replace(/ /g, '_');
-  name = name.replace(/[,.-?]/g, '');
-  return name;
-}
+sourceFolder = 'src';
+playlistFolder = 'spillelister';
 
 
 /*
  * setup objects
  */
+// metadata
 var metadataOptions = [
   // template for lessons
   { pattern: path.join('*', '**', '*.md'),
@@ -42,23 +35,33 @@ var metadataOptions = [
     metadata: { template: 'scratch.jade' }},
 ];
 
+// ignores
 var ignoreOptions = [
   path.join('**', 'README.md'),
 ];
 
+// collections and playlists
 var collectionOptions = {};
+var playlists = {};
 collections.forEach(function(collection){
+  // options for collections
   var tmp = {};
   tmp.pattern = path.join(collection, '**', '*.md');
   tmp.sortBy = 'link';
   collectionOptions[collection] = tmp;
+
+  // playlists
+  collectionFolder = path.join(lessonRoot, sourceFolder, collection);
+  playlists[collection] = getPlaylists(collectionFolder, playlistFolder);
 });
 
+// defines available in template
 var defineOptions = {
-  playlistId: playlistId,
-  marked: marked
+  marked: marked,
+  playlists: playlists
 };
 
+// template
 var templateOptions = {
   engine: 'jade',
   directory: path.join(builderRoot, 'templates'),

@@ -5,6 +5,28 @@ var yaml = require('yaml-front-matter');
 var _ = require('lodash');
 
 /*
+ * export
+ */
+module.exports = function(collectionRoot, playlistFolder){
+  // return playlists found in collectionRoot/playlistFolder
+  var playlistRoot = path.join(collectionRoot, playlistFolder);
+
+  if (!fs.existsSync(playlistRoot)) {
+    return [];
+  }
+
+  // create a list of playlists
+  var playlistFiles = fs.readdirSync(playlistRoot);
+  playlistFiles = _.map(playlistFiles, withPath, {root: playlistRoot});
+  playlistFiles = _.filter(playlistFiles, isPlaylist);
+
+  var playlists = _.map(playlistFiles, getPlaylist, {root: collectionRoot});
+
+  return playlists;
+};
+
+
+/*
  * helper functions
  */
 function withPath(filename) {
@@ -18,16 +40,32 @@ function isPlaylist(filename) {
          !fs.statSync(filename).isDirectory();
 }
 
-function getPlaylistObject(filename) {
+function playlistId(name){
+  // replace chars in playlist-name, so that it can be used as id or class
+  name = name.replace(/ /g, '_');
+  name = name.replace(/[,.-?]/g, '');
+  return name;
+}
+
+function getLink(root, filename) {
+  var link = filename.replace('.md', '.html');
+  link = path.relative(root, link);
+  link = path.join(path.basename(root), link);
+
+  return link;
+}
+
+function getPlaylist(filename) {
   var lessonFiles = fs.readFileSync(filename, {encoding: 'utf8'}).split('\n');
   lessonFiles = _.compact(lessonFiles); // omit empty lines
   lessonFiles = _.map(lessonFiles, withPath, {root: this.root});
 
-  var playlistObject = {};
-  playlistObject.name = path.basename(filename).replace('.txt', '');
-  playlistObject.lessons = _.map(lessonFiles, getFrontMatter);
+  var playlist = {};
+  playlist.name = path.basename(filename).replace('.txt', '');
+  playlist.id = playlistId(playlist.name);
+  playlist.lessons = _.map(lessonFiles, getFrontMatter, {root: this.root});
 
-  return playlistObject;
+  return playlist;
 }
 
 function getFrontMatter(filename){
@@ -37,21 +75,7 @@ function getFrontMatter(filename){
   var frontMatter = yaml.loadFront(content);
   frontMatter = _.omit(frontMatter, '__content');
   frontMatter.filename = filename;
-  frontMatter.link = filename.replace('.md', '.html');
+  frontMatter.link = getLink(this.root, filename);
 
   return frontMatter;
 }
-
-
-module.exports = function(root, playlistFolder){
-  var playlistRoot = path.join(root, playlistFolder);
-
-  // create a list of playlists
-  var playlistFiles = fs.readdirSync(playlistRoot);
-  playlistFiles = _.map(playlistFiles, withPath, {root: playlistRoot});
-  playlistFiles = _.filter(playlistFiles, isPlaylist);
-
-  var playlists = _.map(playlistFiles, getPlaylistObject, {root: root});
-
-  return playlists;
-};

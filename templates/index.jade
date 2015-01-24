@@ -2,27 +2,27 @@ extends ./layout.jade
 
 //- Mixin for indexing lessons
 mixin collection(name, collection)
-  -var playlistPrinted = playlist || {};
   .col-sm-6.col-md-3(id=name)
     h2= name.charAt(0).toUpperCase() + name.substr(1)
+
+    //- all lessons which does not have `indexed: false`
     each lesson in collection
-      if lesson.published !== false
-        if !lesson.playlist
-          a(href=relative(lesson.link))
-            li.list-group-item= lesson.title
-        else
-          //- lesson is in a playlist
-          - var id = playlistId(lesson.playlist)
-          if !playlistPrinted[id]
-            //- first lesson in playlist
-            li.list-group-item.playlist(id=id)
-              span.glyphicon.glyphicon-play
-              |  #{lesson.playlist}
-            -playlistPrinted[id] = true;
-          a(href=relative(lesson.link))
-            li.list-group-item.playlist-item(style="display:none" class=id)
-              span.glyphicon.glyphicon-play-circle
-              = ' ' + lesson.title
+      if lesson.indexed !== false
+        a(href=relative(lesson.link))
+          li.list-group-item= lesson.title
+
+    //- playlists from text files in `playlistFolder`
+    each playlist in playlists[name]
+
+      li.list-group-item.playlist(id=playlist.id)
+        span.glyphicon.glyphicon-play
+        |  #{playlist.name}
+
+      each lesson in playlist.lessons
+        a(href=relative(lesson.link))
+          li.list-group-item.playlist-item(style="display:none" class=playlist.id)
+            span.glyphicon.glyphicon-play-circle
+            = ' ' + lesson.title
 
 
 block content
