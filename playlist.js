@@ -59,7 +59,7 @@ function getPlaylist(filename) {
   lessonFiles = _.map(lessonFiles, withPath, {root: this.root});
 
   var playlist = {};
-  playlist.name = path.basename(filename).replace('.txt', '').replace('_', ' ');
+  playlist.name = path.basename(filename).replace('.txt', '').replace(/_/g, ' ');
   playlist.id = playlistId(playlist.name);
   playlist.lessons = _.map(lessonFiles, getFrontMatter, {root: this.root});
 
