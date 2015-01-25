@@ -40,25 +40,19 @@ var ignoreOptions = [
   path.join('**', 'README.md'),
 ];
 
-// collections and playlists
+// collections
 var collectionOptions = {};
-var playlists = {};
 collections.forEach(function(collection){
   // options for collections
   var tmp = {};
   tmp.pattern = path.join(collection, '**', '*.md');
   tmp.sortBy = 'link';
   collectionOptions[collection] = tmp;
-
-  // playlists
-  collectionFolder = path.join(lessonRoot, sourceFolder, collection);
-  playlists[collection] = getPlaylists(collectionFolder, playlistFolder);
 });
 
 // defines available in template
 var defineOptions = {
   marked: marked,
-  playlists: playlists
 };
 
 // template
@@ -72,6 +66,17 @@ var templateOptions = {
  * export build as function which takes callback
  */
 module.exports = function build(callback){
+  // read playlists upon every build
+  var playlists = {};
+  collections.forEach(function(collection){
+    // playlists
+    collectionFolder = path.join(lessonRoot, sourceFolder, collection);
+    playlists[collection] = getPlaylists(collectionFolder, playlistFolder);
+  });
+  // make it available in template
+  defineOptions.playlists = playlists;
+
+  // do the building
   Metalsmith(lessonRoot)
   .use(ignore(ignoreOptions))
   // set template for exercises
