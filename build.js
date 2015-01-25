@@ -46,7 +46,7 @@ collections.forEach(function(collection){
   // options for collections
   var tmp = {};
   tmp.pattern = path.join(collection, '**', '*.md');
-  tmp.sortBy = 'link';
+  tmp.sortBy = ['level', 'link'];
   collectionOptions[collection] = tmp;
 });
 
