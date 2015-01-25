@@ -1,3 +1,5 @@
+@import "includes/config.less";
+
 // header
 header {
   background-color: #B1DAAE;
@@ -151,5 +153,32 @@ pre.blocks {
   }
   > * {
     padding:0 20px;
+  }
+}
+
+// scratchblocks colors
+code {
+  &.blockmotion     { background: @color-scratchblock-motion;     }
+  &.blocklooks      { background: @color-scratchblock-looks;      }
+  &.blocksound      { background: @color-scratchblock-sound;      }
+  &.blockpen        { background: @color-scratchblock-pen;        }
+  &.blockdata       { background: @color-scratchblock-data;       }
+  &.blockevents     { background: @color-scratchblock-events;     }
+  &.blockcontrol    { background: @color-scratchblock-control;    }
+  &.blocksensing    { background: @color-scratchblock-sensing;    }
+  &.blockoperators  { background: @color-scratchblock-operators;  }
+  &.blockmoreblocks { background: @color-scratchblock-moreblocks; }
+
+  &.blockmotion,
+  &.blocklooks,
+  &.blocksound,
+  &.blockpen,
+  &.blockdata,
+  &.blockevents,
+  &.blockcontrol,
+  &.blocksensing,
+  &.blockoperators,
+  &.blockmoreblocks {
+    color: #fff;
   }
 }
