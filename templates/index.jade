@@ -15,8 +15,8 @@ mixin collection(name, collection)
     each playlist in playlists[name]
 
       li.playlist(id=playlist.id)
-        span.glyphicon.glyphicon-play
-        |  #{playlist.name}
+        .icon
+        .name= playlist.name
 
       each lesson in playlist.lessons
         a(href=relative(lesson.link))

@@ -5,7 +5,7 @@
 
 // responsive images
 figure > img {
-  &:extend(.img-responsive);
+  .img-responsive;
 }
 // header
 #header {
@@ -23,9 +23,20 @@ figure > img {
 
 // playlists
 .playlist {
-  &:extend(.list-group-item);
+  .list-group-item;
   color: @link-color;
   cursor: pointer;
+  padding-left:40px;
+  .icon {
+    .glyphicon;
+    .glyphicon-play;
+    display: block;
+    margin-left:-25px;
+    font-size:17px;
+  }
+  .name {
+    margin-top:-18px;
+  }
 }
 
 // footer
@@ -50,7 +61,7 @@ figure > img {
 
 // level icons
 li.lesson {
-  &:extend(.list-group-item);
+  .list-group-item;
   background-repeat: no-repeat;
   background-size:20px 20px;
   background-position: 10px;
