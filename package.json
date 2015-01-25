@@ -1,7 +1,7 @@
 {
-  "name": "metalsmith-kodeklubben",
+  "name": "codeclub_lesson_builder",
   "version": "0.0.1",
-  "description": "test of building kodeklubben docs with metalsmith",
+  "description": "build code club lessons to html",
   "main": "build.js",
   "dependencies": {
     "async": "^0.9.0",
@@ -43,12 +43,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/arve0/metalsmith-kodeklubben"
+    "url": "https://github.com/arve0/codeclub_lesson_builder"
   },
-  "author": "",
+  "author": "Arve Seljebu, Håkon Kaurell",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/arve0/metalsmith-kodeklubben/issues"
+    "url": "https://github.com/arve0/codeclub_lesson_builder/issues"
   },
-  "homepage": "https://github.com/arve0/metalsmith-kodeklubben"
+  "homepage": "https://github.com/arve0/codeclub_lesson_builder"
 }

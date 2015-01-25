@@ -65,10 +65,8 @@ gulp.task('server', ['build', 'css', 'js', 'assets'], function () {
  * build less files to css, prefix and minify
  */
 gulp.task('css', function(cb) {
-  return gulp.src('styles/**/*.less')
-    .pipe(less({
-      paths: [path.join(__dirname, 'styles', 'includes') ]
-    }))
+  return gulp.src('styles/*.less')
+    .pipe(less())
     .on('error', cb)
     .pipe(addsrc([
       'node_modules/scratchblocks2/build/scratchblocks2.css'
@@ -151,7 +149,7 @@ gulp.task('default', ['server'], function(){
   gulp.watch(path.join(__dirname, 'templates', '**'), ['build', reload]);
 
   // styles
-  gulp.watch(path.join(__dirname, 'styles', '**'), ['css', reload]);
+  gulp.watch(path.join(__dirname, 'styles', '**', '*'), ['css', reload]);
 
   // scripts
   gulp.watch(path.join(__dirname, 'scripts', '**'), ['js', reload]);
