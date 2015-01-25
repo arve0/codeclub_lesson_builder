@@ -9,20 +9,19 @@ mixin collection(name, collection)
     each lesson in collection
       if lesson.indexed !== false
         a(href=relative(lesson.link))
-          li.list-group-item= lesson.title
+          li.lesson(class='level-' + lesson.level)= lesson.title
 
     //- playlists from text files in `playlistFolder`
     each playlist in playlists[name]
 
-      li.list-group-item.playlist(id=playlist.id)
-        span.glyphicon.glyphicon-play
-        |  #{playlist.name}
+      li.playlist(id=playlist.id)
+        .icon
+        .name= playlist.name
 
       each lesson in playlist.lessons
         a(href=relative(lesson.link))
-          li.list-group-item.playlist-item(style="display:none" class=playlist.id)
-            span.glyphicon.glyphicon-play-circle
-            = ' ' + lesson.title
+          li.lesson(style="display:none" class=playlist.id + ' level-' + lesson.level)
+            = lesson.title
 
 
 block content
@@ -32,4 +31,5 @@ block content
 
   //- create links to lessons
   each collection, name in collections
+    -collection = _.sortBy(collection, ['level', 'link'])
     +collection(name, collection)
