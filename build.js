@@ -9,7 +9,8 @@ var Metalsmith  = require('metalsmith'),
     define      = require('metalsmith-define'),
     marked      = require('marked'), // for md strings in YAML header
     path        = require('path'),
-    getPlaylists = require('./playlist');
+    getPlaylists = require('./playlist'),
+    _           = require('lodash');
 
 
 /*
@@ -46,13 +47,13 @@ collections.forEach(function(collection){
   // options for collections
   var tmp = {};
   tmp.pattern = path.join(collection, '**', '*.md');
-  tmp.sortBy = ['level', 'link'];
   collectionOptions[collection] = tmp;
 });
 
 // defines available in template
 var defineOptions = {
   marked: marked,
+  _: _,
 };
 
 // template
