@@ -5,7 +5,7 @@
 
 // responsive images
 figure > img {
-  &:extend(.img-responsive);
+  .img-responsive;
 }
 // header
 #header {
@@ -23,11 +23,20 @@ figure > img {
 
 // playlists
 .playlist {
+  .list-group-item;
   color: @link-color;
   cursor: pointer;
-}
-.playlist-item {
-  margin-left: 10px;
+  padding-left:40px;
+  .icon {
+    .glyphicon;
+    .glyphicon-play;
+    display: block;
+    margin-left:-25px;
+    font-size:17px;
+  }
+  .name {
+    margin-top:-18px;
+  }
 }
 
 // footer
@@ -48,4 +57,25 @@ figure > img {
   .author {
     margin-left: 10px;
   }
+}
+
+// level icons
+li.lesson {
+  .list-group-item;
+  background-repeat: no-repeat;
+  background-size:20px 20px;
+  background-position: 10px;
+  padding-left: 40px;
+}
+.level-1 {
+  background-image: url('img/level1.png');
+}
+.level-2 {
+  background-image: url('img/level2.png');
+}
+.level-3 {
+  background-image: url('img/level3.png');
+}
+.level-4 {
+  background-image: url('img/level4.png');
 }

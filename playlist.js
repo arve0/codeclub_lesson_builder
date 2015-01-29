@@ -41,16 +41,15 @@ function isPlaylist(filename) {
 
 function playlistId(name){
   // replace chars in playlist-name, so that it can be used as id or class
-  name = name.replace(/ /g, '_');
-  name = name.replace(/[,.-?]/g, '');
-  return name;
+  var id = name.replace(/ /g, '_');
+  id = id.replace(/[\,\.\-\?]/g, '');
+  return id;
 }
 
 function getLink(root, filename) {
   var link = filename.replace('.md', '.html');
   link = path.relative(root, link);
   link = path.join(path.basename(root), link);
-
   return link;
 }
 
@@ -60,7 +59,7 @@ function getPlaylist(filename) {
   lessonFiles = _.map(lessonFiles, withPath, {root: this.root});
 
   var playlist = {};
-  playlist.name = path.basename(filename).replace('.txt', '');
+  playlist.name = path.basename(filename).replace('.txt', '').replace(/_/g, ' ');
   playlist.id = playlistId(playlist.name);
   playlist.lessons = _.map(lessonFiles, getFrontMatter, {root: this.root});
 
