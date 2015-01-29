@@ -5,12 +5,6 @@ mixin collection(name, collection)
   .col-sm-6.col-md-3(id=name)
     h2= name.charAt(0).toUpperCase() + name.substr(1)
 
-    //- all lessons which does not have `indexed: false`
-    each lesson in collection
-      if lesson.indexed !== false
-        a(href=relative(lesson.link))
-          li.lesson(class='level-' + lesson.level)= lesson.title
-
     //- playlists from text files in `playlistFolder`
     each playlist in playlists[name]
 
@@ -20,8 +14,14 @@ mixin collection(name, collection)
 
       each lesson in playlist.lessons
         a(href=relative(lesson.link))
-          li.lesson(style="display:none" class=playlist.id + ' level-' + lesson.level)
+          li.playlist.lesson(style="display:none" class=playlist.id + ' level-' + lesson.level)
             = lesson.title
+
+    //- all lessons which does not have `indexed: false`
+    each lesson in collection
+      if lesson.indexed !== false
+        a(href=relative(lesson.link))
+          li.lesson(class='level-' + lesson.level)= lesson.title
 
 
 block content
