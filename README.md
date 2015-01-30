@@ -50,11 +50,11 @@ Gulp and metalsmith read files in parallel, which might cause trouble for some u
 
 # Specification
 This is in norwegian, but will be updated to english when project have reached are more stable state. Especially, we need:
-- format specification - should be very similar to [Code Club UK format](/CodeClub/curriculum_documentation/blob/master/projects.md#2-write-your-project)
+- format specification - should be very similar to [Code Club UK format](//github.com/CodeClub/curriculum_documentation/blob/master/projects.md#2-write-your-project)
 - description of builder internal workings
 
 ## Spesifikasjoner på norsk
-Dette er kopiert fra [Geir Arne Hjelle](/gahjelle) på facebookgruppen (http://on.fb.me/1vSzZ6A):
+Dette er kopiert fra [Geir Arne Hjelle](//github.com/gahjelle) på facebookgruppen (http://on.fb.me/1vSzZ6A):
 
 Vi er mye løsere organisert enn CodeClub UK og ønsker mindre sentralstyring av oppgavene enn de har, slik at våre krav til et slikt byggeverktøy er litt annerledes enn de har i UK. Jeg har mailet litt med Andy Lulham som vedlikeholder den engelske originalen, og han er veldig interessert i eventuell utvikling vi gjør, slik at vi vil i utgangspunktet forsøke å beholde vårt og deres byggeskript som en code base.
 
@@ -82,4 +82,4 @@ Litt mer konkrete requirements:
 
 Dette virker muligens litt voldsomt, men vi er ikke veldig langt unna på de fleste punktene.
 
-[Håkon](https://github.com/kwrl) har allerede gjort en kjempeinnsats for å bringe oss nærmere målet, og jeg håper å ha litt tid til å bidra en del i ukene fram mot jul også. Om dere andre har ideer så si ifra!
+[Håkon](//github.com/kwrl) har allerede gjort en kjempeinnsats for å bringe oss nærmere målet, og jeg håper å ha litt tid til å bidra en del i ukene fram mot jul også. Om dere andre har ideer så si ifra!
