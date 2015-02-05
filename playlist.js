@@ -54,7 +54,9 @@ function getLink(root, filename) {
 }
 
 function getPlaylist(filename) {
-  var lessonFiles = fs.readFileSync(filename, {encoding: 'utf8'}).split('\n');
+  var lessonFiles = fs.readFileSync(filename, {encoding: 'utf8'})
+                      .replace(/\r/g, '')
+                      .split('\n');
   lessonFiles = _.compact(lessonFiles); // omit empty lines
   lessonFiles = _.map(lessonFiles, withPath, {root: this.root});
 
