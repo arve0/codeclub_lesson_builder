@@ -3,7 +3,9 @@ extends ./layout.jade
 //- Mixin for indexing lessons
 mixin collection(name, collection)
   .col-sm-6.col-md-3(id=name)
-    h2= name.charAt(0).toUpperCase() + name.substr(1)
+    h2.clearfix= name.charAt(0).toUpperCase() + name.substr(1)
+      a.download(href=name + '.zip' title="Last ned alle oppgaver")
+        span.glyphicon.glyphicon-download-alt
 
     //- playlists from text files in `playlistFolder`
     each playlist in playlists[name]
