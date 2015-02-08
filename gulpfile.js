@@ -8,7 +8,8 @@ var path = require('path');
 var addsrc = require('gulp-add-src');
 var del = require('del');
 var run = require('run-sequence');
-var async = require('async');
+var merge = require('merge-stream');
+var _ = require('lodash');
 // html building
 var build = require('./build'); // build.js in same folder
 // styles and scripts
@@ -37,18 +38,24 @@ var assetsDest = path.join(buildRoot, 'assets'); // shorthand
  * Create archive files for each subdir of buildRoot
  * Each archive includes all assets.
  */
-gulp.task('archive', function(cb) {
+gulp.task('archive', function() {
   var src_dirs = fs.readdirSync(buildRoot).filter(function(file) {
     return fs.statSync(path.join(buildRoot, file)).isDirectory();
   });
-  async.each(src_dirs, function (dirname){
-    gulp.src([
-      path.join(assetsDest, '**'),
-      path.join(buildRoot, dirname, '**'),
-      ])
+  var streams = _.map(src_dirs, function (dirname){
+    if (dirname == 'assets') {
+      return;
+    }
+    return gulp.src([
+          buildRoot + '/index.html',
+          buildRoot + '/{assets,assets/**}',
+          buildRoot + '/{'+dirname+','+dirname+'/**}',
+          ])
       .pipe(zip(dirname + '.zip'))
       .pipe(gulp.dest(buildRoot));
-    }, cb);
+  });
+  streams = _.compact(streams);
+  return merge(streams);
 });
 
 /*
