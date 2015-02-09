@@ -46,8 +46,9 @@ Some attributes in the header are required, and some optional. Read on!
 
 ### YAML types
 Data types in use are these:
-- *String:* Start with character or `"`.
-    - Example: `author: Arve Seljebu`, `license: "[CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)"`
+- *String:* Start with character or `"`. Examples:
+    - `author: Arve Seljebu`
+    - `license: "[CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)"`
 - *Number:* Start with a integer. May use `.` for floats.
     - Example: `level: 1`
 - *Bool:* `true` or `false`.
@@ -74,7 +75,7 @@ have similar syntax.
 
 - **license** (*string with optional markdown*) : If another license then
   CC-BY-SA-4.0 is wanted for the content, specify this in the license tag.
-  
+
 - **language** (*string*) : Language the lesson is written in. Should be an
   [IETF language tag](wp-ietf) which is a combination of language
   ([ISO-639-1](wp-iso-639-1)) and region ([ISO-3166-1](wp-iso-3166-1)).
