@@ -56,30 +56,32 @@ Data types in use are these:
 Lists is currently not used, but is easily mistaken with markdown links which
 have similar syntax.
 - *List:* Start with character `[`, ends with `]`.
-    Example: `fruits: [apple, orange, banana]`
+    - Example: `fruits: [apple, orange, banana]`
 
 ### Required attributes
-- *title* (**string**) : Name of the lesson lesson.
-- *level* (**number**) : Difficulty of the lesson. Positive integer.
+- **title** (*string*) : Name of the lesson lesson.
+- **level** (*number*) : Difficulty of the lesson. Positive integer.
     - 1: Intro - no skills needed
     - 2: Easy - can open editor, use few concepts
     - 3: Medium - combines several concepts
     - 4: Hard - required to be rigid and structured
 
 ### Optional attributes:
-- *language* (**string**) : Language the lesson is written in. Should be an
-  [IETF language tag](wp-ietf) which is a combination of language
-  ([ISO-639-1](wp-iso-639-1)) and region ([ISO-3166-1](wp-iso-3166-1)).
-  Example:
-     - `nb-NO` is language Norwegian bokmål, region Norway.
-     - `en-GB` is language English, region Great Britain.
-
-- *author* (**string with optional markdown**) : The lesson's author. If string
+- **author** (*string with optional markdown*) : The lesson's author. If string
   starts with `[` (markdown links), use `"` to force type string
   (instead of list).
     - Example: `"[Arve Seljebu](http://arve0.github.io)"`
-- *license* (**string with optional markdown**) : If another license then
+
+- **license** (*string with optional markdown*) : If another license then
   CC-BY-SA-4.0 is wanted for the content, specify this in the license tag.
+  
+- **language** (*string*) : Language the lesson is written in. Should be an
+  [IETF language tag](wp-ietf) which is a combination of language
+  ([ISO-639-1](wp-iso-639-1)) and region ([ISO-3166-1](wp-iso-3166-1)).
+  Examples:
+  - `nb-NO` is language Norwegian bokmål, region Norway.
+  - `en-GB` is language English, region Great Britain.
+
 
 [wp-ietf]: http://en.wikipedia.org/wiki/IETF_language_tag
 [wp-iso-639-1]: http://en.wikipedia.org/wiki/ISO_639-1
