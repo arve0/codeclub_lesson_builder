@@ -49,7 +49,7 @@ Data types in use are these:
 - *String:* Start with character or `"`. Examples:
     - `author: Arve Seljebu`
     - `license: "[CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)"`
-- *Number:* Start with a integer. May use `.` for floats.
+- *Number:* Start with an integer. May use `.` for floats.
     - Example: `level: 1`
 - *Bool:* `true` or `false`.
     - Example: `indexed: true`
@@ -71,7 +71,7 @@ have similar syntax.
 - **author** (*string with optional markdown*) : The lesson's author. If string
   starts with `[` (markdown links), use `"` to force type string
   (instead of list).
-    - Example: `"[Arve Seljebu](http://arve0.github.io)"`
+    - Example: `author: "[Arve Seljebu](http://arve0.github.io)"`
 
 - **license** (*string with optional markdown*) : If another license then
   CC-BY-SA-4.0 is wanted for the content, specify this in the license tag.
@@ -80,8 +80,8 @@ have similar syntax.
   [IETF language tag](wp-ietf) which is a combination of language
   ([ISO-639-1](wp-iso-639-1)) and region ([ISO-3166-1](wp-iso-3166-1)).
   Examples:
-  - `nb-NO` is language Norwegian bokmål, region Norway.
-  - `en-GB` is language English, region Great Britain.
+  - `language: nb-NO` is language Norwegian bokmål, region Norway.
+  - `language: en-GB` is language English, region Great Britain.
 
 
 [wp-ietf]: http://en.wikipedia.org/wiki/IETF_language_tag
