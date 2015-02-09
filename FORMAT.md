@@ -7,6 +7,22 @@ require less meta data than the UK builder.
 
 [lesson_format]: https://github.com/codeclub/lesson_format
 
+Let's start with an example:
+<pre>
+---
+title: An example Markdown File
+level: 1
+---
+
+# Introduction {.intro}
+
+Here we are including code:
+```blocks
+when FLAG clicked
+move 10 steps
+```
+</pre>
+
 
 ## src directory file structure
 By default the builder will look for files in `../src` such that it can be
