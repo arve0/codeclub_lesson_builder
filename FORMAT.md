@@ -7,6 +7,7 @@ require less meta data than the UK builder.
 
 [lesson_format]: https://github.com/codeclub/lesson_format
 
+
 ## src directory file structure
 By default the builder will look for files in `../src` such that it can be
 easily added to existing projects by cloning this repo into that project. This
@@ -16,11 +17,13 @@ less interesting from a contributor point of view.
 This can though be changed in [top of build.js](build.js) and
 [gulpfile.js](gulpfile.js).
 
+
 ## Markdown
 We use the GitHub flavoured Markdown that pandoc understands, in particular the
 format `markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes`.
 Pandoc's documentation covers these options and more:
 http://johnmacfarlane.net/pandoc/demo/example9/pandocs-markdown.html
+
 
 ## YAML header
 Lessons need to provide some basic meta data in the form of a
@@ -114,6 +117,7 @@ A note to test:
 A tip:
 - Use `## Heads up! {.tip}` (always a h2). The alias `.protip` also exists,
   for compatibility with legacy lesson_format.
+
 
 ## Styled code
 Specify the programming language after <code>```</code> to get syntax
