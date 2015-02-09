@@ -1,4 +1,4 @@
-# The Codeclub Lesson Builder format
+# The codeclub_lesson_builder format
 This builder uses a format that is heavily based on the format used by
 [Code Club UK](lesson_format). It is capable of
 building lessons intended for the Code Club UK's builder, but there are some
