@@ -8,8 +8,8 @@ var path = require('path');
 var addsrc = require('gulp-add-src');
 var del = require('del');
 var run = require('run-sequence');
-var _ = require('lodash');
 var merge = require('merge-stream');
+var _ = require('lodash');
 // html building
 var build = require('./build'); // build.js in same folder
 // styles and scripts
@@ -22,7 +22,7 @@ var uglify = require('gulp-uglify');
 var zip = require('gulp-zip');
 var fs = require("fs");
 // link-checking
-var Crawler = require('simplecrawler');
+var checkLinks = require('./check-links');
 
 
 /*
@@ -142,46 +142,7 @@ gulp.task('clean', function(cb){
 /*
  * links - check for broken links
  */
-gulp.task('links', ['dist'], function(cb){
-  browserSync.init({
-    server: { baseDir: buildRoot },
-    open: false
-  }, function(){
-    // wait for server
-    crawler = new Crawler.crawl('http://localhost:3000/');
-    crawler.interval = 0; // do not wait
-    crawler.timeout = 500;
-
-    var ok = 0;
-    var broken = 0;
-
-    crawler.on('fetcherror', function(item){
-      console.log('Error for ' + item.path + ' at ' + item.referrer);
-      broken += 1;
-    });
-
-    crawler.on('fetch404', function(item){
-      console.log('404 for ' + item.path + ' at ' + item.referrer);
-      broken += 1;
-    });
-
-    crawler.on('fetchcomplete', function(){
-      ok += 1;
-    });
-
-    crawler.on('complete', function(){
-      console.log('Link check done');
-      console.log('---------------');
-      console.log('Links OK: ' + ok);
-      console.log('Links broken: ' + broken);
-
-      browserSync.exit();
-      cb(broken === 0);
-    });
-
-  });
-
-});
+gulp.task('links', ['dist'], checkLinks);
 
 
 /*
