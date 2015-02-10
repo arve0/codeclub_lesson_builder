@@ -13,7 +13,7 @@ var buildRoot  = path.join(lessonRoot, 'build');
 var builderRoot = path.basename(__dirname);
 var assetRoot   = path.join(buildRoot, 'assets');
 // folder names
-var playlistFolder = 'spillelister';
+var playlistFolder = 'playlists';
 var sourceFolder = 'src';
 // collections
 var collections = ['computercraft', 'python', 'scratch', 'web'];
