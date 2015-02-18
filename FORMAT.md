@@ -30,14 +30,11 @@ easily added to existing projects by cloning this repo into that project. This
 way there is more focus on the lessons than on the builder it self, which is
 less interesting from a contributor point of view.
 
-This can though be changed in [top of build.js](build.js) and
-[gulpfile.js](gulpfile.js).
+This behavior can be changed in [config.js](config.js).
 
 
 ## Markdown
-We use the GitHub flavoured Markdown that pandoc understands, in particular the
-format `markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes`.
-Pandoc's documentation covers these options and more:
+We use pandoc's variant of markdown. Pandoc's documentation covers all the details:
 http://johnmacfarlane.net/pandoc/demo/example9/pandocs-markdown.html
 
 
