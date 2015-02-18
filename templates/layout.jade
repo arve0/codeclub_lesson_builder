@@ -15,14 +15,15 @@ html
         block content
         .col-xs-12
           #footer.clearfix
-            .license
-              p: strong License:
-              if license
-                - license = marked(license)
-                != license
-              else
-                a(rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/").
-                  CC BY-SA 4.0
+            if license !== false
+              .license
+                p: strong License:
+                if license
+                  - license = marked(license)
+                  != license
+                else
+                  a(rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/").
+                    CC BY-SA 4.0
             if author
               - author = marked(author)
               .author
@@ -33,6 +34,9 @@ html
               .translator
                 p: strong Translator:
                 != translator
+            if footer
+              - footer = marked(footer)
+              .note!= footer
 
 
     script(src=relative("/assets/script.min.js"))
