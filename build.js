@@ -1,30 +1,35 @@
-var Metalsmith  = require('metalsmith'),
-    templates   = require('metalsmith-templates'),
-    _collections = require('metalsmith-collections'),
-    setMetadata = require('metalsmith-filemetadata'),
-    filepath    = require('metalsmith-filepath'),
-    pandoc      = require('metalsmith-pandoc'),
-    ignore      = require('metalsmith-ignore'),
-    relative    = require('metalsmith-relative'),
-    define      = require('metalsmith-define'),
-    marked      = require('marked'), // for md strings in YAML header
-    path        = require('path'),
-    getPlaylists = require('./playlist'),
-    _           = require('lodash');
-
-
 /*
- * Configuration variables
+ * # DEPENDENCIES #
  */
-lessonRoot = '..';
-builderRoot = path.basename(__dirname);
-collections = ['computercraft', 'python', 'scratch', 'web'];
-sourceFolder = 'src';
-playlistFolder = 'spillelister';
+var Metalsmith  = require('metalsmith');
+var templates   = require('metalsmith-templates');
+var _collections = require('metalsmith-collections');
+var setMetadata = require('metalsmith-filemetadata');
+var filepath    = require('metalsmith-filepath');
+var pandoc      = require('metalsmith-pandoc');
+var ignore      = require('metalsmith-ignore');
+var relative    = require('metalsmith-relative');
+var define      = require('metalsmith-define');
+var marked      = require('marked'); // for md strings in YAML header
+var path        = require('path');
+var getPlaylists = require('./playlist');
+var _           = require('lodash');
+// get configuration variables
+var config      = require('./config.js');
 
 
 /*
- * setup objects
+ * # VARIABLES #
+ */
+builderRoot = config.builderRoot;
+collections = config.collections;
+lessonRoot = config.lessonRoot;
+playlistFolder = config.playlistFolder;
+sourceFolder = config.sourceFolder;
+
+
+/*
+ * # SETUP OBJECTS #
  */
 // metadata
 var metadataOptions = [
@@ -64,7 +69,8 @@ var templateOptions = {
 
 
 /*
- * export build as function which takes callback
+ * # EXPORT #
+ * build-function which takes a callback
  */
 module.exports = function build(callback){
   // read playlists upon every build
