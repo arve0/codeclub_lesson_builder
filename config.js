@@ -16,7 +16,7 @@ var assetRoot   = path.join(buildRoot, 'assets');
 var playlistFolder = 'playlists';
 var sourceFolder = 'src';
 // collections
-var collections = ['computercraft', 'python', 'scratch', 'web'];
+var collections = ['scratch', 'web'];
 
 var config = {
   assetRoot:      assetRoot,
