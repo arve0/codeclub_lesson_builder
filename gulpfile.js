@@ -21,6 +21,8 @@ var uglify = require('gulp-uglify');
 // archive
 var zip = require('gulp-zip');
 var fs = require("fs");
+// link-checking
+var checkLinks = require('./check-links');
 
 
 /*
@@ -137,6 +139,12 @@ gulp.task('dist', function(cb){
 gulp.task('clean', function(cb){
   del([path.join(lessonRoot, 'build')], {force: true}, cb);
 });
+
+/*
+ * links - check for broken links
+ */
+gulp.task('links', ['dist'], checkLinks);
+
 
 /*
  * # DEFAULT TASK #
