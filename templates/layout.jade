@@ -2,7 +2,7 @@ html
   head
     meta(charset="utf-8")
     meta(name="viewport" content="width=device-width, initial-scale=1")
-    title #{title} | kodeklubben
+    title #{title} | YourCodeClubName
     link(href=relative("/assets/style.min.css") rel="stylesheet")
   body
     .container
@@ -11,23 +11,28 @@ html
           .top-menu
             a.btn.btn-default(href=relative("/index.html"))
               span.glyphicon.glyphicon-home(aria-hidden="true")
-              |  Hjem
+              |  Home
         block content
         .col-xs-12
           #footer.clearfix
             .license
-              p: strong Lisens:
+              p: strong License:
               if license
                 - license = marked(license)
                 != license
               else
-                a(rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.no").
-                  CC-BY 4.0 Internasjonal
+                a(rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/").
+                  CC BY-SA 4.0
             if author
               - author = marked(author)
               .author
-                p: strong Forfatter:
+                p: strong Author:
                 != author
+            if translator
+              - translator = marked(translator)
+              .translator
+                p: strong Translator:
+                != translator
 
 
     script(src=relative("/assets/script.min.js"))
