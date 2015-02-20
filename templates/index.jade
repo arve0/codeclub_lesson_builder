@@ -2,7 +2,7 @@ extends ./layout.jade
 
 //- Mixin for indexing lessons
 mixin collection(name, collection)
-  .col-sm-6.col-md-3(id=name)
+  .col-sm-6.col-md-4(id=name)
     h2.clearfix= name.charAt(0).toUpperCase() + name.substr(1)
       a.download(href=name + '.zip' title="Last ned alle oppgaver")
         span.glyphicon.glyphicon-download-alt

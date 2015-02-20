@@ -61,8 +61,14 @@ module.exports = function checkLinks(cb){
 
         assert.equal(ok+broken, length(resources));
 
+        if (broken !== 0) {
+          // avoid error trace
+          process.exit(1);
+        } else {
+          cb();
+        }
+        // browserSync will call process.exit -> do after cb(err)
         browserSync.exit();
-        cb();
       }
     });
 

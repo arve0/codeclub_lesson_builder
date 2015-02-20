@@ -80,3 +80,20 @@ You could read about the format in [FORMAT.md](FORMAT.md).
 - [x] Create playlists and hide lessons from index
 - [ ] Support for several languages
 - [ ] Use material from other webpages with `external`-tag
+- [x] Link-checker
+
+### gulp tasks
+You can run all tasks with `./gulp taskname` when in the lesson repo, or with `gulp taskname` in 
+*codeclub_lesson_builder*-folder if you have installed gulp [globally](https://docs.npmjs.com/cli/install).
+
+**list of gulp tasks**
+- `archive` will create zip files of [collections](https://github.com/arve0/codeclub_lesson_builder/blob/master/config.js#L19)
+- `assets` copies assets to `build/assets`
+- `build` builds all markdown files (except README.md) to html and copy files which are in lesson-folders
+- `clean` delete all files in `build`
+- `css` will process less files, add asset-css, autoprefix, minify and concat to `style.min.css`
+- `js` uglify, add already uglified asset-js and concat to `script.min.js`
+- `server` will start a local web-server and open your browser with the index
+- `default` start the `server`-task and reload browser upon file changes (runs when gulp recieves no arguments)
+- `dist` does a clean then a complete build
+- `links` runs the `dist`-task and then check all links on all pages

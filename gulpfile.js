@@ -1,37 +1,40 @@
 /*
  * # DEPENDENCIES #
  */
-var gulp = require('gulp');
+var gulp        = require('gulp');
 var browserSync = require('browser-sync');
-var reload = browserSync.reload; // reload shorthand
-var path = require('path');
-var addsrc = require('gulp-add-src');
-var del = require('del');
-var run = require('run-sequence');
-var merge = require('merge-stream');
-var _ = require('lodash');
+var reload      = browserSync.reload; // reload shorthand
+var path        = require('path');
+var addsrc      = require('gulp-add-src');
+var del         = require('del');
+var run         = require('run-sequence');
+var merge       = require('merge-stream');
+var _           = require('lodash');
 // html building
-var build = require('./build'); // build.js in same folder
+var build       = require('./build.js');
 // styles and scripts
-var less = require('gulp-less');
-var concat = require('gulp-concat');
+var less        = require('gulp-less');
+var concat      = require('gulp-concat');
 var autoprefixer = require('gulp-autoprefixer');
-var minify = require('gulp-minify-css');
-var uglify = require('gulp-uglify');
+var minify      = require('gulp-minify-css');
+var uglify      = require('gulp-uglify');
 // archive
-var zip = require('gulp-zip');
-var fs = require("fs");
+var zip         = require('gulp-zip');
+var fs          = require("fs");
 // link-checking
 var checkLinks = require('./check-links');
+// get configuration variables
+var config      = require('./config.js');
 
 
 /*
  * # VARIABLES #
  */
-var lessonRoot = '..';
-var sourceFolder = 'nb-NO';
-var buildRoot = path.join(lessonRoot, 'build');
-var assetsDest = path.join(buildRoot, 'assets'); // shorthand
+var assetRoot = config.assetRoot;
+var buildRoot = config.buildRoot;
+var lessonRoot = config.lessonRoot;
+var sourceFolder = config.sourceFolder;
+
 
 /*
  * # TASKS #
@@ -83,7 +86,7 @@ gulp.task('css', function(cb) {
     .pipe(autoprefixer())
     .pipe(minify())
     .pipe(concat('style.min.css'))
-    .pipe(gulp.dest(assetsDest));
+    .pipe(gulp.dest(assetRoot));
 });
 
 /*
@@ -96,7 +99,7 @@ gulp.task('assets', function(){
       'node_modules/bootstrap/dist/*/glyphicons-halflings-regular.*',
       'node_modules/jquery/dist/jquery.min.map'
     ])
-    .pipe(gulp.dest(assetsDest));
+    .pipe(gulp.dest(assetRoot));
 });
 
 /*
@@ -113,7 +116,7 @@ gulp.task('js', function(){
     'node_modules/jquery/dist/jquery.min.js'
   ]))
   .pipe(concat('script.min.js'))
-  .pipe(gulp.dest(assetsDest));
+  .pipe(gulp.dest(assetRoot));
 });
 
 /*
