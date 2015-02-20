@@ -62,7 +62,12 @@ module.exports = function checkLinks(cb){
         assert.equal(ok+broken, length(resources));
 
         browserSync.exit();
-        cb();
+        if (broken !== 0) {
+          err = new Error(broken, 'links broken')
+          cb(err)
+        } else {
+          cb();
+        }
       }
     });
 
