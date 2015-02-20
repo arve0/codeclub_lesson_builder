@@ -2,7 +2,7 @@ html
   head
     meta(charset="utf-8")
     meta(name="viewport" content="width=device-width, initial-scale=1")
-    title #{title} | YourCodeClubName
+    title #{title} | Kodeklubben
     link(href=relative("/assets/style.min.css") rel="stylesheet")
   body
     .container
@@ -11,13 +11,13 @@ html
           .top-menu
             a.btn.btn-default(href=relative("/index.html"))
               span.glyphicon.glyphicon-home(aria-hidden="true")
-              |  Home
+              |  Hjem
         block content
         .col-xs-12
           #footer.clearfix
             if license !== false
               .license
-                p: strong License:
+                p: strong Lisens:
                 if license
                   - license = marked(license)
                   != license
@@ -27,12 +27,12 @@ html
             if author
               - author = marked(author)
               .author
-                p: strong Author:
+                p: strong Forfatter:
                 != author
             if translator
               - translator = marked(translator)
               .translator
-                p: strong Translator:
+                p: strong Oversetter:
                 != translator
             if footer
               - footer = marked(footer)
