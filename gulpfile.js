@@ -37,7 +37,11 @@ var assetRoot = config.assetRoot;
 var buildRoot = config.buildRoot;
 var lessonRoot = config.lessonRoot;
 var sourceFolder = config.sourceFolder;
-var gitHookRepo = config.gitHookRepo;
+var ghHost = config.ghHost;
+var ghPort = config.ghPort;
+var ghPath = config.ghPath;
+var ghRepo = config.ghRepo;
+var ghSecret = config.ghSecret;
 
 /*
  * # TASKS #
@@ -153,18 +157,13 @@ gulp.task('links', ['dist'], checkLinks);
 
 gulp.task('github', function(cb){
   var github = githubhook({
-    host: "0.0.0.0",
-    port: 8082,
-    path: "/pushchanges",
-    secret: "123456"
+    host: ghHost,
+    port: ghPort,
+    path: ghPath,
+    secret: ghSecret 
   });
-  github.on('push', function(repo, ref, data) {
-    var branchName = _s.strRightBack(ref, "/");
-    var fullNameRepository = data.repository.full_name;
-    var removedFilesArray = data["head_commit"]["removed"];
-    var addedFilesArray = data["head_commit"]["added"];
-    var modifiedFilesArray = data["head_commit"]["modified"];
-    console.log(fullNameRepository);
+  github.on('push:'+ghRepo, function(repo, ref, data) {
+    console.log('push received');
   });
   github.listen();
 });

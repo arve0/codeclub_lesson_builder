@@ -19,7 +19,11 @@ var sourceFolder = 'src';
 var collections = ['python', 'scratch', 'web'];
 
 // github hook repo
-var gitHookRepo = 'kwrl/cubestuff';
+var ghHost = '0.0.0.0';
+var ghPort = 3034;
+var ghPath = '/';
+var ghSecret = 'somesecret';
+var ghRepo = 'lessonreponame';
 
 var config = {
   assetRoot:      assetRoot,
@@ -29,6 +33,11 @@ var config = {
   lessonRoot:     lessonRoot,
   playlistFolder: playlistFolder,
   sourceFolder:   sourceFolder,
+  ghHost:         ghHost,
+  ghPort:         ghPort,
+  ghPath:         ghPath,
+  ghRepo:         ghRepo,
+  ghSecret:       ghSecret,
 };
 
 module.exports = config;
