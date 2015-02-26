@@ -1,15 +1,4 @@
-extends ./layout.jade
-
-block content
-  .col-xs-12
-    header.clearfix
-      img.logo.hidden-xs(src=relative("/assets/img/ccno_logo.png"))
-      h1.title= title
-        a.download(href=link.replace('.html', '.pdf') title="Download PDF")
-          span.glyphicon.glyphicon-save-file
-
-  .col-xs-12
-    .content!= contents
+extends ./lesson.jade
 
 block scripts
   script.
