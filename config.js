@@ -18,6 +18,9 @@ var sourceFolder = 'src';
 // collections
 var collections = ['python', 'scratch', 'web'];
 
+// github hook repo
+var gitHookRepo = 'kwrl/cubestuff';
+
 var config = {
   assetRoot:      assetRoot,
   buildRoot:      buildRoot,

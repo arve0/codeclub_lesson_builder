@@ -26,6 +26,9 @@ var checkLinks = require('./check-links');
 // get configuration variables
 var config      = require('./config.js');
 
+// github hooks
+var githubhook = require('githubhook');
+
 
 /*
  * # VARIABLES #
@@ -34,7 +37,7 @@ var assetRoot = config.assetRoot;
 var buildRoot = config.buildRoot;
 var lessonRoot = config.lessonRoot;
 var sourceFolder = config.sourceFolder;
-
+var gitHookRepo = config.gitHookRepo;
 
 /*
  * # TASKS #
@@ -147,6 +150,24 @@ gulp.task('clean', function(cb){
  * links - check for broken links
  */
 gulp.task('links', ['dist'], checkLinks);
+
+gulp.task('github', function(cb){
+  var github = githubhook({
+    host: "0.0.0.0",
+    port: 8082,
+    path: "/pushchanges",
+    secret: "123456"
+  });
+  github.on('push', function(repo, ref, data) {
+    var branchName = _s.strRightBack(ref, "/");
+    var fullNameRepository = data.repository.full_name;
+    var removedFilesArray = data["head_commit"]["removed"];
+    var addedFilesArray = data["head_commit"]["added"];
+    var modifiedFilesArray = data["head_commit"]["modified"];
+    console.log(fullNameRepository);
+  });
+  github.listen();
+});
 
 
 /*
