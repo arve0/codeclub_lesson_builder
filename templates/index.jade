@@ -33,5 +33,5 @@ block content
 
   //- create links to lessons
   each collection, name in collections
-    -collection = _.sortBy(collection, ['level', 'link'])
+    -collection = _.sortBy(collection, 'level')
     +collection(name, collection)
