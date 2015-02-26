@@ -20,11 +20,14 @@ var minify      = require('gulp-minify-css');
 var uglify      = require('gulp-uglify');
 // archive
 var zip         = require('gulp-zip');
-var fs          = require("fs");
+var fs          = require('fs');
+// pdf generation
+var pdf         = require('./pdf.js');
 // link-checking
 var checkLinks = require('./check-links');
 // get configuration variables
 var config      = require('./config.js');
+
 
 
 /*
@@ -133,6 +136,7 @@ gulp.task('dist', function(cb){
   run('clean',
       ['assets', 'build', 'css', 'js'],
       'archive',
+      'pdf', // do not include pdf in zip files
       cb);
 });
 
@@ -142,6 +146,11 @@ gulp.task('dist', function(cb){
 gulp.task('clean', function(cb){
   del([path.join(lessonRoot, 'build')], {force: true}, cb);
 });
+
+/*
+ * pdf - generate pdfs of all htmls
+ */
+gulp.task('pdf', pdf);
 
 /*
  * links - check for broken links
