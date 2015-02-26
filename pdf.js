@@ -6,7 +6,7 @@ var PDF  = require('nodepdf-series');
 var config = require('./config.js');
 
 var concurrent = 4; // how many processes to spawn
-var pdfOptions = { 'viewportSize': { 'width': 800 } };
+var pdfOptions = { 'viewportSize': { 'width': 1024 } };
 
 var generatePdf = function(done){
   glob(config.buildRoot + '/**/*.html', function(e, files){
