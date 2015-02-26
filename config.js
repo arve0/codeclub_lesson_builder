@@ -38,6 +38,7 @@ var config = {
   ghPort:         ghPort,
   ghPath:         ghPath,
   ghRepo:         ghRepo,
+  ghPushCommand:  ghPushCommand,
   ghSecret:       ghSecret,
 };
 
