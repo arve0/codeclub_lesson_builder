@@ -27,8 +27,8 @@ var checkLinks = require('./check-links');
 var config      = require('./config.js');
 
 // github hooks
+var exec = require('child_process').exec;
 var githubhook = require('githubhook');
-
 
 /*
  * # VARIABLES #
@@ -41,6 +41,7 @@ var ghHost = config.ghHost;
 var ghPort = config.ghPort;
 var ghPath = config.ghPath;
 var ghRepo = config.ghRepo;
+var ghPushCommand = config.ghPushCommand;
 var ghSecret = config.ghSecret;
 
 /*
@@ -163,7 +164,11 @@ gulp.task('github', function(cb){
     secret: ghSecret 
   });
   github.on('push:'+ghRepo, function(repo, ref, data) {
-    console.log('push received');
+    deployProc = exec(ghPushCommand, function(err, stdout, stderr) {
+      if(err!==null) {
+        console.log(stderr);
+      }
+    });
   });
   github.listen();
 });

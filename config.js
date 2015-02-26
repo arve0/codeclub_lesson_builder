@@ -22,8 +22,9 @@ var collections = ['python', 'scratch', 'web'];
 var ghHost = '0.0.0.0';
 var ghPort = 3034;
 var ghPath = '/';
-var ghSecret = 'somesecret';
-var ghRepo = 'lessonreponame';
+var ghPushCommand = '../deploy.sh';
+var ghSecret = 'secret';
+var ghRepo = 'reponame';
 
 var config = {
   assetRoot:      assetRoot,
