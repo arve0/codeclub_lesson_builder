@@ -18,6 +18,14 @@ var sourceFolder = 'src';
 // collections
 var collections = ['python', 'scratch', 'web'];
 
+// github hook repo
+var ghHost = '0.0.0.0';
+var ghPort = 3034;
+var ghPath = '/';
+var ghPushCommand = '../deploy.sh';
+var ghSecret = 'secret';
+var ghRepo = 'reponame';
+
 var config = {
   assetRoot:      assetRoot,
   buildRoot:      buildRoot,
@@ -26,6 +34,12 @@ var config = {
   lessonRoot:     lessonRoot,
   playlistFolder: playlistFolder,
   sourceFolder:   sourceFolder,
+  ghHost:         ghHost,
+  ghPort:         ghPort,
+  ghPath:         ghPath,
+  ghRepo:         ghRepo,
+  ghPushCommand:  ghPushCommand,
+  ghSecret:       ghSecret,
 };
 
 module.exports = config;
