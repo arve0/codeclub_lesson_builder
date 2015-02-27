@@ -85,6 +85,7 @@ module.exports = function build(callback){
 
   // do the building
   Metalsmith(lessonRoot)
+  .source(sourceFolder)
   .use(ignore(ignoreOptions))
   // set template for exercises
   .use(setMetadata(metadataOptions))
