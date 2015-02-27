@@ -197,7 +197,7 @@ gulp.task('default', ['server'], function(){
    * ## WATCHES ##
    */
   // files which are built with metalsmith
-  gulp.watch(path.join(lessonRoot, 'src', '**'), ['build', reload]);
+  gulp.watch(path.join(lessonRoot, sourceFolder, '**'), ['build', reload]);
   gulp.watch(path.join(__dirname, 'templates', '**'), ['build', reload]);
 
   // styles
