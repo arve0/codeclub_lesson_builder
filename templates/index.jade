@@ -4,7 +4,7 @@ extends ./layout.jade
 mixin collection(name, collection)
   .col-sm-6.col-md-4(id=name)
     h2.clearfix= name.charAt(0).toUpperCase() + name.substr(1)
-      a.download(href=name + '.zip' title="Download all lessons")
+      a.download(href=name + '.zip' title="Download all " + name + " lessons")
         span.glyphicon.glyphicon-download-alt
 
     //- playlists from text files in `playlistFolder`
