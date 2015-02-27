@@ -96,6 +96,7 @@ You can run all tasks with `./gulp taskname` when in the lesson repo, or with `g
 - `clean` delete all files in `build`
 - `css` will process less files, add asset-css, autoprefix, minify and concat to `style.min.css`
 - `js` uglify, add already uglified asset-js and concat to `script.min.js`
+- `pdf` will create PDFs of all htmls in build folder
 - `server` will start a local web-server and open your browser with the index
 - `default` start the `server`-task and reload browser upon file changes (runs when gulp recieves no arguments)
 - `dist` does a clean then a complete build
