@@ -64,6 +64,7 @@ an *EMFILE* error code. Description for increasing number of allowed open files:
 
 ### Trouble
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/arve0/codeclub_lesson_builder)
+
 Having problems? Come and [chat with us on gitter](https://gitter.im/arve0/codeclub_lesson_builder).
 
 
