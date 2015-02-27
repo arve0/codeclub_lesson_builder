@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install node packages and
-# and clone arve0/example_lessons to ..
+# and clone arve0/example_lessons/src to ..
 npm install
 if [ $? -ne 0 ]; then # try again
   echo "Setup failed, trying one more time."
@@ -8,6 +8,5 @@ if [ $? -ne 0 ]; then # try again
   rm -fr node_modules
   npm install
 fi
-cd ..
 git clone --depth 1 https://github.com/arve0/example_lessons
-cd -
+mv example_lessons/src ..
