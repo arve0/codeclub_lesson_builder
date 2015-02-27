@@ -27,7 +27,13 @@ var generatePdf = function(done){
       // check if all htmls are converted
       glob(config.buildRoot + '/**/*.pdf', function(e, pdfs){
         if (files.length != pdfs.length) {
-          var lengthErr = new Error('Not all htmls was converted to pdf.');
+          // .pdf -> .html so that we can compare
+          pdfs = _.map(pdfs, function(filename){
+            return filename.replace('.pdf', '.html');
+          });
+          var diff = _.difference(files, pdfs);
+          var lengthErr = new Error('Not all htmls was converted to pdf. ' +
+                                    'Not converted:\n' + JSON.stringify(diff));
         }
         done(err || e || lengthErr);
       });
