@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/arve0/codeclub_lesson_builder.svg?branch=travis_build)](https://travis-ci.org/arve0/codeclub_lesson_builder)
+
 # codeclub_lesson_builder
 This project builds codeclub exercises from markdown to styled webpages. A file
 watcher builds upon changes and refreshes the browser. Watching is done through
