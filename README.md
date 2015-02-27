@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/arve0/codeclub_lesson_builder.svg?branch=travis_build)](https://travis-ci.org/arve0/codeclub_lesson_builder)
+
 # codeclub_lesson_builder
 This project builds codeclub exercises from markdown to styled webpages. A file
 watcher builds upon changes and refreshes the browser. Watching is done through
@@ -62,6 +64,7 @@ an *EMFILE* error code. Description for increasing number of allowed open files:
 
 ### Trouble
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/arve0/codeclub_lesson_builder)
+
 Having problems? Come and [chat with us on gitter](https://gitter.im/arve0/codeclub_lesson_builder).
 
 
@@ -70,17 +73,18 @@ You could read about the format in [FORMAT.md](FORMAT.md).
 
 ### Features
 - [x] Convert markdown to styled HTML
-- [ ] Convert markdown to styled PDF
+- [x] Convert markdown to styled PDF
+- [x] Link-checker
+- [x] Automatic build with github webhooks
 - [x] Create zip-archives of all lessons
 - [x] Style scratch code
 - [x] Specify your own header and footer in [templates](templates)
 - [x] Watch files and re-render lesson upon changes (live-reload in browser)
+- [x] Create playlists and hide lessons from index
 - [ ] Lesson tags
 - [ ] Sortable index with search
-- [x] Create playlists and hide lessons from index
 - [ ] Support for several languages
 - [ ] Use material from other webpages with `external`-tag
-- [x] Link-checker
 
 ### gulp tasks
 You can run all tasks with `./gulp taskname` when in the lesson repo, or with `gulp taskname` in 
@@ -93,6 +97,7 @@ You can run all tasks with `./gulp taskname` when in the lesson repo, or with `g
 - `clean` delete all files in `build`
 - `css` will process less files, add asset-css, autoprefix, minify and concat to `style.min.css`
 - `js` uglify, add already uglified asset-js and concat to `script.min.js`
+- `pdf` will create PDFs of all htmls in build folder
 - `server` will start a local web-server and open your browser with the index
 - `default` start the `server`-task and reload browser upon file changes (runs when gulp recieves no arguments)
 - `dist` does a clean then a complete build

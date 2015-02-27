@@ -1,7 +1,19 @@
-@import "../node_modules/bootstrap/less/bootstrap.less";
-@import "includes/config.less";
-@font-size-base: 15px;
-@icon-font-path: 'fonts/';
+/*
+ * # General CSS #
+ * All files in styles folder is compiled with `gulp css`. `includes` folder
+ * is omitted from compilation and should be imported from less-files
+ * (so that order of inclusion can be specified).
+ */
+@import "bootstrap.less"; // customized bootstrap.less
+@import "includes/config.less"; // included after bootstrap, to override variables
+
+
+// code blocks
+code {
+  // Note that build-system must have the first listed font installed
+  //           Linux          Mac            Windows   Fallback
+  font-family: "Ubuntu Mono", Menlo, Monaco, Consolas, "Courier New", monospace;
+}
 
 // responsive images
 figure > img {
@@ -19,6 +31,9 @@ header {
   border-radius: 5px;
   padding: 10px;
   margin-top: 20px;
+  @media print {
+    display:none;
+  }
 }
 
 // download icons

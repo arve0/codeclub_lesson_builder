@@ -4,7 +4,7 @@ extends ./layout.jade
 mixin collection(name, collection)
   .col-sm-6.col-md-4(id=name)
     h2.clearfix= name.charAt(0).toUpperCase() + name.substr(1)
-      a.download(href=name + '.zip' title="Last ned alle oppgaver")
+      a.download(href=name + '.zip' title="Download all lessons")
         span.glyphicon.glyphicon-download-alt
 
     //- playlists from text files in `playlistFolder`
@@ -33,5 +33,5 @@ block content
 
   //- create links to lessons
   each collection, name in collections
-    -collection = _.sortBy(collection, ['level', 'link'])
+    -collection = _.sortBy(collection, 'level')
     +collection(name, collection)

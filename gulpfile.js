@@ -20,11 +20,17 @@ var minify      = require('gulp-minify-css');
 var uglify      = require('gulp-uglify');
 // archive
 var zip         = require('gulp-zip');
-var fs          = require("fs");
+var fs          = require('fs');
+// pdf generation
+var pdf         = require('./pdf.js');
 // link-checking
 var checkLinks = require('./check-links');
 // get configuration variables
 var config      = require('./config.js');
+
+// github hooks
+var exec = require('child_process').exec;
+var githubhook = require('githubhook');
 
 
 /*
@@ -34,7 +40,12 @@ var assetRoot = config.assetRoot;
 var buildRoot = config.buildRoot;
 var lessonRoot = config.lessonRoot;
 var sourceFolder = config.sourceFolder;
-
+var ghHost = config.ghHost;
+var ghPort = config.ghPort;
+var ghPath = config.ghPath;
+var ghRepo = config.ghRepo;
+var ghPushCommand = config.ghPushCommand;
+var ghSecret = config.ghSecret;
 
 /*
  * # TASKS #
@@ -133,6 +144,7 @@ gulp.task('dist', function(cb){
   run('clean',
       ['assets', 'build', 'css', 'js'],
       'archive',
+      'pdf', // do not include pdf in zip files
       cb);
 });
 
@@ -144,9 +156,31 @@ gulp.task('clean', function(cb){
 });
 
 /*
+ * pdf - generate pdfs of all htmls
+ */
+gulp.task('pdf', pdf);
+
+/*
  * links - check for broken links
  */
 gulp.task('links', ['dist'], checkLinks);
+
+gulp.task('github', function(cb){
+  var github = githubhook({
+    host: ghHost,
+    port: ghPort,
+    path: ghPath,
+    secret: ghSecret 
+  });
+  github.on('push:'+ghRepo, function(repo, ref, data) {
+    deployProc = exec(ghPushCommand, function(err, stdout, stderr) {
+      if(err!==null) {
+        console.log(stderr);
+      }
+    });
+  });
+  github.listen();
+});
 
 
 /*
