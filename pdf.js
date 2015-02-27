@@ -26,8 +26,17 @@ var generatePdf = function(done){
     }, function(err){
       // check if all htmls are converted
       glob(config.buildRoot + '/**/*.pdf', function(e, pdfs){
-        if (files.length != pdfs.length) {
-          var lengthErr = new Error('Not all htmls was converted to pdf.');
+        pdfs = pdfs.map(function(pdf){
+          return path.resolve(pdf);
+        });
+        var diff = files.map(function(file){
+          file = file.replace('file://', '').replace('.html', '.pdf');
+          if (pdfs.indexOf(file) == -1) return file;
+        });
+        diff = _.compact(diff); // remove falsey values
+        if (diff.length !== 0) {
+          var lengthErr = new Error('Not all htmls was converted to pdf. ' +
+                                    'Missing pdfs:\n' + JSON.stringify(diff, null, ' '));
         }
         done(err || e || lengthErr);
       });
