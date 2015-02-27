@@ -72,17 +72,18 @@ You could read about the format in [FORMAT.md](FORMAT.md).
 
 ### Features
 - [x] Convert markdown to styled HTML
-- [ ] Convert markdown to styled PDF
+- [x] Convert markdown to styled PDF
+- [x] Link-checker
+- [x] Automatic build with github webhooks
 - [x] Create zip-archives of all lessons
 - [x] Style scratch code
 - [x] Specify your own header and footer in [templates](templates)
 - [x] Watch files and re-render lesson upon changes (live-reload in browser)
+- [x] Create playlists and hide lessons from index
 - [ ] Lesson tags
 - [ ] Sortable index with search
-- [x] Create playlists and hide lessons from index
 - [ ] Support for several languages
 - [ ] Use material from other webpages with `external`-tag
-- [x] Link-checker
 
 ### gulp tasks
 You can run all tasks with `./gulp taskname` when in the lesson repo, or with `gulp taskname` in 
