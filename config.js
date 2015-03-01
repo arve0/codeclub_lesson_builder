@@ -22,7 +22,7 @@ var collections = ['python', 'scratch', 'web'];
 var ghHost = '0.0.0.0';
 var ghPort = 3034;
 var ghPath = '/';
-var ghPushCommand = '../deploy.sh';
+var ghPushCommand = 'cd .. && git pull && ./deploy.sh';
 var ghSecret = 'secret';
 var ghRepo = 'reponame';
 
