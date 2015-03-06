@@ -24,6 +24,7 @@
     "marked": "^0.3.2",
     "merge-stream": "^0.1.7",
     "metalsmith": "^1.0.1",
+    "metalsmith-branch": "0.0.4",
     "metalsmith-code-highlight": "0.0.2",
     "metalsmith-collections": "^0.6.0",
     "metalsmith-define": "^1.0.0",
