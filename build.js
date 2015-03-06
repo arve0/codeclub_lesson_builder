@@ -108,7 +108,7 @@ module.exports = function build(callback){
   .use(branch()
     .pattern(['**/*.html', '!scratch/**/*.html']) // no highlight on scratch blocks
     .use(highlight({
-      languages: ['python', 'lua', 'html', 'css', 'js'] // prevent bug in highlight.js < 8.5: https://github.com/isagalaev/highlight.js/issues/701
+      languages: ['java', 'python', 'lua', 'html', 'css', 'js'] // prevent bug in highlight.js < 8.5: https://github.com/isagalaev/highlight.js/issues/701
     }))
   )
   // add file.link metadata (now files are .html)
