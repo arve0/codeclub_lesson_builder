@@ -14,6 +14,8 @@ var marked      = require('marked'); // for md strings in YAML header
 var path        = require('path');
 var getPlaylists = require('./playlist');
 var _           = require('lodash');
+// code highlighting
+var highlight    = require('metalsmith-code-highlight');
 // get configuration variables
 var config      = require('./config.js');
 
@@ -100,6 +102,10 @@ module.exports = function build(callback){
   .use(pandoc({
     to: 'html5',
     args: ['--section-divs', '--smart']
+  }))
+  // highlight code - exclude scratch code blocks
+  .use(highlight({
+    languages: ['python', 'lua', 'html', 'css', 'js'] // prevent bug in highlight.js < 8.5: https://github.com/isagalaev/highlight.js/issues/701
   }))
   // add file.link metadata (now files are .html)
   .use(filepath())

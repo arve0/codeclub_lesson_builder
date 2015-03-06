@@ -92,7 +92,8 @@ gulp.task('css', function(cb) {
     .pipe(less())
     .on('error', cb)
     .pipe(addsrc([
-      'node_modules/scratchblocks2/build/scratchblocks2.css'
+      'node_modules/scratchblocks2/build/scratchblocks2.css',
+      'node_modules/metalsmith-code-highlight/node_modules/highlight.js/styles/idea.css'
     ]))
     .pipe(autoprefixer())
     .pipe(minify())
@@ -170,7 +171,7 @@ gulp.task('github', function(cb){
     host: ghHost,
     port: ghPort,
     path: ghPath,
-    secret: ghSecret 
+    secret: ghSecret
   });
   github.on('push:'+ghRepo, function(repo, ref, data) {
     deployProc = exec(ghPushCommand, function(err, stdout, stderr) {
