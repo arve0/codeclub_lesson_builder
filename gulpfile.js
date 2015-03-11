@@ -164,7 +164,7 @@ gulp.task('pdf', pdf);
 /*
  * links - check for broken links
  */
-gulp.task('links', ['dist'], checkLinks);
+gulp.task('links', checkLinks);
 
 gulp.task('github', function(cb){
   var github = githubhook({
