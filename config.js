@@ -16,7 +16,7 @@ var assetRoot   = path.join(buildRoot, 'assets');
 var playlistFolder = 'playlists';
 var sourceFolder = 'src';
 // collections
-var collections = ['computercraft', 'javafx', 'python', 'scratch'];
+var collections = ['scratch', 'python', 'javafx', 'computercraft'];
 
 // github hook repo
 var ghHost = '0.0.0.0';
