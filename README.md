@@ -102,5 +102,5 @@ You can run all tasks with `./gulp taskname` when in the lesson repo, or with `g
 - `default` start the `server`-task and reload browser upon file changes (runs when gulp recieves no arguments)
 - `dist` does a clean then a complete build
 - `links` runs a local server and check all links on all pages
-- `prodlinks` check links on production page, set start in [config.js](config.js)
+- `prodlinks` check links on production page, set start in [config.js](config.js): `productionCrawlStart`
 - `github` start webhook server which listens for pushes to repo and starts build
