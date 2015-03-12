@@ -75,7 +75,7 @@ You could read about the format in [FORMAT.md](FORMAT.md).
 
 ### Features
 - [x] Convert markdown to styled HTML
-- [x] Convert markdown to styled PDF
+- [x] Convert markdown to styled PDF (fast! 100 PDFs in ~30 seconds)
 - [x] Link-checker
 - [x] Automatic build with [github webhooks](https://developer.github.com/webhooks/)
 - [x] Zip-archive of collections/courses
