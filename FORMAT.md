@@ -112,7 +112,7 @@ have similar syntax.
 - **license** (*string with optional markdown*) : If another license then
   CC-BY-SA-4.0 is wanted for the content, specify this in the license tag.
 
-- **translator** (*string*) : Translator of lesson if translated from another
+- **translator** (*string with optional markdown*) : Translator of lesson if translated from another
   language.
 
 
