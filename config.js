@@ -3,43 +3,39 @@
  */
 var path = require('path');
 
-
 /*
- * # CONFIGURATION VARIABLES #
+ * Variables that depend on each other
  */
+
 // paths
 var lessonRoot = '..';
 var buildRoot  = path.join(lessonRoot, 'build');
 var builderRoot = path.basename(__dirname);
 var assetRoot   = path.join(buildRoot, 'assets');
-// folder names
-var playlistFolder = 'playlists';
-var sourceFolder = 'src';
-// collections
-var collections = ['python', 'scratch', 'web'];
 
-// github hook repo
-var ghHost = '0.0.0.0';
-var ghPort = 3034;
-var ghPath = '/';
-var ghPushCommand = 'cd .. && git pull && ./deploy.sh';
-var ghSecret = 'secret';
-var ghRepo = 'reponame';
 
+/*
+ * Export. Independent variables can be put here directly.
+ */
 var config = {
   assetRoot:      assetRoot,
   buildRoot:      buildRoot,
   builderRoot:    builderRoot,
-  collections:    collections,
   lessonRoot:     lessonRoot,
-  playlistFolder: playlistFolder,
-  sourceFolder:   sourceFolder,
-  ghHost:         ghHost,
-  ghPort:         ghPort,
-  ghPath:         ghPath,
-  ghRepo:         ghRepo,
-  ghPushCommand:  ghPushCommand,
-  ghSecret:       ghSecret,
+  // folder names
+  playlistFolder: 'playlists',
+  sourceFolder:   'src',
+  // collections
+  collections:    ['python', 'scratch', 'web'],
+  // github webhook for automatic building
+  ghHost:         '0.0.0.0',
+  ghPort:         3034,
+  ghPath:         '/',
+  ghRepo:         'reponame',
+  ghPushCommand:  'cd .. && git pull && ./deploy.sh',
+  ghSecret:       'secret',
+  // link crawling
+  productionCrawlStart: 'http://arve0.github.io/example_lessons/'
 };
 
 module.exports = config;

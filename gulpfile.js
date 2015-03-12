@@ -164,8 +164,12 @@ gulp.task('pdf', pdf);
 /*
  * links - check for broken links
  */
-gulp.task('links', checkLinks);
+gulp.task('links', checkLinks('http://localhost:3000/'));
+gulp.task('prodlinks', checkLinks(config.productionCrawlStart));
 
+/*
+ * github webhook for automatic building
+ */
 gulp.task('github', function(cb){
   var github = githubhook({
     host: ghHost,
