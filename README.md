@@ -20,7 +20,9 @@ lessons as submodule) will make pull request to the lesson repo a bit less
 complex. The steps below assumes this setup, and are only needed upon first
 time inclusion in the lesson repo. Steps for setting up lesson repo with
 local building should be similar to this. Look at
-[this repo](https://github.com/arve0/example_lessons) for an example of setup.
+[this repo](https://github.com/arve0/example_lessons) for an example of setup 
+and http://kodeklubben.github.io for the live Norwegian lesson pages made
+with this build tool.
 
 **Clone repository**
 ```
