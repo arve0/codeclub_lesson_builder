@@ -1,6 +1,6 @@
 # The codeclub_lesson_builder format
 This builder uses a format that is heavily based on the format used by
-[Code Club UK](lesson_format). It is capable of
+[Code Club UK][lesson_format]. It is capable of
 building lessons intended for the Code Club UK's builder, but there are some
 differences. The main differences are related to meta data, and in general we
 require less meta data than the UK builder.
@@ -40,9 +40,9 @@ http://johnmacfarlane.net/pandoc/demo/example9/pandocs-markdown.html
 
 ## YAML header
 Lessons need to provide some basic meta data in the form of a
-[YAML header](wp-yaml). The header should be added to the beginning of the
+[YAML header][wp-yaml]. The header should be added to the beginning of the
 lesson's markdown file. `---` signify the beginning and end of the header. Note
-that [lesson_format](lesson_format) uses `...` for the YAML-ending. You will
+that [lesson_format][lesson_format] uses `...` for the YAML-ending. You will
 find tools for converting `...` to `---` in [utils](utils).
 
 Example:
