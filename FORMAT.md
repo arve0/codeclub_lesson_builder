@@ -73,7 +73,7 @@ have similar syntax.
     - Example: `fruits: [apple, orange, banana]`
 
 ### Required attributes
-- **title** (*string*) : Name of the lesson lesson.
+- **title** (*string*) : Name of the lesson.
 - **level** (*number*) : Difficulty of the lesson. Positive integer.
     - 1: Intro - no skills needed
     - 2: Easy - can open editor, use few concepts
