@@ -78,10 +78,11 @@ You could read about the format in [FORMAT.md](FORMAT.md).
 - [x] Automatic build with [github webhooks](https://developer.github.com/webhooks/)
 - [x] Zip-archive of collections/courses
 - [x] Styled scratch code blocks
-- [x] Specify your own header and footer in [templates](templates)
+- [x] Adjust the [templates](templates) to your own liking
 - [x] Watch files and re-render lesson upon changes (live-reload in browser)
 - [x] Create playlists and hide lessons from index
 - [x] Use material from other webpages with `external`-tag
+- [x] Add notes to footer with `footer`-tag
 - [ ] Lesson tags
 - [ ] Sortable index with search
 - [ ] Support for several languages
@@ -91,7 +92,7 @@ You can run tasks with `./gulp taskname` when in the lesson repo, or with `gulp 
 *codeclub_lesson_builder*-folder if you have installed gulp [globally](https://docs.npmjs.com/cli/install).
 
 **list of gulp tasks**
-- `archive` will create zip files of [collections](https://github.com/arve0/codeclub_lesson_builder/blob/master/config.js#L19)
+- `archive` will create zip files of [collections](https://github.com/arve0/codeclub_lesson_builder/blob/master/config.js)
 - `assets` copies assets to `build/assets`
 - `build` builds all markdown files (except README.md) to html and copy files which are in lesson-folders
 - `clean` delete all files in `build`
