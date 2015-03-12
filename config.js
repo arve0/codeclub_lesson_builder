@@ -31,11 +31,11 @@ var config = {
   ghHost:         '0.0.0.0',
   ghPort:         3034,
   ghPath:         '/',
-  ghRepo:         'cd .. && git pull && ./deploy.sh',
-  ghPushCommand:  'secret',
-  ghSecret:       'reponame',
+  ghRepo:         'reponame',
+  ghPushCommand:  'cd .. && git pull && ./deploy.sh',
+  ghSecret:       'secret',
   // link crawling
-  productionCrawlStart: 'http://kodeklubben.github.io/'
+  productionCrawlStart: 'http://arve0.github.io/example_lessons/'
 };
 
 module.exports = config;
