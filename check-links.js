@@ -30,14 +30,18 @@ module.exports = function(start){
   * @param {function} cb Called when all links have been checked.
   */
   function checkLinks(cb){
-    console.log('Checking links');
+    console.log('Checking all links found at ' + start);
 
-    // allways starting server is not "perfect"
-    browserSync.init({
-      server: { baseDir: config.buildRoot },
-      open: false
-    }, function(){
-      // server ready
+    if (start.search('http://localhost') === 0) {
+      // we need to start server
+      browserSync.init({
+        server: { baseDir: config.buildRoot },
+        open: false
+      }, crawl);
+    } else {
+      crawl();
+    }
+    function crawl(){
       var resources = {}; // dict with list of referers
       var failed = []; // list to keep links that failed
       var ok = 0;
@@ -148,8 +152,8 @@ module.exports = function(start){
 
       // let's go! :-)
       spider.queue(start, reqDone);
-    });
-  }
+    } // crawl end
+  } // checkLinks end
 
   return checkLinks;
 };
