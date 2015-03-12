@@ -65,7 +65,7 @@ Data types in use are these:
 - *Number:* Start with an integer. May use `.` for floats.
     - Example: `level: 1`
 - *Bool:* `true` or `false`.
-    - Example: `indexed: true`
+    - Example: `indexed: false`
 
 Lists is currently not used, but is easily mistaken with markdown links which
 have similar syntax.
@@ -86,8 +86,21 @@ have similar syntax.
   (instead of list).
     - Example: `author: "[Arve Seljebu](http://arve0.github.io)"`
 
-- **license** (*string with optional markdown*) : If another license then
-  CC-BY-SA-4.0 is wanted for the content, specify this in the license tag.
+- **external** (*string*) : URL to external resource. Nice for adding external
+  lessons to index:
+
+    ```
+    ---
+    title: An external lesson
+    level: 3
+    external: http://domain.org/path/lesson.html
+    ---
+    ```
+
+- **footer** (*string with optional markdown*) : Add text to the footer.
+
+- **indexed** (*bool*) : If `false`, hides lesson from index. Nice for lessons
+  that only makes sense when along with others.
 
 - **language** (*string*) : Language the lesson is written in. Should be an
   [IETF language tag](wp-ietf) which is a combination of language
@@ -95,6 +108,12 @@ have similar syntax.
   Examples:
   - `language: nb-NO` is language Norwegian bokmål, region Norway.
   - `language: en-GB` is language English, region Great Britain.
+
+- **license** (*string with optional markdown*) : If another license then
+  CC-BY-SA-4.0 is wanted for the content, specify this in the license tag.
+
+- **translator** (*string*) : Translator of lesson if translated from another
+  language.
 
 
 [wp-ietf]: http://en.wikipedia.org/wiki/IETF_language_tag

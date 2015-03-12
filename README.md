@@ -75,19 +75,19 @@ You could read about the format in [FORMAT.md](FORMAT.md).
 - [x] Convert markdown to styled HTML
 - [x] Convert markdown to styled PDF
 - [x] Link-checker
-- [x] Automatic build with github webhooks
-- [x] Create zip-archives of all lessons
-- [x] Style scratch code
+- [x] Automatic build with [github webhooks](https://developer.github.com/webhooks/)
+- [x] Zip-archive of collections/courses
+- [x] Styled scratch code blocks
 - [x] Specify your own header and footer in [templates](templates)
 - [x] Watch files and re-render lesson upon changes (live-reload in browser)
 - [x] Create playlists and hide lessons from index
+- [x] Use material from other webpages with `external`-tag
 - [ ] Lesson tags
 - [ ] Sortable index with search
 - [ ] Support for several languages
-- [ ] Use material from other webpages with `external`-tag
 
 ### gulp tasks
-You can run all tasks with `./gulp taskname` when in the lesson repo, or with `gulp taskname` in 
+You can run all tasks with `./gulp taskname` when in the lesson repo, or with `gulp taskname` in
 *codeclub_lesson_builder*-folder if you have installed gulp [globally](https://docs.npmjs.com/cli/install).
 
 **list of gulp tasks**
