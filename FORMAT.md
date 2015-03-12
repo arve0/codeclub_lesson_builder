@@ -103,8 +103,8 @@ have similar syntax.
   that only makes sense when along with others.
 
 - **language** (*string*) : Language the lesson is written in. Should be an
-  [IETF language tag](wp-ietf) which is a combination of language
-  ([ISO-639-1](wp-iso-639-1)) and region ([ISO-3166-1](wp-iso-3166-1)).
+  [IETF language tag] which is a combination of language ([ISO-639-1]) and 
+  region ([ISO-3166-1]).
   Examples:
   - `language: nb-NO` is language Norwegian bokmål, region Norway.
   - `language: en-GB` is language English, region Great Britain.
@@ -116,9 +116,9 @@ have similar syntax.
   language.
 
 
-[wp-ietf]: http://en.wikipedia.org/wiki/IETF_language_tag
-[wp-iso-639-1]: http://en.wikipedia.org/wiki/ISO_639-1
-[wp-iso-3166-1]: http://en.wikipedia.org/wiki/ISO_3166-1
+[IETF language tag]: http://en.wikipedia.org/wiki/IETF_language_tag
+[ISO-639-1]: http://en.wikipedia.org/wiki/ISO_639-1
+[ISO-3166-1]: http://en.wikipedia.org/wiki/ISO_3166-1
 
 
 ## Using styles
@@ -167,8 +167,8 @@ for i in range(10):
 
 ### Scratchblocks
 
-We use the [scratchblocks2](sb2) library to render scratch blocks. Scratch
-blocks inside lessons must follow [the syntax set out here](sb-syntax). We use
+We use the [scratchblocks2] library to render scratch blocks. Scratch
+blocks inside lessons must follow [the syntax set out here][sb-syntax]. We use
 `blocks` to denote a scratch block in markdown:
 
 <pre>
@@ -182,5 +182,5 @@ when FLAG clicked
 Another paragraph
 </pre>
 
-[sb2]: https://github.com/blob8108/scratchblocks2
+[scratchblocks2]: https://github.com/blob8108/scratchblocks2
 [sb-syntax]: http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax
