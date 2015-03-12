@@ -87,7 +87,7 @@ You could read about the format in [FORMAT.md](FORMAT.md).
 - [ ] Use material from other webpages with `external`-tag
 
 ### gulp tasks
-You can run all tasks with `./gulp taskname` when in the lesson repo, or with `gulp taskname` in 
+You can run all tasks with `./gulp taskname` when in the lesson repo, or with `gulp taskname` in
 *codeclub_lesson_builder*-folder if you have installed gulp [globally](https://docs.npmjs.com/cli/install).
 
 **list of gulp tasks**
@@ -101,4 +101,6 @@ You can run all tasks with `./gulp taskname` when in the lesson repo, or with `g
 - `server` will start a local web-server and open your browser with the index
 - `default` start the `server`-task and reload browser upon file changes (runs when gulp recieves no arguments)
 - `dist` does a clean then a complete build
-- `links` runs the `dist`-task and then check all links on all pages
+- `links` runs a local server and check all links on all pages
+- `prodlinks` check links on production page, set start in [config.js](config.js)
+- `github` start webhook server which listens for pushes to repo and starts build
