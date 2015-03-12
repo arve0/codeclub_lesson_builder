@@ -87,7 +87,7 @@ You could read about the format in [FORMAT.md](FORMAT.md).
 - [ ] Support for several languages
 
 ### gulp tasks
-You can run all tasks with `./gulp taskname` when in the lesson repo, or with `gulp taskname` in
+You can run tasks with `./gulp taskname` when in the lesson repo, or with `gulp taskname` in
 *codeclub_lesson_builder*-folder if you have installed gulp [globally](https://docs.npmjs.com/cli/install).
 
 **list of gulp tasks**
