@@ -15,14 +15,18 @@ mixin collection(name, collection)
         .name= playlist.name
 
       each lesson in playlist.lessons
-        a(href=relative(lesson.link))
+        //- if external tag set, use that as link
+        -link = lesson.external || lesson.link
+        a(href=relative(link))
           li.playlist.lesson(style="display:none" class=playlist.id + ' level-' + lesson.level)
             = lesson.title
 
     //- all lessons which does not have `indexed: false`
     each lesson in collection
       if lesson.indexed !== false
-        a(href=relative(lesson.link))
+        //- if external tag set, use that as link
+        -link = lesson.external || lesson.link
+        a(href=relative(link))
           li.lesson(class='level-' + lesson.level)= lesson.title
 
 

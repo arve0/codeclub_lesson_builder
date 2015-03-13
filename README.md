@@ -20,7 +20,9 @@ lessons as submodule) will make pull request to the lesson repo a bit less
 complex. The steps below assumes this setup, and are only needed upon first
 time inclusion in the lesson repo. Steps for setting up lesson repo with
 local building should be similar to this. Look at
-[this repo](https://github.com/arve0/example_lessons) for an example of setup.
+[this repo](https://github.com/arve0/example_lessons) for an example of setup 
+and http://kodeklubben.github.io for the live Norwegian lesson pages made
+with this build tool.
 
 **Clone repository**
 ```
@@ -73,25 +75,26 @@ You could read about the format in [FORMAT.md](FORMAT.md).
 
 ### Features
 - [x] Convert markdown to styled HTML
-- [x] Convert markdown to styled PDF
+- [x] Convert markdown to styled PDF (fast! 100 PDFs in ~30 seconds)
 - [x] Link-checker
-- [x] Automatic build with github webhooks
-- [x] Create zip-archives of all lessons
-- [x] Style scratch code
-- [x] Specify your own header and footer in [templates](templates)
+- [x] Automatic build with [github webhooks](https://developer.github.com/webhooks/)
+- [x] Zip-archive of collections/courses
+- [x] Styled scratch code blocks
+- [x] Adjust the [templates](templates) to your own liking
 - [x] Watch files and re-render lesson upon changes (live-reload in browser)
 - [x] Create playlists and hide lessons from index
+- [x] Use material from other webpages with `external`-tag
+- [x] Add notes to footer with `footer`-tag
 - [ ] Lesson tags
 - [ ] Sortable index with search
 - [ ] Support for several languages
-- [ ] Use material from other webpages with `external`-tag
 
 ### gulp tasks
-You can run all tasks with `./gulp taskname` when in the lesson repo, or with `gulp taskname` in 
+You can run tasks with `./gulp taskname` when in the lesson repo, or with `gulp taskname` in
 *codeclub_lesson_builder*-folder if you have installed gulp [globally](https://docs.npmjs.com/cli/install).
 
 **list of gulp tasks**
-- `archive` will create zip files of [collections](https://github.com/arve0/codeclub_lesson_builder/blob/master/config.js#L19)
+- `archive` will create zip files of [collections](https://github.com/arve0/codeclub_lesson_builder/blob/master/config.js)
 - `assets` copies assets to `build/assets`
 - `build` builds all markdown files (except README.md) to html and copy files which are in lesson-folders
 - `clean` delete all files in `build`
@@ -101,4 +104,6 @@ You can run all tasks with `./gulp taskname` when in the lesson repo, or with `g
 - `server` will start a local web-server and open your browser with the index
 - `default` start the `server`-task and reload browser upon file changes (runs when gulp recieves no arguments)
 - `dist` does a clean then a complete build
-- `links` runs the `dist`-task and then check all links on all pages
+- `links` runs a local server and check all links on all pages
+- `prodlinks` check links on production page, set `productionCrawlStart` in [config.js](config.js)
+- `github` start webhook server which listens for pushes to repo and starts build

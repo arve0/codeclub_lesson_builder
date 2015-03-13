@@ -1,6 +1,6 @@
 # The codeclub_lesson_builder format
 This builder uses a format that is heavily based on the format used by
-[Code Club UK](lesson_format). It is capable of
+[Code Club UK][lesson_format]. It is capable of
 building lessons intended for the Code Club UK's builder, but there are some
 differences. The main differences are related to meta data, and in general we
 require less meta data than the UK builder.
@@ -40,9 +40,9 @@ http://johnmacfarlane.net/pandoc/demo/example9/pandocs-markdown.html
 
 ## YAML header
 Lessons need to provide some basic meta data in the form of a
-[YAML header](wp-yaml). The header should be added to the beginning of the
+[YAML header][wp-yaml]. The header should be added to the beginning of the
 lesson's markdown file. `---` signify the beginning and end of the header. Note
-that [lesson_format](lesson_format) uses `...` for the YAML-ending. You will
+that [lesson_format][lesson_format] uses `...` for the YAML-ending. You will
 find tools for converting `...` to `---` in [utils](utils).
 
 Example:
@@ -65,7 +65,7 @@ Data types in use are these:
 - *Number:* Start with an integer. May use `.` for floats.
     - Example: `level: 1`
 - *Bool:* `true` or `false`.
-    - Example: `indexed: true`
+    - Example: `indexed: false`
 
 Lists is currently not used, but is easily mistaken with markdown links which
 have similar syntax.
@@ -73,7 +73,7 @@ have similar syntax.
     - Example: `fruits: [apple, orange, banana]`
 
 ### Required attributes
-- **title** (*string*) : Name of the lesson lesson.
+- **title** (*string*) : Name of the lesson.
 - **level** (*number*) : Difficulty of the lesson. Positive integer.
     - 1: Intro - no skills needed
     - 2: Easy - can open editor, use few concepts
@@ -86,20 +86,39 @@ have similar syntax.
   (instead of list).
     - Example: `author: "[Arve Seljebu](http://arve0.github.io)"`
 
-- **license** (*string with optional markdown*) : If another license then
-  CC-BY-SA-4.0 is wanted for the content, specify this in the license tag.
+- **external** (*string*) : URL to external resource. Nice for adding external
+  lessons to index:
+
+    ```
+    ---
+    title: An external lesson
+    level: 3
+    external: http://domain.org/path/lesson.html
+    ---
+    ```
+
+- **footer** (*string with optional markdown*) : Add text to the footer.
+
+- **indexed** (*bool*) : If `false`, hides lesson from index. Nice for lessons
+  that only makes sense when along with others.
 
 - **language** (*string*) : Language the lesson is written in. Should be an
-  [IETF language tag](wp-ietf) which is a combination of language
-  ([ISO-639-1](wp-iso-639-1)) and region ([ISO-3166-1](wp-iso-3166-1)).
+  [IETF language tag] which is a combination of language ([ISO-639-1]) and 
+  region ([ISO-3166-1]).
   Examples:
   - `language: nb-NO` is language Norwegian bokmål, region Norway.
   - `language: en-GB` is language English, region Great Britain.
 
+- **license** (*string with optional markdown*) : If another license then
+  CC-BY-SA-4.0 is wanted for the content, specify this in the license tag.
 
-[wp-ietf]: http://en.wikipedia.org/wiki/IETF_language_tag
-[wp-iso-639-1]: http://en.wikipedia.org/wiki/ISO_639-1
-[wp-iso-3166-1]: http://en.wikipedia.org/wiki/ISO_3166-1
+- **translator** (*string with optional markdown*) : Translator of lesson if translated from another
+  language.
+
+
+[IETF language tag]: http://en.wikipedia.org/wiki/IETF_language_tag
+[ISO-639-1]: http://en.wikipedia.org/wiki/ISO_639-1
+[ISO-3166-1]: http://en.wikipedia.org/wiki/ISO_3166-1
 
 
 ## Using styles
@@ -148,8 +167,8 @@ for i in range(10):
 
 ### Scratchblocks
 
-We use the [scratchblocks2](sb2) library to render scratch blocks. Scratch
-blocks inside lessons must follow [the syntax set out here](sb-syntax). We use
+We use the [scratchblocks2] library to render scratch blocks. Scratch
+blocks inside lessons must follow [the syntax set out here][sb-syntax]. We use
 `blocks` to denote a scratch block in markdown:
 
 <pre>
@@ -163,5 +182,5 @@ when FLAG clicked
 Another paragraph
 </pre>
 
-[sb2]: https://github.com/blob8108/scratchblocks2
+[scratchblocks2]: https://github.com/blob8108/scratchblocks2
 [sb-syntax]: http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax
