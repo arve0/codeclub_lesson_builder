@@ -135,7 +135,14 @@ gulp.task('js', function(){
  * metalsmith building
  */
 gulp.task('build', build);
-
+gulp.task('force-build', function(done){
+  build(function(err){
+    console.log('done called')
+    done();
+  }, { // build options
+    force: true
+  });
+});
 /*
  * dist - build all without serving
  */
@@ -203,7 +210,7 @@ gulp.task('default', ['server'], function(){
    */
   // files which are built with metalsmith
   gulp.watch(path.join(lessonRoot, sourceFolder, '**'), ['build', reload]);
-  gulp.watch(path.join(__dirname, 'templates', '**'), ['build', reload]);
+  gulp.watch(path.join(__dirname, 'templates', '**'), ['force-build', reload]);
 
   // styles
   gulp.watch(path.join(__dirname, 'styles', '**', '*'), ['css', reload]);

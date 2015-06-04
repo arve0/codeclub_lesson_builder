@@ -14,6 +14,7 @@ var marked      = require('marked'); // for md strings in YAML header
 var path        = require('path');
 var getPlaylists = require('./playlist');
 var _           = require('lodash');
+var changed     = require('metalsmith-changed');
 // code highlighting
 var highlight   = require('metalsmith-code-highlight');
 var branch      = require('metalsmith-branch');
@@ -75,7 +76,10 @@ var templateOptions = {
  * # EXPORT #
  * build-function which takes a callback
  */
-module.exports = function build(callback){
+module.exports = function build(callback, options){
+  options = options || {};
+  var forceBuild = options.force || false;
+
   // read playlists upon every build
   var playlists = {};
   collections.forEach(function(collection){
@@ -90,6 +94,13 @@ module.exports = function build(callback){
   Metalsmith(lessonRoot)
   .source(sourceFolder)
   .use(ignore(ignoreOptions))
+  .clean(false) // do not delete files, allow gulp tasks in parallel
+  .use(changed({
+      force: forceBuild,
+      extnames: {
+          '.md': '.html',
+      }
+  }))
   // set template for exercises
   .use(setMetadata(metadataOptions))
   // add file.link metadata (for sorting)
@@ -118,7 +129,6 @@ module.exports = function build(callback){
   // apply templates
   .use(templates(templateOptions))
   //build
-  .clean(false) // do not delete files - allows for separate tasks in gulp
   .destination('build')
   .build(function(err){
     if (err) console.log(err);
