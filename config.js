@@ -28,7 +28,8 @@ var config = {
   // collections
   collections:    ['python', 'scratch', 'web'],
   // github webhook for automatic building
-  ghHost:         '0.0.0.0',
+  // Payload URL will be http://ghHost:ghPort/ghPath
+  ghHost:         '0.0.0.0', // 0.0.0.0 listen on all interfaces
   ghPort:         3034,
   ghPath:         '/',
   ghRepo:         'reponame',
