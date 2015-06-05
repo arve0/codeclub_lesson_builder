@@ -1,4 +1,4 @@
 #!/bin/bash
-# shortcut for gulp
-cd codeclub_lesson_builder
-./node_modules/gulp/bin/gulp.js "$@"
+CWD=codeclub_lesson_builder
+MODULES=$CWD/node_modules
+./$MODULES/forever/bin/forever $MODULES/gulp/bin/gulp.js --cwd $CWD  "$@"
