@@ -95,12 +95,6 @@ module.exports = function build(callback, options){
   .source(sourceFolder)
   .use(ignore(ignoreOptions))
   .clean(false) // do not delete files, allow gulp tasks in parallel
-  .use(changed({
-      force: forceBuild,
-      extnames: {
-          '.md': '.html',
-      }
-  }))
   // set template for exercises
   .use(setMetadata(metadataOptions))
   // add file.link metadata (for sorting)
@@ -110,6 +104,13 @@ module.exports = function build(callback, options){
   .use(relative())
   // create collections for index scaffolding
   .use(_collections(collectionOptions))
+  // remove files not to build *after* we have set collections metadata
+  .use(changed({
+      force: forceBuild,
+      extnames: {
+          '.md': '.html',
+      }
+  }))
   // convert to html
   .use(pandoc({
     to: 'html5',
