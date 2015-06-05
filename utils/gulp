@@ -1,4 +1,12 @@
 #!/bin/bash
 CWD=codeclub_lesson_builder
 MODULES=$CWD/node_modules
-./$MODULES/forever/bin/forever $MODULES/gulp/bin/gulp.js --cwd $CWD  "$@"
+
+
+if [ $# -eq 0 ]; then
+  # no args, run forever
+  ./$MODULES/forever/bin/forever $MODULES/gulp/bin/gulp.js --cwd $CWD
+else
+  # arg supplied, do not run forever
+  ./$MODULES/gulp/bin/gulp.js --cwd $CWD "$@"
+fi
