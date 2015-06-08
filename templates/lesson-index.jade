@@ -1,28 +1,26 @@
 extends ./layout.jade
 
-//- Mixin for indexing lessons
-mixin levelIndex(name, collection)
+//- playlists
+mixin playlistIndex(playlist)
+  li.playlist(id=playlist.id)
+    .icon
+    .name= playlist.name
+
+  each lesson in playlist.lessons
+    //- if external tag set, use that as link
+    -link = lesson.external || lesson.link
+    a(href=relative(link))
+      li.playlist.lesson(style="display:none" class=playlist.id + ' level-' + lesson.level)
+        = lesson.title
+
+
+//- levels
+mixin levelIndex(level, lessons)
   .col-sm-6.col-md-4(id=name)
-    h2.clearfix= name.charAt(0).toUpperCase() + name.substr(1)
-      a.download(href=name + '.zip' title="Download all " + name + " lessons")
-        span.glyphicon.glyphicon-download-alt
-
-    //- playlists from text files in `playlistFolder`
-    each playlist in playlists[name]
-
-      li.playlist(id=playlist.id)
-        .icon
-        .name= playlist.name
-
-      each lesson in playlist.lessons
-        //- if external tag set, use that as link
-        -link = lesson.external || lesson.link
-        a(href=relative(link))
-          li.playlist.lesson(style="display:none" class=playlist.id + ' level-' + lesson.level)
-            = lesson.title
+    h2.clearfix= level
 
     //- all lessons which does not have `indexed: false`
-    each lesson in collection
+    each lesson in lessons
       if lesson.indexed !== false
         //- if external tag set, use that as link
         -link = lesson.external || lesson.link
@@ -35,10 +33,15 @@ block content
   .col-xs-12
     .content!= contents
 
-  //- create links to lessons
-  -collection = collections[path.dir]
-  -collection = _.sortBy(collection, 'level')
-  -levels = _.uniq(_.pluck(collection, 'level'))
-  each level in levels
-    +levelIndex(path.dir, collection)
+  //- plalists
+  .col-sm-6.col-md-4(id=name)
+    h2 Playlists
+    each playlist in playlists[path.dir] || []
+      +playlistIndex(playlist)
+
+  //- levels
+  //- sorted list of levels
+  -levels = _.uniq(_.compact(_.pluck(collections[path.dir], 'level'))).sort()
+    each level in levels
+      +levelIndex(level, _.where(collections[path.dir], {level: level}))
 

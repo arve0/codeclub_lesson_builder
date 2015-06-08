@@ -1,34 +1,5 @@
 extends ./layout.jade
 
-//- Mixin for indexing lessons
-mixin collection(name, collection)
-  .col-sm-6.col-md-4(id=name)
-    h2.clearfix= name.charAt(0).toUpperCase() + name.substr(1)
-      a.download(href=name + '.zip' title="Download all " + name + " lessons")
-        span.glyphicon.glyphicon-download-alt
-
-    //- playlists from text files in `playlistFolder`
-    each playlist in playlists[name]
-
-      li.playlist(id=playlist.id)
-        .icon
-        .name= playlist.name
-
-      each lesson in playlist.lessons
-        //- if external tag set, use that as link
-        -link = lesson.external || lesson.link
-        a(href=relative(link))
-          li.playlist.lesson(style="display:none" class=playlist.id + ' level-' + lesson.level)
-            = lesson.title
-
-    //- all lessons which does not have `indexed: false`
-    each lesson in collection
-      if lesson.indexed !== false
-        //- if external tag set, use that as link
-        -link = lesson.external || lesson.link
-        a(href=relative(link))
-          li.lesson(class='level-' + lesson.level)= lesson.title
-
 
 block content
   //- insert contents from index.md
@@ -36,6 +7,7 @@ block content
     .content!= contents
 
   //- create links to lessons
-  each collection, name in collections
-    -collection = _.sortBy(collection, 'level')
-    +collection(name, collection)
+  each collection in Object.keys(collections)
+    li
+      -link = relative('/' + collection + '/index.html')
+      a(href=link)= collection

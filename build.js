@@ -46,7 +46,7 @@ var metadataOptions = [
   // front page template
   { pattern: path.join('index.md'),
     metadata: { template: 'index.jade' }},
-  // lesson indexes template
+  // lesson index template
   { pattern: path.join('*', 'index.md'),
     metadata: { template: 'lesson-index.jade' }},
 ];
@@ -106,9 +106,10 @@ module.exports = function build(callback, options){
   .use(setMetadata(metadataOptions))
   // add relative(path) for use in templates
   .use(relative())
-  // create collections for index scaffolding
+  // create collections for index
   .use(collections(collectionOptions))
   // remove files not to build *after* we have set collections metadata
+  .use(paths())
   .use(changed({
       force: forceBuild,
       extnames: {
