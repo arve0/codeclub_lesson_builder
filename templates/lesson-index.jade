@@ -17,7 +17,7 @@ mixin playlistIndex(playlist)
 //- levels
 mixin levelIndex(level, lessons)
   .col-sm-6.col-md-4(id=name)
-    h2.clearfix= level
+    h2.clearfix(class='level-' + level)= config.levelNames[level]
 
     //- all lessons which does not have `indexed: false`
     each lesson in lessons
@@ -25,7 +25,7 @@ mixin levelIndex(level, lessons)
         //- if external tag set, use that as link
         -link = lesson.external || lesson.link
         a(href=relative(link))
-          li.lesson(class='level-' + lesson.level)= lesson.title
+          li.lesson= lesson.title
 
 
 block content
