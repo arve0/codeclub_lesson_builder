@@ -24,15 +24,6 @@ var config      = require('./config.js');
 
 
 /*
- * # VARIABLES #
- */
-builderRoot = config.builderRoot;
-lessonRoot = config.lessonRoot;
-playlistFolder = config.playlistFolder;
-sourceFolder = config.sourceFolder;
-
-
-/*
  * # SETUP OBJECTS #
  */
 // metadata
@@ -69,12 +60,13 @@ config.collections.forEach(function(collection){
 var defineOptions = {
   marked: marked,
   _: _,
+  config: config,
 };
 
 // template
 var templateOptions = {
   engine: 'jade',
-  directory: path.join(builderRoot, 'templates'),
+  directory: path.join(config.builderRoot, 'templates'),
 };
 
 
@@ -90,15 +82,15 @@ module.exports = function build(callback, options){
   var playlists = {};
   config.collections.forEach(function(collection){
     // playlists
-    collectionFolder = path.join(lessonRoot, sourceFolder, collection);
-    playlists[collection] = getPlaylists(collectionFolder, playlistFolder);
+    collectionFolder = path.join(config.lessonRoot, config.sourceFolder, collection);
+    playlists[collection] = getPlaylists(collectionFolder, config.playlistFolder);
   });
   // make it available in template
   defineOptions.playlists = playlists;
 
   // do the building
-  Metalsmith(lessonRoot)
-  .source(sourceFolder)
+  Metalsmith(config.lessonRoot)
+  .source(config.sourceFolder)
   .use(ignore(ignoreOptions))
   .clean(false) // do not delete files, allow gulp tasks in parallel
   .use(paths())
