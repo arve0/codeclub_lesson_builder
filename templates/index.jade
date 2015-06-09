@@ -6,8 +6,10 @@ block content
   .col-xs-12
     .content!= contents
 
-  //- create links to lessons
-  each collection in Object.keys(collections)
-    li
+  .courses
+    each collection in Object.keys(collections)
       -link = relative('/' + collection + '/index.html')
-      a(href=link)= collection
+      -logo = relative('/' + collection + '/logo-black.png')
+      a(href=link)
+        img(src=logo)
+        span= collection
