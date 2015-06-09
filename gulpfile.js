@@ -88,7 +88,7 @@ gulp.task('server', ['build', 'css', 'js', 'assets'], function () {
  * build less files to css, prefix and minify
  */
 gulp.task('css', function(cb) {
-  return gulp.src('styles/*.less')
+  return gulp.src('styles/main.less')
     .pipe(less())
     .on('error', cb)
     .pipe(addsrc([
@@ -121,7 +121,8 @@ gulp.task('js', function(){
   return gulp.src([
     'scripts/**/*.js',
     'node_modules/scratchblocks2/build/scratchblocks2.js',
-    'node_modules/scratchblocks2/src/translations.js'
+    'node_modules/scratchblocks2/src/translations.js',
+    'node_modules/bootstrap/js/tooltip.js'
   ])
   .pipe(uglify())
   .pipe(addsrc.prepend([
