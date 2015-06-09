@@ -78,7 +78,7 @@ gulp.task('archive', function() {
 /*
  * serve build directory
  */
-gulp.task('server', ['build', 'css', 'js', 'assets'], function () {
+gulp.task('server', ['force-build', 'css', 'js', 'assets'], function () {
   browserSync.init({
     server: { baseDir: buildRoot }
   });
@@ -137,12 +137,12 @@ gulp.task('js', function(){
 gulp.task('build', build);
 gulp.task('force-build', function(done){
   build(function(err){
-    console.log('done called')
-    done();
+    done(err);
   }, { // build options
     force: true
   });
 });
+
 /*
  * dist - build all without serving
  */
