@@ -7,9 +7,11 @@ block content
     .content!= contents
 
   .courses
-    each collection in Object.keys(collections)
-      -link = relative('/' + collection + '/index.html')
-      -logo = relative('/' + collection + '/logo-black.png')
+    each collection, name in collections
+      -index = '/' + name + '/index.html'
+      -link = relative(index)
+      -logo = relative('/' + name + '/logo-black.png')
       a(href=link)
         img(src=logo)
-        span= collection
+        -realName = _.pluck(_.where(collection, {link: index}), 'title')
+        span= realName
