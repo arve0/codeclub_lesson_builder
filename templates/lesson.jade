@@ -5,11 +5,18 @@ block content
     header.clearfix
       -if (!logo) logo = relative("/assets/img/ccno_logo.png")
       img.logo.hidden-xs(src=logo)
-      img.logo(title=collection src=relative("/assets/img/" + collection + ".png"))
-      h1.level= level
       h1.title= title
-        a.download(href=link.replace('.html', '.pdf') title="Download PDF")
-          span.glyphicon.glyphicon-save-file
+      .lesson-icons
+        .level
+          img(title="level " + level src=relative("/assets/img/level" + level + ".png"))
+          span= "level " + level
+        .course
+          img(title=collection src=relative("/" + collection + "/logo.png"))
+          span= collection
+        .pdf
+          a.download(href=link.replace('.html', '.pdf') title="Download PDF")
+            span.glyphicon.glyphicon-save-file
+          span pdf
 
   .col-xs-12
     .content!= contents
