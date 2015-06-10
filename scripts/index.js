@@ -10,5 +10,9 @@ $('li.playlist').click(function(event){
 
 
 
+/*
+ * tooltips
+ */
+$('[title]').tooltip();
 
 });
