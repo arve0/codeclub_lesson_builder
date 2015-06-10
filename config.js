@@ -36,7 +36,15 @@ var config = {
   ghPushCommand:  'cd .. && git pull && ./deploy.sh',
   ghSecret:       'secret',
   // link crawling
-  productionCrawlStart: 'http://arve0.github.io/example_lessons/'
+  productionCrawlStart: 'http://arve0.github.io/example_lessons/',
+  // level names
+  levelNames: {
+    1: 'Apprentice',
+    2: 'Crafter',
+    3: 'Ninja',
+    4: 'Hunter',
+    5: 'Wizard'
+  }
 };
 
 module.exports = config;

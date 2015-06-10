@@ -3,7 +3,7 @@
  */
 var Metalsmith  = require('metalsmith');
 var templates   = require('metalsmith-templates');
-var _collections = require('metalsmith-collections');
+var collections = require('metalsmith-collections');
 var setMetadata = require('metalsmith-filemetadata');
 var filepath    = require('metalsmith-filepath');
 var pandoc      = require('metalsmith-pandoc');
@@ -15,6 +15,7 @@ var path        = require('path');
 var getPlaylists = require('./playlist');
 var _           = require('lodash');
 var changed     = require('metalsmith-changed');
+var paths       = require('metalsmith-paths');
 // code highlighting
 var highlight   = require('metalsmith-code-highlight');
 var branch      = require('metalsmith-branch');
@@ -23,26 +24,22 @@ var config      = require('./config.js');
 
 
 /*
- * # VARIABLES #
- */
-builderRoot = config.builderRoot;
-collections = config.collections;
-lessonRoot = config.lessonRoot;
-playlistFolder = config.playlistFolder;
-sourceFolder = config.sourceFolder;
-
-
-/*
  * # SETUP OBJECTS #
  */
 // metadata
 var metadataOptions = [
-  // template for lessons
+  // lesson template
   { pattern: path.join('*', '**', '*.md'),
     metadata: { template: 'lesson.jade' }},
-  // template for scratch lessons
+  // scratch lesson template
   { pattern: path.join('scratch', '**', '*.md'),
     metadata: { template: 'scratch.jade' }},
+  // front page template
+  { pattern: path.join('index.md'),
+    metadata: { template: 'index.jade' }},
+  // lesson index template
+  { pattern: path.join('*', 'index.md'),
+    metadata: { template: 'lesson-index.jade' }},
 ];
 
 // ignores
@@ -52,7 +49,7 @@ var ignoreOptions = [
 
 // collections
 var collectionOptions = {};
-collections.forEach(function(collection){
+config.collections.forEach(function(collection){
   // options for collections
   var tmp = {};
   tmp.pattern = path.join(collection, '**', '*.md');
@@ -63,12 +60,13 @@ collections.forEach(function(collection){
 var defineOptions = {
   marked: marked,
   _: _,
+  config: config,
 };
 
 // template
 var templateOptions = {
   engine: 'jade',
-  directory: path.join(builderRoot, 'templates'),
+  directory: path.join(config.builderRoot, 'templates'),
 };
 
 
@@ -82,29 +80,28 @@ module.exports = function build(callback, options){
 
   // read playlists upon every build
   var playlists = {};
-  collections.forEach(function(collection){
+  config.collections.forEach(function(collection){
     // playlists
-    collectionFolder = path.join(lessonRoot, sourceFolder, collection);
-    playlists[collection] = getPlaylists(collectionFolder, playlistFolder);
+    collectionFolder = path.join(config.lessonRoot, config.sourceFolder, collection);
+    playlists[collection] = getPlaylists(collectionFolder, config.playlistFolder);
   });
   // make it available in template
   defineOptions.playlists = playlists;
 
   // do the building
-  Metalsmith(lessonRoot)
-  .source(sourceFolder)
+  Metalsmith(config.lessonRoot)
+  .source(config.sourceFolder)
   .use(ignore(ignoreOptions))
   .clean(false) // do not delete files, allow gulp tasks in parallel
+  .use(paths())
   // set template for exercises
   .use(setMetadata(metadataOptions))
-  // add file.link metadata (for sorting)
-  // TODO: better way to sort files?
-  .use(filepath())
   // add relative(path) for use in templates
   .use(relative())
-  // create collections for index scaffolding
-  .use(_collections(collectionOptions))
+  // create collections for index
+  .use(collections(collectionOptions))
   // remove files not to build *after* we have set collections metadata
+  .use(paths())
   .use(changed({
       force: forceBuild,
       extnames: {
