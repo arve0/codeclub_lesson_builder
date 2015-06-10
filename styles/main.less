@@ -21,10 +21,6 @@ figure > img {
   margin:0 auto; // centered
   padding: 20px;
 }
-// header
-header {
-  margin-top:20px;
-}
 
 // top menu
 .top-menu {
@@ -38,9 +34,36 @@ header {
   }
 }
 
-// download icons
-h2 > a.download {
-  float:right;
+.courses {
+  .make-xs-column(12);
+  margin-top: 40px;
+  a {
+    .make-xs-column(6);
+    .make-sm-column(4);
+    .make-md-column(3);
+    color: #000000;
+    font-weight: 300;
+    > * {
+      display: block;
+    }
+    img {
+      .img-responsive;
+      max-height: 150px;
+      margin: 10px auto;
+    }
+    span {
+      .text-center;
+    }
+  }
+  a:hover {
+    text-decoration: none;
+    font-weight: 800;
+  }
+}
+
+// course info
+h1.info {
+  cursor: pointer;
 }
 
 // playlists

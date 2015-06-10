@@ -6,8 +6,12 @@ block content
   .col-xs-12
     .content!= contents
 
-  //- create links to lessons
-  each collection in Object.keys(collections)
-    li
-      -link = relative('/' + collection + '/index.html')
-      a(href=link)= collection
+  .courses
+    each collection, name in collections
+      -index = '/' + name + '/index.html'
+      -link = relative(index)
+      -logo = relative('/' + name + '/logo-black.png')
+      a(href=link)
+        img(src=logo)
+        -realName = _.pluck(_.where(collection, {link: index}), 'title')
+        span= realName
