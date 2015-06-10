@@ -16,7 +16,7 @@ mixin playlistIndex(playlist)
 
 //- levels
 mixin levelIndex(level, lessons)
-  .col-xs-12.col-sm-6.col-md-4(id=name)
+  .level.col-xs-12.col-sm-6.col-md-4(id=name)
     h2.clearfix(class='level-' + level)= config.levelNames[level]
 
     //- all lessons which does not have `indexed: false`
@@ -37,7 +37,7 @@ block content
     .content(style="display:none" class='info-' + title)!= contents
 
   //- plalists
-  .col-xs-12.col-sm-6.col-md-4(id=name)
+  .level.col-xs-12.col-sm-6.col-md-4(id=name)
     h2 Playlists
     each playlist in playlists[path.dir] || []
       +playlistIndex(playlist)
