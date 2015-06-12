@@ -2,7 +2,7 @@ extends ./layout.jade
 
 //- playlists
 mixin playlistIndex(playlist)
-  li.playlist(id=playlist.id)
+  li.playlist(title="Click to expand" id=playlist.id)
     .icon
     .name= playlist.name
 
