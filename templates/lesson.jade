@@ -8,15 +8,19 @@ block content
       h1.title= title
       .lesson-icons
         .level
-          img(title="level " + level src=relative("/assets/img/level" + level + ".png"))
-          span= "level " + level
+          img(title="Level " + level src=relative("/assets/img/level" + level + ".png"))
+          -levelName = config.levelNames[level]
+          span= levelName
         .course
-          img(title=collection src=relative("/" + collection + "/logo-white.png"))
-          span= collection
+          img(src=relative("/" + collection + "/logo-white.png"))
+          -collection = collection[0]
+          -index = '/' + collection + '/index.html'
+          -courseName = _.pluck(_.where(collections[collection], {link: index}), 'title')
+          span= courseName
         .pdf
           a.download(href=link.replace('.html', '.pdf') title="Download PDF")
             span.glyphicon.glyphicon-save-file
-          span pdf
+          span PDF 
 
   .col-xs-12
     .content!= contents

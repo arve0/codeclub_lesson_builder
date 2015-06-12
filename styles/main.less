@@ -35,6 +35,13 @@ figure > img {
   }
 }
 
+// links
+a:hover, a:hover > * {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+// courses
 .courses {
   .make-xs-column(12);
   margin-top: 40px;
@@ -55,38 +62,6 @@ figure > img {
     span {
       .text-center;
     }
-  }
-  a:hover {
-    text-decoration: none;
-    font-weight: 800;
-  }
-}
-
-// course info
-h1.info {
-  cursor: pointer;
-}
-
-// playlists
-.playlist {
-  .list-group-item;
-  color: @link-color;
-  cursor: pointer;
-  padding-left:40px;
-  .icon {
-    .glyphicon;
-    .glyphicon-play;
-    display: block;
-    margin-left:-25px;
-    font-size:17px;
-  }
-  .name {
-    margin-top:-18px;
-    font-size:15px;
-    font-weight:500;
-  }
-  &.lesson {
-    margin-left:10px;
   }
 }
 

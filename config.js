@@ -39,11 +39,12 @@ var config = {
   productionCrawlStart: 'http://arve0.github.io/example_lessons/',
   // level names
   levelNames: {
-    1: 'Apprentice',
-    2: 'Crafter',
-    3: 'Ninja',
-    4: 'Hunter',
-    5: 'Wizard'
+    1: 'Novice',
+    2: 'Apprentice',
+    3: 'Journeyman',
+    4: 'Expert',
+    5: 'Master',
+    6: 'Champion'
   }
 };
 
