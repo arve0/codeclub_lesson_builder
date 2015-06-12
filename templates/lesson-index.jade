@@ -31,10 +31,10 @@ mixin levelIndex(level, lessons)
 block content
   //- insert contents from index.md
   .col-xs-12
-    h1.info(id=title title="Click me for an introduction")
+    h1.info(title="Click me for an introduction")
       span.glyphicon.glyphicon-info-sign
       = ' ' + title
-    .content(style="display:none" class='info-' + title)!= contents
+    .content(style="display:none")!= contents
 
   //- plalists
   .level.col-xs-12.col-sm-6.col-md-4(id=name)

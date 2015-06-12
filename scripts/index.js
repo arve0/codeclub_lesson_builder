@@ -13,9 +13,9 @@ $('li.playlist').click(function(){
  * show/hide course info
  */
 $('h1.info').click(function(){
-  console.log('clicked me')
-  $('.info-' + this.id).slideToggle();
-})
+  console.log('clicked me');
+  $('.content').slideToggle();
+});
 
 /*
  * tooltips
