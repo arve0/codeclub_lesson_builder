@@ -32,7 +32,6 @@ var config = {
   ghHost:         '0.0.0.0', // 0.0.0.0 listen on all interfaces
   ghPort:         3034,
   ghPath:         '/',
-  ghRepo:         'reponame',
   ghPushCommand:  'cd .. && git pull && ./deploy.sh',
   ghSecret:       'secret',
   // link crawling
