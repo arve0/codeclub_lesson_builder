@@ -40,12 +40,6 @@ var assetRoot = config.assetRoot;
 var buildRoot = config.buildRoot;
 var lessonRoot = config.lessonRoot;
 var sourceFolder = config.sourceFolder;
-var ghHost = config.ghHost;
-var ghPort = config.ghPort;
-var ghPath = config.ghPath;
-var ghRepo = config.ghRepo;
-var ghPushCommand = config.ghPushCommand;
-var ghSecret = config.ghSecret;
 
 /*
  * # TASKS #
@@ -180,17 +174,19 @@ gulp.task('prodlinks', checkLinks(config.productionCrawlStart));
  */
 gulp.task('github', function(cb){
   var github = githubhook({
-    host: ghHost,
-    port: ghPort,
-    path: ghPath,
-    secret: ghSecret
+    host: config.ghHost,
+    port: config.ghPort,
+    path: config.ghPath,
+    secret: config.ghSecret
   });
-  github.on('push:'+ghRepo, function(repo, ref, data) {
-    deployProc = exec(ghPushCommand, function(err, stdout, stderr) {
-      if(err!==null) {
-        console.log(stderr);
-      }
-    });
+  github.on('pull_request', function(repo, ref, data) {
+    if (data.pull_request.merged) {
+      deployProc = exec(config.ghPushCommand, function(err, stdout, stderr) {
+        if(err!==null) {
+          console.log(stderr);
+        }
+      });
+    }
   });
   github.listen();
 });
