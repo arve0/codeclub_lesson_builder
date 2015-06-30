@@ -18,6 +18,7 @@ var concat      = require('gulp-concat');
 var autoprefixer = require('gulp-autoprefixer');
 var minify      = require('gulp-minify-css');
 var uglify      = require('gulp-uglify');
+var browserify = require('gulp-browserify');
 // archive
 var zip         = require('gulp-zip');
 var fs          = require('fs');
@@ -103,17 +104,31 @@ gulp.task('assets', function(){
       'assets/**/*',
       'node_modules/scratchblocks2/build/*/*.png',
       'node_modules/bootstrap/dist/*/glyphicons-halflings-regular.*',
-      'node_modules/jquery/dist/jquery.min.map'
     ])
     .pipe(gulp.dest(assetRoot));
 });
 
+
 /*
- * concat and uglify scripts
+ * browserify, concat and uglify scripts
  */
-gulp.task('js', function(){
+gulp.task('browserify', function() {
+  return gulp.src('scripts/**/*.js')
+  .pipe(browserify({
+    insertGlobals: true,
+    debug: true
+  }))
+  .pipe(uglify())
+  .pipe(concat('script.min.js'))
+  .pipe(gulp.dest(assetRoot));
+});
+
+
+/*
+ * concat and uglify vendor scripts
+ */
+gulp.task('js', ['browserify'], function(){
   return gulp.src([
-    'scripts/**/*.js',
     'node_modules/scratchblocks2/build/scratchblocks2.js',
     'node_modules/scratchblocks2/src/translations.js',
     'node_modules/bootstrap/js/tooltip.js'
@@ -122,7 +137,7 @@ gulp.task('js', function(){
   .pipe(addsrc.prepend([
     'node_modules/jquery/dist/jquery.min.js'
   ]))
-  .pipe(concat('script.min.js'))
+  .pipe(concat('vendor.min.js'))
   .pipe(gulp.dest(assetRoot));
 });
 
