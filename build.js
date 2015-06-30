@@ -21,8 +21,8 @@ var highlight   = require('metalsmith-code-highlight');
 var branch      = require('metalsmith-branch');
 // search
 var lunr        = require('lunr');
-require('lunr-languages/lunr.stemmer.support')(lunr);
-require('lunr-languages/lunr.no')(lunr);
+require('lunr-no/lunr.stemmer.support')(lunr);
+require('lunr-no')(lunr);
 var metlunr     = require('metalsmith-lunr');
 // get configuration variables
 var config      = require('./config.js');
@@ -110,7 +110,7 @@ module.exports = function build(callback, options){
   .use(collections(collectionOptions))
   .use(metlunr({
     pipelineFunctions: [
-      lunr.trimmer,
+      lunr.no.trimmer,
       lunr.no.stopWordFilter,
       lunr.no.stemmer
     ]
