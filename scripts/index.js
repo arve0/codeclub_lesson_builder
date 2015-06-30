@@ -1,3 +1,15 @@
+var lunr = require('lunr')
+require('lunr-no/lunr.stemmer.support.js')(lunr);
+require('lunr-no')(lunr);
+
+
+$.ajax('/searchIndex.json')
+  .done(function(data){
+    global.index = lunr.Index.load(data);
+    console.log(global.index.search('python'));
+  });
+
+
 $(function(){
 // page loaded
 
