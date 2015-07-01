@@ -113,7 +113,7 @@ gulp.task('assets', function(){
  * browserify, concat and uglify scripts
  */
 gulp.task('browserify', function() {
-  return gulp.src('scripts/**/*.js')
+  return gulp.src('scripts/index.js')
   .pipe(browserify({
     insertGlobals: true,
     debug: true
