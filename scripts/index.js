@@ -4,6 +4,7 @@
 
 require('./search.js');
 
+
 $(function(){
 // page loaded
 
