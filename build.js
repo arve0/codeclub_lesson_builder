@@ -50,6 +50,10 @@ var metadataOptions = [
     metadata: { template: 'lesson-index.jade' }},
 ];
 
+// search - for is not a stopword in this context
+var words = lunr.no.stopWordFilter.stopWords.elements;
+words.splice(words.indexOf('for'), 1);
+
 // ignores
 var ignoreOptions = [
   path.join('**', 'README.md'),
@@ -109,6 +113,11 @@ module.exports = function build(callback, options){
   // create collections for index
   .use(collections(collectionOptions))
   .use(metlunr({
+    fields: {
+      contents: 1,
+      title: 10,
+      tags: 20,
+    },
     pipelineFunctions: [
       lunr.no.trimmer,
       lunr.no.stopWordFilter,
