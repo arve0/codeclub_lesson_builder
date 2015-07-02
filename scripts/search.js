@@ -10,7 +10,7 @@ words.splice(words.indexOf('for'), 1);
 // download index if not already downloaded
 function downloadIndex(){
   if (global.index === undefined) {
-    $.ajax('/searchIndex.json')
+    $.ajax(relative('searchIndex.json'))
       .done(function(data){
         global.index = lunr.Index.load(data);
     });
@@ -76,9 +76,9 @@ global.gr = getResult;
 
 // get html of searchResult.ref
 function getPage(searchResult){
-  var url = '/' + searchResult.ref.replace('.md', '.html');
-  searchResult.url = url;
-  var promise = $.ajax(url).then(function(data){
+  var url = searchResult.ref.replace('.md', '.html');
+  searchResult.url = relative(url);
+  var promise = $.ajax(searchResult.url).then(function(data){
     searchResult.html = data;
     return searchResult;
   });

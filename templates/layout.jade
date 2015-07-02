@@ -4,6 +4,17 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1")
     title #{title} | YourCodeClubName
     link(href=relative("/assets/style.min.css") rel="stylesheet")
+    //- relative path to root
+    script(type="text/javascript").
+      // convert url relative to current file
+      // ex: python/index.html -> ../python/index.html
+      function relative(url) {
+        var urlRoot = '#{relative('/')}';
+        if (urlRoot !== '') {
+          return urlRoot + '/' + url;
+        }
+        return url;
+      }
   body
     .container
       .row
