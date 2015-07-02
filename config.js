@@ -2,6 +2,7 @@
  * # DEPENDENCIES #
  */
 var path = require('path');
+var fs = require('fs');
 
 /*
  * Variables that depend on each other
@@ -9,9 +10,15 @@ var path = require('path');
 
 // paths
 var lessonRoot = '..';
-var buildRoot  = path.join(lessonRoot, 'build');
+var buildRoot = path.join(lessonRoot, 'build');
 var builderRoot = path.basename(__dirname);
-var assetRoot   = path.join(buildRoot, 'assets');
+var assetRoot = path.join(buildRoot, 'assets');
+var sourceFolder = 'src';
+var sourceRoot = path.join(lessonRoot, sourceFolder);
+
+var collections = fs.readdirSync(sourceRoot).filter(function(file) {
+  return fs.statSync(path.join(sourceRoot, file)).isDirectory();
+});
 
 
 /*
@@ -24,9 +31,9 @@ var config = {
   lessonRoot:     lessonRoot,
   // folder names
   playlistFolder: 'playlists',
-  sourceFolder:   'src',
+  sourceFolder:   sourceFolder,
   // collections
-  collections:    ['python', 'scratch', 'web'],
+  collections:    collections,
   // github webhook for automatic building
   // Payload URL will be http://ghHost:ghPort/ghPath
   ghHost:         '0.0.0.0', // 0.0.0.0 listen on all interfaces
