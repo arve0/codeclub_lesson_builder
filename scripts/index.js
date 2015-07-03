@@ -1,3 +1,10 @@
+/*
+ * Entry point for scripts.
+ */
+
+require('./search.js');
+
+
 $(function(){
 // page loaded
 

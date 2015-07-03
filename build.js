@@ -19,6 +19,11 @@ var paths       = require('metalsmith-paths');
 // code highlighting
 var highlight   = require('metalsmith-code-highlight');
 var branch      = require('metalsmith-branch');
+// search
+var lunr        = require('lunr');
+require('lunr-no/lunr.stemmer.support')(lunr);
+require('lunr-no')(lunr);
+var metlunr     = require('metalsmith-lunr');
 // get configuration variables
 var config      = require('./config.js');
 
@@ -28,7 +33,10 @@ var config      = require('./config.js');
  */
 // metadata
 var metadataOptions = [
-  // lesson template
+  // search
+  { pattern: path.join('**', '*.md'),
+    metadata: { lunr: true }},
+  // template for lessons
   { pattern: path.join('*', '**', '*.md'),
     metadata: { template: 'lesson.jade' }},
   // scratch lesson template
@@ -41,6 +49,10 @@ var metadataOptions = [
   { pattern: path.join('*', 'index.md'),
     metadata: { template: 'lesson-index.jade' }},
 ];
+
+// search - for is not a stopword in this context
+var words = lunr.no.stopWordFilter.stopWords.elements;
+words.splice(words.indexOf('for'), 1);
 
 // ignores
 var ignoreOptions = [
@@ -100,6 +112,18 @@ module.exports = function build(callback, options){
   .use(relative())
   // create collections for index
   .use(collections(collectionOptions))
+  .use(metlunr({
+    fields: {
+      contents: 1,
+      title: 10,
+      tags: 20,
+    },
+    pipelineFunctions: [
+      lunr.no.trimmer,
+      lunr.no.stopWordFilter,
+      lunr.no.stemmer
+    ]
+  }))
   // remove files not to build *after* we have set collections metadata
   .use(paths())
   .use(changed({
