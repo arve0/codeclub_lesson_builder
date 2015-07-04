@@ -12,6 +12,10 @@ function downloadIndex(){
   if (global.index === undefined) {
     $.ajax(relative('searchIndex.json'))
       .done(function(data){
+        if (typeof(data) === 'string') {
+          // parse data if served as text string (local file)
+          data = JSON.parse(data);
+        }
         global.index = lunr.Index.load(data);
     });
   }
