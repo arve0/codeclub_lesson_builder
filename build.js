@@ -16,6 +16,7 @@ var getPlaylists = require('./playlist');
 var _           = require('lodash');
 var changed     = require('metalsmith-changed');
 var paths       = require('metalsmith-paths');
+var fs          = require('fs');
 // code highlighting
 var highlight   = require('metalsmith-code-highlight');
 var branch      = require('metalsmith-branch');
@@ -73,7 +74,19 @@ var defineOptions = {
   marked: marked,
   _: _,
   config: config,
+  isFile: isFile,
 };
+
+/** Returns true if file exists */
+function isFile(dir, file){
+  var fullPath = path.join(config.sourceRoot, dir, file);
+  try {
+    fs.statSync(fullPath);
+  } catch (e) {
+    return false;
+  }
+  return true;
+}
 
 // template
 var templateOptions = {

@@ -29,6 +29,7 @@ var config = {
   buildRoot:      buildRoot,
   builderRoot:    builderRoot,
   lessonRoot:     lessonRoot,
+  sourceRoot:     sourceRoot,
   // folder names
   playlistFolder: 'playlists',
   sourceFolder:   sourceFolder,
