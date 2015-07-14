@@ -12,6 +12,7 @@ block content
       -link = _.find(collection, {link: index}).external
       -if (!link) link = relative(index)
       -logo = relative('/' + name + '/logo-black.png')
+      -if (!isFile(path.dir, logo)) logo = relative('/logo-black.png')
       a(href=link)
         img(src=logo)
         -realName = _.find(collection, {link: index}).title
