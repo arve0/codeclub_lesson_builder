@@ -9,9 +9,10 @@ block content
   .courses
     each collection, name in collections
       -index = '/' + name + '/index.html'
-      -link = relative(index)
+      -link = _.find(collection, {link: index}).external
+      -if (!link) link = relative(index)
       -logo = relative('/' + name + '/logo-black.png')
       a(href=link)
         img(src=logo)
-        -realName = _.pluck(_.where(collection, {link: index}), 'title')
+        -realName = _.find(collection, {link: index}).title
         span= realName
