@@ -82,16 +82,19 @@ header {
 
 // styles for activities
 .activity {
-  h1, h2 {
+  h1 {
     color: #FFF;
     background: #349946;
     padding: 10px;
     border-radius: 5px;
   }
-  h2 {
+  .subsection h2 {
+    &:extend(.activity h1);
     font-weight: 300;
   }
 }
+
+
 
 // style for header to check lists
 .check {
