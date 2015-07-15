@@ -27,6 +27,8 @@ require('lunr-no')(lunr);
 var metlunr     = require('metalsmith-lunr');
 // get configuration variables
 var config      = require('./config.js');
+// read front matter on demand
+var matter = require('gray-matter');
 
 
 /*
@@ -64,9 +66,9 @@ var ignoreOptions = [
 var collectionOptions = {};
 config.collections.forEach(function(collection){
   // options for collections
-  var tmp = {};
-  tmp.pattern = path.join(collection, '**', '*.md');
-  collectionOptions[collection] = tmp;
+  collectionOptions[collection] = {
+    pattern: path.join(collection, '**', '*.md'),
+  };
 });
 
 // defines available in template
@@ -75,6 +77,7 @@ var defineOptions = {
   _: _,
   config: config,
   isFile: isFile,
+  matter: frontmatter,
 };
 
 /** Returns true if file exists */
@@ -86,6 +89,18 @@ function isFile(dir, file){
     return false;
   }
   return true;
+}
+
+/** read front-matter from file, fail gracefully. */
+function frontmatter(filename) {
+  var filepath = path.join(config.lessonRoot, config.sourceFolder, filename);
+  var m;
+  try {
+    m = matter.read(filepath);
+  } catch (e) {
+    return {};
+  }
+  return m.data;
 }
 
 // template
@@ -107,7 +122,7 @@ module.exports = function build(callback, options){
   var playlists = {};
   config.collections.forEach(function(collection){
     // playlists
-    collectionFolder = path.join(config.lessonRoot, config.sourceFolder, collection);
+    var collectionFolder = path.join(config.lessonRoot, config.sourceFolder, collection);
     playlists[collection] = getPlaylists(collectionFolder, config.playlistFolder);
   });
   // make it available in template
@@ -143,7 +158,7 @@ module.exports = function build(callback, options){
       force: forceBuild,
       extnames: {
           '.md': '.html',
-      }
+      },
   }))
   // convert to html
   .use(pandoc({
