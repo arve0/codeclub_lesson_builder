@@ -12,12 +12,13 @@ block content
           -levelName = config.levelNames[level]
           span= levelName
         .course
-          -courseLogo = relative("/" + collection + "/logo-white.png")
+          -course = _.first(collection)
+          -courseIndex = '/' + course + '/index.md'
+          -courseMetadata = matter(courseIndex)
+          -courseName = courseMetadata.title || course
+          -courseLogo = relative("/" + course + "/logo-white.png")
           -if (!isFile(path.dir, courseLogo)) courseLogo = relative('/logo-white.png')
           img(src=courseLogo)
-          -collection = collection[0]
-          -index = '/' + collection + '/index.html'
-          -courseName = _.pluck(_.where(collections[collection], {link: index}), 'title')
           span= courseName
         .pdf
           a.download(href=link.replace('.html', '.pdf') title="Download PDF")
