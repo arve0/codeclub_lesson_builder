@@ -8,12 +8,12 @@ block content
 
   .courses
     each collection, name in collections
-      -index = '/' + name + '/index.html'
-      -link = _.find(collection, {link: index}).external
-      -if (!link) link = relative(index)
+      -collectionIndex = '/' + name + '/index'
+      -collectionMetadata = matter(collectionIndex + '.md')
+      -realName = collectionMetadata.title || name
+      -link = collectionMetadata.external  || collectionIndex + '.html'
       -logo = relative('/' + name + '/logo-black.png')
       -if (!isFile(path.dir, logo)) logo = relative('/logo-black.png')
       a(href=link)
         img(src=logo)
-        -realName = _.find(collection, {link: index}).title
         span= realName
