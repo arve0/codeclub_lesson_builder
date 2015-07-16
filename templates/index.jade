@@ -11,7 +11,7 @@ block content
       -collectionIndex = '/' + name + '/index'
       -collectionMetadata = matter(collectionIndex + '.md')
       -realName = collectionMetadata.title || name
-      -link = collectionMetadata.external  || collectionIndex + '.html'
+      -link = collectionMetadata.external  || relative(collectionIndex + '.html')
       -logo = relative('/' + name + '/logo-black.png')
       -if (!isFile(path.dir, logo)) logo = relative('/logo-black.png')
       a(href=link)
