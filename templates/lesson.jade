@@ -12,7 +12,9 @@ block content
           -levelName = config.levelNames[level]
           span= levelName
         .course
-          img(src=relative("/" + collection + "/logo-white.png"))
+          -courseLogo = relative("/" + collection + "/logo-white.png")
+          -if (!isFile(path.dir, courseLogo)) courseLogo = relative('/logo-white.png')
+          img(src=courseLogo)
           -collection = collection[0]
           -index = '/' + collection + '/index.html'
           -courseName = _.pluck(_.where(collections[collection], {link: index}), 'title')
@@ -20,7 +22,7 @@ block content
         .pdf
           a.download(href=link.replace('.html', '.pdf') title="Download PDF")
             span.glyphicon.glyphicon-save-file
-          span PDF 
+          span PDF
 
   .col-xs-12
     .content!= contents
