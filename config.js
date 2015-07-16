@@ -33,6 +33,7 @@ var config = {
   // folder names
   playlistFolder: 'playlists',
   sourceFolder:   sourceFolder,
+  sourceRoot:     sourceRoot,
   // collections
   collections:    collections,
   // github webhook for automatic building
