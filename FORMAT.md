@@ -24,13 +24,24 @@ move 10 steps
 </pre>
 
 
-## src directory file structure
-By default the builder will look for files in `../src` such that it can be
-easily added to existing projects by cloning this repo into that project. This
-way there is more focus on the lessons than on the builder it self, which is
-less interesting from a contributor point of view.
+## src-directory file structure
+By default the builder will look for files in `../src` such that the builder
+can be easily added to existing projects by cloning this repo into the
+lesson-project. This turns the focus on the lessons (git clone lessons-repo)
+rather than the builder, as the builder is less important from the
+lesson-contributor's point of view.
 
 This behavior can be changed in [config.js](config.js).
+
+### Courses
+The builder will make an index with courses as the main entry point:
+
+![](images/index.png)
+
+The source for the index is directories in the `src` folder. The course
+directory should contain `index.md`, `logo-black.png` and `logo-white.png`. If
+`src/course/logo-...` is not found, it will fallback to `/src/logo-...`. You can
+find generic black and white logos in [images].
 
 
 ## Markdown
@@ -103,7 +114,7 @@ have similar syntax.
   that only makes sense when along with others.
 
 - **language** (*string*) : Language the lesson is written in. Should be an
-  [IETF language tag] which is a combination of language ([ISO-639-1]) and 
+  [IETF language tag] which is a combination of language ([ISO-639-1]) and
   region ([ISO-3166-1]).
   Examples:
   - `language: nb-NO` is language Norwegian bokmål, region Norway.

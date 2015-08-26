@@ -1,41 +1,18 @@
 extends ./layout.jade
 
-//- Mixin for indexing lessons
-mixin collection(name, collection)
-  .col-sm-6.col-md-4(id=name)
-    h2.clearfix= name.charAt(0).toUpperCase() + name.substr(1)
-      a.download(href=name + '.zip' title="Last ned alle " + name + " oppgaver")
-        span.glyphicon.glyphicon-download-alt
-
-    //- playlists from text files in `playlistFolder`
-    each playlist in playlists[name]
-
-      li.playlist(id=playlist.id)
-        .icon
-        .name= playlist.name
-
-      each lesson in playlist.lessons
-        //- if external tag set, use that as link
-        -link = lesson.external || lesson.link
-        a(href=relative(link))
-          li.playlist.lesson(style="display:none" class=playlist.id + ' level-' + lesson.level)
-            = lesson.title
-
-    //- all lessons which does not have `indexed: false`
-    each lesson in collection
-      if lesson.indexed !== false
-        //- if external tag set, use that as link
-        -link = lesson.external || lesson.link
-        a(href=relative(link))
-          li.lesson(class='level-' + lesson.level)= lesson.title
-
-
 block content
   //- insert contents from index.md
   .col-xs-12
     .content!= contents
 
-  //- create links to lessons
-  each collection, name in collections
-    -collection = _.sortBy(collection, 'level')
-    +collection(name, collection)
+  .courses
+    each collection, name in collections
+      -collectionIndex = '/' + name + '/index'
+      -collectionMetadata = matter(collectionIndex + '.md')
+      -realName = collectionMetadata.title || name
+      -link = collectionMetadata.external  || relative(collectionIndex + '.html')
+      -logo = relative('/' + name + '/logo-black.png')
+      -if (!isFile(path.dir, logo)) logo = relative('/logo-black.png')
+      a(href=link)
+        img(src=logo)
+        span= realName

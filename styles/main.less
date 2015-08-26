@@ -1,12 +1,13 @@
 /*
  * # General CSS #
- * All files in styles folder is compiled with `gulp css`. `includes` folder
- * is omitted from compilation and should be imported from less-files
- * (so that order of inclusion can be specified).
+ * This file is compiled with `gulp css`.
+ *
+ * If other files should be included, they should be imported in this file.
  */
-@import "bootstrap.less"; // customized bootstrap.less
-@import "includes/config.less"; // included after bootstrap, to override variables
-
+@import "bootstrap"; // customized bootstrap.less
+@import "config"; // included after bootstrap, overrides variables
+@import "lesson";
+@import "lesson-index";
 
 // code blocks
 code {
@@ -21,10 +22,6 @@ figure > img {
   margin:0 auto; // centered
   padding: 20px;
 }
-// header
-header {
-  margin-top:20px;
-}
 
 // top menu
 .top-menu {
@@ -36,33 +33,89 @@ header {
   @media print {
     display:none;
   }
+  .search {
+    .form-inline;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0 0 auto;
+    > * {
+      margin-left: 5px;
+    }
+  }
 }
 
-// download icons
-h2 > a.download {
-  float:right;
+// search
+div.search {
+  .make-xs-column(12);
+  display: none;
+  margin-top: 10px;
+  .results {
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid @light-background;
+    h1 {
+      font-size: 22px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: 18px;
+      margin: 0;
+    }
+    a {
+      color: #000;
+    }
+    a:hover p {
+      font-weight: normal;
+    }
+    a:hover h2 {
+      font-weight: bold;
+    }
+    li {
+      max-height: 100px;
+      overflow: hidden;
+      margin-bottom: 15px;
+      position: relative;
+      list-style: none;
+    }
+    li:before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 50%;
+      bottom: 0;
+      background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,255));
+    }
+  }
 }
 
-// playlists
-.playlist {
-  .list-group-item;
-  color: @link-color;
-  cursor: pointer;
-  padding-left:40px;
-  .icon {
-    .glyphicon;
-    .glyphicon-play;
-    display: block;
-    margin-left:-25px;
-    font-size:17px;
-  }
-  .name {
-    margin-top:-18px;
-    font-size:15px;
-    font-weight:500;
-  }
-  &.lesson {
-    margin-left:10px;
+// links
+a:hover, a:hover > * {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+// courses
+.courses {
+  .make-xs-column(12);
+  margin-top: 40px;
+  a {
+    .make-xs-column(6);
+    .make-sm-column(4);
+    .make-md-column(3);
+    color: #000000;
+    font-weight: 300;
+    > * {
+      display: block;
+    }
+    img {
+      .img-responsive;
+      max-height: 150px;
+      margin: 10px auto;
+    }
+    span {
+      .text-center;
+    }
   }
 }
 
@@ -82,6 +135,9 @@ h2 > a.download {
     > *:last-child {
       margin: 0 10px 0 0;
     }
+  }
+  .note img {
+    max-height: 20px;
   }
 }
 

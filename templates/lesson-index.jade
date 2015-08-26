@@ -1,0 +1,50 @@
+extends ./layout.jade
+
+//- playlists
+mixin playlistIndex(playlist)
+  li.playlist(title="Click to expand" id=playlist.id)
+    .icon
+    .name= playlist.name
+
+  each lesson in playlist.lessons
+    //- if external tag set, use that as link
+    -link = lesson.external || lesson.link
+    a(href=relative(link))
+      li.playlist.lesson(style="display:none" class=playlist.id + ' level-' + lesson.level)
+        = lesson.title
+
+
+//- levels
+mixin levelIndex(level, lessons)
+  .level.col-xs-12.col-sm-6.col-md-4(id=name)
+    h2.clearfix(class='level-' + level)= config.levelNames[level]
+
+    //- all lessons which does not have `indexed: false`
+    each lesson in lessons
+      if lesson.indexed !== false
+        //- if external tag set, use that as link
+        -link = lesson.external || lesson.link
+        a(href=relative(link))
+          li.lesson= lesson.title
+
+
+block content
+  //- insert contents from index.md
+  .col-xs-12
+    h1.info(title="Click me for an introduction")
+      span.glyphicon.glyphicon-info-sign
+      = ' ' + title
+    .content(style="display:none")!= contents
+
+  //- plalists
+  .level.col-xs-12.col-sm-6.col-md-4(id=name)
+    h2 Playlists
+    each playlist in playlists[path.dir] || []
+      +playlistIndex(playlist)
+
+  //- levels
+  //- sorted list of levels
+  -levels = _.uniq(_.compact(_.pluck(collections[path.dir], 'level'))).sort()
+    each level in levels
+      +levelIndex(level, _.where(collections[path.dir], {level: level}))
+

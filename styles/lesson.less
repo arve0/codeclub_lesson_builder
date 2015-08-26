@@ -1,27 +1,52 @@
-@import "includes/config.less";
 
 // header
 header {
   background-color: #B1DAAE;
   border-radius: 5px;
   color: #FFFFFF;
-  width:100%;
-  min-height:100px;
-  padding:10px;
-  margin-top:40px;
-  vertical-align: middle;
+  width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  margin-top: 40px;
 
   h1.title {
-    > a.download {
-      float:right;
-      color:#fff;
-      margin-right:20px;
-    }
+    clear: none;
+    float: left;
   }
   .logo {
     float: left;
     max-height: 80px;
     margin-right: 10px;
+  }
+  a {
+    color: #FFFFFF;
+  }
+  .lesson-icons {
+      .h1;
+      float: right;
+      clear: none;
+      > * {
+        margin-left:10px;
+      }
+      .pdf > a > span {
+        font-size: 1em;
+        padding: 0;
+      }
+      .course, .level, .pdf {
+        float:left;
+        img {
+          max-height: 39px;
+          vertical-align: text-top;
+          display:block;
+          margin: auto;
+        }
+        span {
+          .text-center;
+          display:block;
+          font-size: 0.25em;
+          padding-top:3px;
+        }
+      }
   }
 }
 
@@ -33,16 +58,16 @@ header {
 // placement for list items
 .check, .activity, .save {
   ul, ol {
-    padding:0;
-    margin:0;
+    padding: 0;
+    margin: 0;
   }
   li {
     list-style: none;
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-left:-30px;
+    margin-left: -30px;
     // adjust all elements inside a list item
-    margin-left:45px;
+    margin-left: 45px;
   }
   // check box for list items
   li:before {
@@ -50,8 +75,8 @@ header {
     border-radius: 8px;
     border: 3px solid #ABDBEA;
     padding: 10px 10px;
-    float:left;
-    margin-left:-40px;
+    float: left;
+    margin-left: -40px;
   }
 }
 
@@ -63,7 +88,13 @@ header {
     padding: 10px;
     border-radius: 5px;
   }
+  .subsection h2 {
+    &:extend(.activity h1);
+    font-weight: 300;
+  }
 }
+
+
 
 // style for header to check lists
 .check {
@@ -79,8 +110,8 @@ header {
 
 // scratch code blocks
 pre.blocks {
-  background-color:inherit;
-  border:0;
+  background-color: inherit;
+  border: 0;
 }
 
 // sections
@@ -89,7 +120,7 @@ pre.blocks {
   border-radius: 10px;
   padding: 1px 20px 10px 20px;
   code {
-    background:#fff;
+    background: #fff;
     color: #007CC9;
   }
   li:before {
@@ -99,19 +130,19 @@ pre.blocks {
 .tip {
   border: 3px solid #ff7f00;
   background: #fff99d;
-  border-radius:12px;
-  padding:0 20px 20px 20px;
-  margin-top:20px;
-  margin-bottom:20px;
+  border-radius: 12px;
+  padding: 0 20px 20px 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 .protip { // alias for .tip
   .tip;
 }
 .flag {
   border-top: 3px dotted rgb(230,134,45);
-  padding-bottom:20px;
-  margin-top:20px;
-  margin-bottom:20px;
+  padding-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   h2 {
     color: rgb(54,161,55);
     background-image: url(img/flag.svg);
@@ -134,7 +165,7 @@ pre.blocks {
     background-position: 0px 10px;
     background-size: 40px 40px;
     background-repeat: no-repeat;
-    margin:0;
+    margin: 0;
     padding-top: 10px;
     padding-bottom: 20px;
     padding-left: 50px;
@@ -142,20 +173,20 @@ pre.blocks {
 }
 .challenge {
   border: 3px solid #00b1da;
-  border-radius:12px;
-  padding-bottom:10px;
-  margin-top:20px;
-  margin-bottom:20px;
+  border-radius: 12px;
+  padding-bottom: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   h2 {
-    color:#fff;
+    color: #fff;
     background: #00b1da;
-    padding-left:20px;
-    padding-top:10px;
-    padding-bottom:10px;
-    margin-top:0;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 0;
   }
   > * {
-    padding:0 20px;
+    padding: 0 20px;
   }
 }
 

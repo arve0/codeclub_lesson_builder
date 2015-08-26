@@ -18,6 +18,7 @@ var concat      = require('gulp-concat');
 var autoprefixer = require('gulp-autoprefixer');
 var minify      = require('gulp-minify-css');
 var uglify      = require('gulp-uglify');
+var browserify = require('gulp-browserify');
 // archive
 var zip         = require('gulp-zip');
 var fs          = require('fs');
@@ -40,12 +41,6 @@ var assetRoot = config.assetRoot;
 var buildRoot = config.buildRoot;
 var lessonRoot = config.lessonRoot;
 var sourceFolder = config.sourceFolder;
-var ghHost = config.ghHost;
-var ghPort = config.ghPort;
-var ghPath = config.ghPath;
-var ghRepo = config.ghRepo;
-var ghPushCommand = config.ghPushCommand;
-var ghSecret = config.ghSecret;
 
 /*
  * # TASKS #
@@ -78,7 +73,7 @@ gulp.task('archive', function() {
 /*
  * serve build directory
  */
-gulp.task('server', ['build', 'css', 'js', 'assets'], function () {
+gulp.task('server', ['force-build', 'css', 'js', 'assets'], function () {
   browserSync.init({
     server: { baseDir: buildRoot }
   });
@@ -88,7 +83,7 @@ gulp.task('server', ['build', 'css', 'js', 'assets'], function () {
  * build less files to css, prefix and minify
  */
 gulp.task('css', function(cb) {
-  return gulp.src('styles/*.less')
+  return gulp.src('styles/main.less')
     .pipe(less())
     .on('error', cb)
     .pipe(addsrc([
@@ -109,25 +104,40 @@ gulp.task('assets', function(){
       'assets/**/*',
       'node_modules/scratchblocks2/build/*/*.png',
       'node_modules/bootstrap/dist/*/glyphicons-halflings-regular.*',
-      'node_modules/jquery/dist/jquery.min.map'
     ])
     .pipe(gulp.dest(assetRoot));
 });
 
+
 /*
- * concat and uglify scripts
+ * browserify, concat and uglify scripts
  */
-gulp.task('js', function(){
+gulp.task('browserify', function() {
+  return gulp.src('scripts/index.js')
+  .pipe(browserify({
+    insertGlobals: true,
+    debug: true
+  }))
+  .pipe(uglify())
+  .pipe(concat('script.min.js'))
+  .pipe(gulp.dest(assetRoot));
+});
+
+
+/*
+ * concat and uglify vendor scripts
+ */
+gulp.task('js', ['browserify'], function(){
   return gulp.src([
-    'scripts/**/*.js',
     'node_modules/scratchblocks2/build/scratchblocks2.js',
-    'node_modules/scratchblocks2/src/translations.js'
+    'node_modules/scratchblocks2/src/translations.js',
+    'node_modules/bootstrap/js/tooltip.js'
   ])
   .pipe(uglify())
   .pipe(addsrc.prepend([
     'node_modules/jquery/dist/jquery.min.js'
   ]))
-  .pipe(concat('script.min.js'))
+  .pipe(concat('vendor.min.js'))
   .pipe(gulp.dest(assetRoot));
 });
 
@@ -137,12 +147,12 @@ gulp.task('js', function(){
 gulp.task('build', build);
 gulp.task('force-build', function(done){
   build(function(err){
-    console.log('done called')
-    done();
+    done(err);
   }, { // build options
     force: true
   });
 });
+
 /*
  * dist - build all without serving
  */
@@ -179,17 +189,19 @@ gulp.task('prodlinks', checkLinks(config.productionCrawlStart));
  */
 gulp.task('github', function(cb){
   var github = githubhook({
-    host: ghHost,
-    port: ghPort,
-    path: ghPath,
-    secret: ghSecret
+    host: config.ghHost,
+    port: config.ghPort,
+    path: config.ghPath,
+    secret: config.ghSecret
   });
-  github.on('push:'+ghRepo, function(repo, ref, data) {
-    deployProc = exec(ghPushCommand, function(err, stdout, stderr) {
-      if(err!==null) {
-        console.log(stderr);
-      }
-    });
+  github.on('pull_request', function(repo, ref, data) {
+    if (data.pull_request.merged) {
+      deployProc = exec(config.ghPushCommand, function(err, stdout, stderr) {
+        if(err!==null) {
+          console.log(stderr);
+        }
+      });
+    }
   });
   github.listen();
 });
@@ -209,8 +221,8 @@ gulp.task('default', ['server'], function(){
    * ## WATCHES ##
    */
   // files which are built with metalsmith
-  gulp.watch(path.join(lessonRoot, sourceFolder, '**'), ['build', reload]);
-  gulp.watch(path.join(__dirname, 'templates', '**'), ['force-build', reload]);
+  gulp.watch([config.sourceRoot + '/**', '!' + config.sourceRoot + '/**/index.md'], ['build', reload]);
+  gulp.watch([__dirname + '/templates/**', config.sourceRoot + '/**/index.md'], ['force-build', reload]);
 
   // styles
   gulp.watch(path.join(__dirname, 'styles', '**', '*'), ['css', reload]);
