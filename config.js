@@ -41,7 +41,7 @@ var config = {
   ghHost:         '0.0.0.0', // 0.0.0.0 listen on all interfaces
   ghPort:         3034,
   ghPath:         '/',
-  ghPushCommand:  'cd .. && git pull && ./deploy.sh',
+  ghMergeCommand:  '../deploy.sh',
   ghSecret:       'secret',
   // link crawling
   productionCrawlStart: 'http://arve0.github.io/example_lessons/',

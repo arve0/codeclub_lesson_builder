@@ -196,11 +196,16 @@ gulp.task('github', function(cb){
   });
   github.on('pull_request', function(repo, ref, data) {
     if (data.pull_request.merged) {
-      deployProc = exec(config.ghPushCommand, function(err, stdout, stderr) {
+      console.log('Merged PR, building...');
+      deployProc = exec(config.ghMergeCommand, function(err, stdout, stderr) {
         if(err!==null) {
           console.log(stderr);
+        } else {
+          console.log('Build successfull.');
         }
       });
+    } else {
+      console.log('Got webhook. Not merged PR, doing nothing.');
     }
   });
   github.listen();
