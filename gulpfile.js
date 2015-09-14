@@ -194,13 +194,23 @@ gulp.task('github', function(cb){
     path: config.ghPath,
     secret: config.ghSecret
   });
+  github.on('*', function(event){
+    if (event !== 'pull_request') {
+      console.log('Webhook event "' + event + '". Nothing to do.');
+    }
+  });
   github.on('pull_request', function(repo, ref, data) {
     if (data.pull_request.merged) {
-      deployProc = exec(config.ghPushCommand, function(err, stdout, stderr) {
+      console.log('Merged PR, building...');
+      deployProc = exec(config.ghMergeCommand, function(err, stdout, stderr) {
         if(err!==null) {
           console.log(stderr);
+        } else {
+          console.log('Build successfull.');
         }
       });
+    } else {
+      console.log('Webhook event "pull_request", not merged. Nothing to do.');
     }
   });
   github.listen();
