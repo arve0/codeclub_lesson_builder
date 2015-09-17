@@ -20,7 +20,7 @@ lessons as submodule) will make pull request to the lesson repo a bit less
 complex. The steps below assumes this setup, and are only needed upon first
 time inclusion in the lesson repo. Steps for setting up lesson repo with
 local building should be similar to this. Look at
-[this repo](https://github.com/arve0/example_lessons) for an example of setup 
+[this repo](https://github.com/arve0/example_lessons) for an example of setup
 and http://kodeklubben.github.io for the live Norwegian lesson pages made
 with this build tool.
 
@@ -78,7 +78,6 @@ You could read about the format in [FORMAT.md](FORMAT.md).
 - [x] Convert markdown to styled PDF (fast! 100 PDFs in ~30 seconds)
 - [x] Link-checker
 - [x] Automatic build with [github webhooks](https://developer.github.com/webhooks/)
-- [x] Zip-archive of collections/courses
 - [x] Styled scratch code blocks
 - [x] Adjust the [templates](templates) to your own liking
 - [x] Watch files and re-render lesson upon changes (live-reload in browser)
@@ -94,7 +93,6 @@ You can run tasks with `./gulp taskname` when in the lesson repo, or with `gulp 
 *codeclub_lesson_builder*-folder if you have installed gulp [globally](https://docs.npmjs.com/cli/install).
 
 **list of gulp tasks**
-- `archive` will create zip files of [collections](https://github.com/arve0/codeclub_lesson_builder/blob/master/config.js)
 - `assets` copies assets to `build/assets`
 - `build` builds all markdown files (except README.md) to html and copy files which are in lesson-folders
 - `clean` delete all files in `build`

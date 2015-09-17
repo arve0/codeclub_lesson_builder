@@ -19,9 +19,6 @@ var autoprefixer = require('gulp-autoprefixer');
 var minify      = require('gulp-minify-css');
 var uglify      = require('gulp-uglify');
 var browserify = require('gulp-browserify');
-// archive
-var zip         = require('gulp-zip');
-var fs          = require('fs');
 // pdf generation
 var pdf         = require('./pdf.js');
 // link-checking
@@ -45,30 +42,6 @@ var sourceFolder = config.sourceFolder;
 /*
  * # TASKS #
  */
-
-/*
- * Create archive files for each subdir of buildRoot
- * Each archive includes all assets.
- */
-gulp.task('archive', function() {
-  var src_dirs = fs.readdirSync(buildRoot).filter(function(file) {
-    return fs.statSync(path.join(buildRoot, file)).isDirectory();
-  });
-  var streams = _.map(src_dirs, function (dirname){
-    if (dirname == 'assets') {
-      return;
-    }
-    return gulp.src([
-          buildRoot + '/index.html',
-          buildRoot + '/{assets,assets/**}',
-          buildRoot + '/{'+dirname+','+dirname+'/**}',
-          ])
-      .pipe(zip(dirname + '.zip'))
-      .pipe(gulp.dest(buildRoot));
-  });
-  streams = _.compact(streams);
-  return merge(streams);
-});
 
 /*
  * serve build directory
@@ -161,8 +134,7 @@ gulp.task('dist', function(cb){
   // see https://github.com/gulpjs/gulp/issues/96
   run('clean',
       ['assets', 'build', 'css', 'js'],
-      'archive',
-      'pdf', // do not include pdf in zip files
+      'pdf',
       cb);
 });
 
