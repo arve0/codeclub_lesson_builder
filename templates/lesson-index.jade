@@ -2,7 +2,7 @@ extends ./layout.jade
 
 //- playlists
 mixin playlistIndex(playlist)
-  li.playlist(title="Click to expand" id=playlist.id)
+  li.playlist(title="Klikk for å utvide" id=playlist.id)
     .icon
     .name= playlist.name
 
@@ -31,7 +31,7 @@ mixin levelIndex(level, lessons)
 block content
   //- insert contents from index.md
   .col-xs-12
-    h1.info(title="Click me for an introduction")
+    h1.info(title="Klikk meg for en introduksjon")
       span.glyphicon.glyphicon-info-sign
       = ' ' + title
     .content(style="display:none")!= contents
