@@ -31,8 +31,8 @@ mixin levelIndex(level, lessons)
 block content
   //- insert contents from index.md
   .col-xs-12
-    h1.info(title="Klikk meg for en introduksjon")
-      span.glyphicon.glyphicon-info-sign
+    h1.info(title="Klikk på meg for en introduksjon")
+      span.glyphicon.glyphicon-info-sign.animated.infinite.bounce
       = ' ' + title
     .content(style="display:none")!= contents
 
