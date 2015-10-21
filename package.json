@@ -43,7 +43,7 @@
     "metalsmith-relative": "^1.0.3",
     "metalsmith-templates": "^0.6.0",
     "napa": "^1.1.0",
-    "node-spider": "^1.2.2",
+    "node-spider": "arve0/node-spider",
     "nodepdf-series": "0.1.2",
     "run-sequence": "^1.0.2",
     "yaml-front-matter": "^3.2.3"
