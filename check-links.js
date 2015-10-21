@@ -1,4 +1,5 @@
-var browserSync = require('browser-sync');
+var Static = require('node-static');
+var http = require('http');
 var Spider = require('node-spider');
 var assert = require('assert');
 var config = require('./config.js');
@@ -30,13 +31,17 @@ module.exports = function(start) {
   */
   return function checkLinks(cb){
     console.log('Checking all links found at ' + start);
+    var webserver;
 
     if (start.search('http://localhost') === 0) {
       // we need to start a web server
-      browserSync.init({
-        server: { baseDir: config.buildRoot },
-        open: false
-      }, crawl);
+      var files = new Static.Server(config.buildRoot);
+      webserver = http.createServer(function (request, response) {
+        request.addListener('end', function () {
+          files.serve(request, response);
+        }).resume();
+      });
+      webserver.listen(3000, crawl);
     } else {
       crawl();
     }
@@ -174,7 +179,9 @@ module.exports = function(start) {
         } else {
           cb();
         }
-        browserSync.exit();
+        if (webserver) {
+          webserver.close();
+        }
       }
     } // crawl end
   };
