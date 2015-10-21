@@ -1,7 +1,6 @@
 language: node_js
 node_js:
-  - "0.10"
-  - "0.12"
+  - "stable"
 install: ./travis-setup.sh
 script: ./node_modules/gulp/bin/gulp.js dist
 addons:
