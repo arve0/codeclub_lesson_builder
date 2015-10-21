@@ -102,12 +102,8 @@ module.exports = function(start) {
          * queueUrl closure
          */
         function queueUrl(type){
-          return function(){
-            if (!('attr' in this)) {
-              console.log('Err: queueUrl called without cheerio this.');
-              return;
-            }
-            var href = this.attr(type);
+          return function(i, elem){
+            var href = elem.attr(type);
             // do not add mailto and javascript links
             if (href.search(/^(mailto|javascript)/) === 0) {
               return;
