@@ -2,6 +2,7 @@ var browserSync = require('browser-sync');
 var Spider = require('node-spider');
 var assert = require('assert');
 var config = require('./config.js');
+var _ = require('lodash');
 
 function length(obj) {
   var size = 0, key;
@@ -12,28 +13,26 @@ function length(obj) {
 }
 
 /**
- * Export constructor, so that checkLinks easily can be used in gulp without
+ * Export closure, so that checkLinks can be used in gulp without
  * creating an anynomous function.
  *
- * @constructor
+ * @module.exports
  * @param {string} start URL where crawler should start looking for links.
  * @return {function} checkLinks Calling checkLinks will start crawling.
  */
-module.exports = function(start){
-  var start = start;
-
+module.exports = function(start) {
   /**
   * checkLinks crawls all pages and check that href and src attributes does
   * have a HTTP 200 response. It checks links outside the start domain, but
-  * _does not_ crawl pages outside start.
+  * does _not_ crawl pages outside start.
   *
   * @param {function} cb Called when all links have been checked.
   */
-  function checkLinks(cb){
+  return function checkLinks(cb){
     console.log('Checking all links found at ' + start);
 
     if (start.search('http://localhost') === 0) {
-      // we need to start server
+      // we need to start a web server
       browserSync.init({
         server: { baseDir: config.buildRoot },
         open: false
@@ -42,118 +41,136 @@ module.exports = function(start){
       crawl();
     }
     function crawl(){
-      var resources = {}; // dict with list of referers
-      var failed = []; // list to keep links that failed
-      var ok = 0;
-      var broken = 0;
+      var resources = {};  // dict of referrers {link: [referrer1, referrer2, ..], link2..}
+      resources[start] = ['start'];
+      var failed = [];  // list of failed links
+      var ok = 0;  // number of OK links
+      var broken = 0;  // number of broken links
 
-      // create spider
-      spider = new Spider({
-        concurrent: 5, logs: false,
-        headers: {
-          'user-agent': 'codeclub_lesson_builder'
-        },
-        error: function(url, err){
-          process.stdout.write('!'); // give some feedback
-          broken += 1;
-          failed.push({u:url, c:err});
-        },
-        done: function() {
-          if (spider.active.length !== 0) {
-            // wait for all requests to finish
-            // this is fixed in node-spider#3 and can be
-            // removed when fix is published to npm
-            return;
-          }
-          // nothing more to crawl, exit
-          console.log('\nLink check done');
-          console.log('---------------');
-          console.log('Links OK:', ok);
-          console.log('Links broken:', broken);
-          console.log('---------------');
 
-          failed.forEach(function(fail){
-            console.log('Code', fail.c, 'for', fail.u, 'in');
-            resources[fail.u].forEach(function(ref){
-              console.log(' -', ref);
-            });
-          });
+      var opts = {
+        concurrent: 5,
+        done: done,
+        error: error,
+        headers: { 'user-agent': 'codeclub_lesson_builder' },
+        timeout: 5000
+      };  // spider options
 
-          assert.equal(ok+broken, length(resources));
+      // text spider for HTML, CSS, etc
+      textSpider = new Spider(opts);
 
-          if (broken !== 0) {
-            // avoid error trace
-            process.exit(1);
-          } else {
-            cb();
-          }
-          // browserSync will call process.exit -> do after cb(err)
-          browserSync.exit();
-        }
-      });
+      // HEAD requests on external sites and binary files
+      headOpts = _.assign({}, opts);
+      headOpts.method = 'HEAD';
+      headSpider = new Spider(headOpts);
 
-      var reqDone = function(doc){
-        /** request done, check code, crawl */
-        process.stdout.write('.'); // give some feedback
+      // let's go! :-)
+      textSpider.queue(start, parseResponse);
 
+      /**
+       * on OK link
+       */
+      function parseResponse(doc){
         // check status code
         var code = doc.res.statusCode;
         if (code != 200) {
+          process.stdout.write('x'); // give some feedback
           broken += 1;
           failed.push({u:doc.url, c:code});
+          return;
         } else {
           ok += 1;
+          process.stdout.write('.'); // give some feedback
         }
 
-        // do not crawl binary files
+        // do not parse binary files
         if (!/text|javascript|css|json|xml/i.test(doc.res.headers['content-type'])) {
           return;
         }
 
-        // crawl links which are from localhost
+        // only crawl links below start (not other domains)
         if (doc.url.search(start) === 0) {
 
           // all elements with href set
-          doc.$('*[href]').each(function(){
-            var href = this.attr('href');
-            // do not check #-link explicit
-            var url = doc.resolve(href).split('#')[0];
-            // omit mail links
-            if (url.search('mailto:') === 0) {
-              return;
-            }
-            // already added
-            if (url in resources) {
-              resources[url].push(doc.url);
-              return;
-            }
-            // ok, we're good - add it!
-            spider.queue(url, reqDone);
-            // keep track of referers in a list
-            resources[url] = [doc.url];
-          });
+          doc.$('*[href]').each(queueUrl('href'));
 
           // all elements with src set
-          doc.$('*[src]').each(function(){
-            var href = this.attr('src');
-            var url = doc.resolve(href);
+          doc.$('*[src]').each(queueUrl('src'));
+        }
+
+        /**
+         * queueUrl closure
+         */
+        function queueUrl(type){
+          return function(){
+            var href = this.attr(type);
+            // do not add mailto and javascript links
+            if (href.search(/^(mailto|javascript)/) === 0) {
+              return;
+            }
+            // do not check #-link explicit
+            var url = doc.resolve(href).split('#')[0];
             // already added
             if (url in resources) {
+              // add referrer
               resources[url].push(doc.url);
               return;
             }
-            spider.queue(url, reqDone);
+            // external sites or binaries
+            if (url.search(start) !==0 ||
+                url.search(/\.(jpg|png|gif|zip)$/) === 0) {
+              headSpider.queue(url, parseResponse);
+            } else {  // text, e.g., HTML, CSS, etc
+              textSpider.queue(url, parseResponse);
+            }
+            // store referrer
             resources[url] = [doc.url];
-          });
+          }
         }
       };
 
-      resources[start] = ['start'];
 
-      // let's go! :-)
-      spider.queue(start, reqDone);
+      /**
+       * on broken link
+       */
+      function error(url, err) {
+          process.stdout.write('!'); // give some feedback
+          broken += 1;
+          failed.push({u:url, c:err});
+      }
+
+      /**
+       * print results and exit
+       */
+      function done() {
+        // wait until both spiders are done
+        if (textSpider.active.length !== 0 || headSpider.active.length !== 0) {
+          return
+        }
+
+        console.log('\nLink check done');
+        console.log('---------------');
+        console.log('Links OK:', ok);
+        console.log('Links broken:', broken);
+        console.log('---------------');
+
+        failed.forEach(function(fail){
+          console.log('Code', fail.c, 'for', fail.u, 'in');
+          resources[fail.u].forEach(function(ref){
+            console.log(' -', ref);
+          });
+        });
+
+        assert.equal(ok+broken, length(resources));
+
+        if (broken !== 0) {
+          // avoid error trace
+          process.exit(1);
+        } else {
+          cb();
+        }
+        browserSync.exit();
+      }
     } // crawl end
-  } // checkLinks end
-
-  return checkLinks;
+  };
 };
