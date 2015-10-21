@@ -73,7 +73,12 @@ module.exports = function(start) {
       function parseResponse(doc){
         // check status code
         var code = doc.res.statusCode;
-        if (code != 200) {
+        if (code !== 200 && this.opts.method === 'HEAD') {
+          // try again with GET-method
+          textSpider.queue(this.opts.url, parseResponse);
+          return;
+        }
+        if (code !== 200) {
           process.stdout.write('x'); // give some feedback
           broken += 1;
           failed.push({u:doc.url, c:code});
@@ -133,10 +138,10 @@ module.exports = function(start) {
       /**
        * on broken link
        */
-      function error(url, err) {
+      function error(err, url) {
           process.stdout.write('!'); // give some feedback
           broken += 1;
-          failed.push({u:url, c:err});
+          failed.push({u:url, c:err.code});
       }
 
       /**
