@@ -2,8 +2,10 @@
  * # DEPENDENCIES #
  */
 var gulp        = require('gulp');
-var browserSync = require('browser-sync');
-var reload      = browserSync.reload; // reload shorthand
+try {
+  var browserSync = require('browser-sync');
+  var reload      = browserSync.reload; // reload shorthand
+} catch(e) { }
 var path        = require('path');
 var addsrc      = require('gulp-add-src');
 var del         = require('del');
