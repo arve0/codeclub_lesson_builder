@@ -102,8 +102,8 @@ module.exports = function(start) {
          * queueUrl closure
          */
         function queueUrl(type){
-          return function(i, elem){
-            var href = elem.attr(type);
+          return function(){
+            var href = doc.$(this).attr(type);
             // do not add mailto and javascript links
             if (href.search(/^(mailto|javascript)/) === 0) {
               return;
