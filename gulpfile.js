@@ -62,7 +62,7 @@ gulp.task('css', function(cb) {
     .pipe(less())
     .on('error', cb)
     .pipe(addsrc([
-      'styles/bounce.css',
+      'styles/pulse.css',
       'node_modules/scratchblocks2/build/scratchblocks2.css',
       'node_modules/metalsmith-metallic/node_modules/highlight.js/styles/idea.css'
     ]))
