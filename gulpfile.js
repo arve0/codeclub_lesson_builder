@@ -64,7 +64,7 @@ gulp.task('css', function(cb) {
     .pipe(addsrc([
       'styles/bounce.css',
       'node_modules/scratchblocks2/build/scratchblocks2.css',
-      'node_modules/metalsmith-code-highlight/node_modules/highlight.js/styles/idea.css'
+      'node_modules/metalsmith-metallic/node_modules/highlight.js/styles/idea.css'
     ]))
     .pipe(autoprefixer())
     .pipe(minify())
