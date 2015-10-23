@@ -18,7 +18,7 @@ var changed     = require('metalsmith-changed');
 var paths       = require('metalsmith-paths');
 var fs          = require('fs');
 // code highlighting
-var highlight   = require('metalsmith-code-highlight');
+var highlight   = require('metalsmith-metallic');
 var branch      = require('metalsmith-branch');
 // search
 var lunr        = require('lunr');
@@ -160,16 +160,16 @@ module.exports = function build(callback, options){
           '.md': '.html',
       },
   }))
+  // highlight code - exclude scratch code blocks
+  .use(branch()
+    .pattern(['**/*.md', '!scratch/**/*.md']) // no highlight on scratch blocks
+    .use(highlight())
+  )
   // convert to html
   .use(pandoc({
     to: 'html5',
     args: ['--section-divs', '--smart']
   }))
-  // highlight code - exclude scratch code blocks
-  .use(branch()
-    .pattern(['**/*.html', '!scratch/**/*.html']) // no highlight on scratch blocks
-    .use(highlight())
-  )
   // add file.link metadata (now files are .html)
   .use(filepath())
   // globals for use in templates
