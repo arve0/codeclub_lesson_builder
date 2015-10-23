@@ -44,7 +44,7 @@ var config = {
   ghMergeCommand:  '../deploy.sh',
   ghSecret:       'secret',
   // link crawling
-  productionCrawlStart: 'http://arve0.github.io/example_lessons/',
+  productionCrawlStart: 'http://kodeklubben.github.io/',
   // level names
   levelNames: {
     1: 'Novice',
