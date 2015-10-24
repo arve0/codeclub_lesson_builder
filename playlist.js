@@ -7,6 +7,11 @@ var _ = require('lodash');
  * export
  */
 module.exports = function(collectionRoot, playlistFolder){
+  // windows: replace / with \
+  if (path.sep !== '/') {
+    collectionRoot = collectionRoot.split('/').join(path.sep);
+    playlistFolder = playlistFolder.split('/').join(path.sep);
+  }
   // return playlists found in collectionRoot/playlistFolder
   var playlistRoot = path.join(collectionRoot, playlistFolder);
 

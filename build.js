@@ -1,65 +1,43 @@
 /*
  * # DEPENDENCIES #
  */
-var Metalsmith  = require('metalsmith');
-var templates   = require('metalsmith-templates');
+var Metalsmith = require('metalsmith');
+var templates = require('metalsmith-templates');
 var collections = require('metalsmith-collections');
 var setMetadata = require('metalsmith-filemetadata');
-var filepath    = require('metalsmith-filepath');
-var pandoc      = require('metalsmith-pandoc');
-var ignore      = require('metalsmith-ignore');
-var relative    = require('metalsmith-relative');
-var define      = require('metalsmith-define');
-var marked      = require('marked'); // for md strings in YAML header
-var path        = require('path');
-var getPlaylists = require('./playlist');
-var _           = require('lodash');
-var changed     = require('metalsmith-changed');
-var paths       = require('metalsmith-paths');
-var fs          = require('fs');
+var filepath = require('metalsmith-filepath');
+var pandoc = require('metalsmith-pandoc');
+var ignore = require('metalsmith-ignore');
+var relative = require('metalsmith-relative');
+var define = require('metalsmith-define');
+var marked = require('marked'); // for md strings in YAML header
+var _ = require('lodash');
+var changed = require('metalsmith-changed');
+var paths = require('metalsmith-paths');
 // code highlighting
-var highlight   = require('metalsmith-metallic');
-var branch      = require('metalsmith-branch');
-// search
-var lunr        = require('lunr');
-require('lunr-no/lunr.stemmer.support')(lunr);
-require('lunr-no')(lunr);
-var metlunr     = require('metalsmith-lunr');
+var highlight = require('metalsmith-metallic');
+var branch = require('metalsmith-branch');
 // get configuration variables
-var config      = require('./config.js');
-// read front matter on demand
-var matter = require('gray-matter');
-
+var config = require('./config.js');
+var tools = require('./tools.js');
 
 /*
  * # SETUP OBJECTS #
  */
 // metadata
 var metadataOptions = [
-  // search
-  { pattern: path.join('**', '*.md'),
-    metadata: { lunr: true }},
   // template for lessons
-  { pattern: path.join('*', '**', '*.md'),
+  { pattern: '**/*.md',
     metadata: { template: 'lesson.jade' }},
   // scratch lesson template
-  { pattern: path.join('scratch', '**', '*.md'),
+  { pattern: 'scratch/**/*.md',
     metadata: { template: 'scratch.jade' }},
-  // front page template
-  { pattern: path.join('index.md'),
-    metadata: { template: 'index.jade' }},
-  // lesson index template
-  { pattern: path.join('*', 'index.md'),
-    metadata: { template: 'lesson-index.jade' }},
 ];
-
-// search - for is not a stopword in this context
-var words = lunr.no.stopWordFilter.stopWords.elements;
-words.splice(words.indexOf('for'), 1);
 
 // ignores
 var ignoreOptions = [
-  path.join('**', 'README.md'),
+  '**/README.md',
+  '**/index.md'
 ];
 
 // collections
@@ -67,7 +45,7 @@ var collectionOptions = {};
 config.collections.forEach(function(collection){
   // options for collections
   collectionOptions[collection] = {
-    pattern: path.join(collection, '**', '*.md'),
+    pattern: collection + '/**/*.md',
   };
 });
 
@@ -76,37 +54,14 @@ var defineOptions = {
   marked: marked,
   _: _,
   config: config,
-  isFile: isFile,
-  matter: frontmatter,
+  isFile: tools.isFile,
+  matter: tools.frontmatter,
 };
-
-/** Returns true if file exists */
-function isFile(dir, file){
-  var fullPath = path.join(config.sourceRoot, dir, file);
-  try {
-    fs.statSync(fullPath);
-  } catch (e) {
-    return false;
-  }
-  return true;
-}
-
-/** read front-matter from file, fail gracefully. */
-function frontmatter(filename) {
-  var filepath = path.join(config.lessonRoot, config.sourceFolder, filename);
-  var m;
-  try {
-    m = matter.read(filepath);
-  } catch (e) {
-    return {};
-  }
-  return m.data;
-}
 
 // template
 var templateOptions = {
   engine: 'jade',
-  directory: path.join(config.builderRoot, 'templates'),
+  directory: config.builderRoot + '/templates',
 };
 
 
@@ -118,16 +73,6 @@ module.exports = function build(callback, options){
   options = options || {};
   var forceBuild = options.force || false;
 
-  // read playlists upon every build
-  var playlists = {};
-  config.collections.forEach(function(collection){
-    // playlists
-    var collectionFolder = path.join(config.lessonRoot, config.sourceFolder, collection);
-    playlists[collection] = getPlaylists(collectionFolder, config.playlistFolder);
-  });
-  // make it available in template
-  defineOptions.playlists = playlists;
-
   // do the building
   Metalsmith(config.lessonRoot)
   .source(config.sourceFolder)
@@ -138,21 +83,8 @@ module.exports = function build(callback, options){
   .use(setMetadata(metadataOptions))
   // add relative(path) for use in templates
   .use(relative())
-  // create collections for index
+  // create collections
   .use(collections(collectionOptions))
-  .use(metlunr({
-    fields: {
-      contents: 1,
-      title: 10,
-      tags: 20,
-    },
-    pipelineFunctions: [
-      lunr.no.trimmer,
-      lunr.no.stopWordFilter,
-      lunr.no.stemmer
-    ]
-  }))
-  // remove files not to build *after* we have set collections metadata
   .use(paths())
   .use(changed({
       force: forceBuild,
