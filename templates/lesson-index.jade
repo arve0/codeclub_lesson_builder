@@ -36,10 +36,11 @@ block content
     .content(style="display:none")!= contents
 
   //- plalists
-  .level.col-xs-12.col-sm-6.col-md-4(id=name)
-    h2 Playlists
-    each playlist in playlists[path.dir] || []
-      +playlistIndex(playlist)
+  if playlists[path.dir].length
+    .level.col-xs-12.col-sm-6.col-md-4(id=name)
+      h2 Playlists
+      each playlist in playlists[path.dir] || []
+        +playlistIndex(playlist)
 
   //- levels
   //- sorted list of levels
