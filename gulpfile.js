@@ -22,7 +22,9 @@ var concat = require('gulp-concat');
 var autoprefixer = require('gulp-autoprefixer');
 var minify = require('gulp-minify-css');
 var uglify = require('gulp-uglify');
-var browserify = require('gulp-browserify');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
+var streamify = require('gulp-streamify');
 // pdf generation
 var pdf = require('./pdf.js');
 // link-checking
@@ -80,16 +82,17 @@ gulp.task('assets', function(){
 
 
 /**
- * browserify, concat and uglify scripts
+ * browserify and uglify client-side scripts
  */
 gulp.task('browserify', function() {
-  return gulp.src('scripts/index.js')
-  .pipe(browserify({
-    insertGlobals: true,
+  var b = browserify({
+    entries: './scripts/index.js',
     debug: true
-  }))
-  .pipe(uglify())
-  .pipe(concat('script.min.js'))
+  });
+
+  return b.bundle()
+  .pipe(source('script.min.js'))
+  .pipe(streamify(uglify()))
   .pipe(gulp.dest(config.assetRoot));
 });
 
@@ -163,8 +166,16 @@ gulp.task('github', function(cb){
       console.log('Webhook event "' + event + '". Nothing to do.');
     }
   });
-  github.on('pull_request', function(repo, ref, data) {
-    if (data.pull_request.merged) {
+  github.on('pull_request', build);
+  github.listen();
+  var currentlyBuilding = false;
+  function build(repo, ref, data) {
+    if (currentlyBuilding) {
+      console.log('Already building. Waiting 4 minutes...');
+      _.delay(build, 4*60*1000, repo, ref, data);
+    }
+    else if (data.pull_request.merged) {
+      currentlyBuilding = true;
       console.log('Merged PR, building...');
       deployProc = exec(config.ghMergeCommand, function(err, stdout, stderr) {
         if(err!==null) {
@@ -172,12 +183,12 @@ gulp.task('github', function(cb){
         } else {
           console.log('Build successfull.');
         }
+        currentlyBuilding = false;
       });
     } else {
       console.log('Webhook event "pull_request", not merged. Nothing to do.');
     }
-  });
-  github.listen();
+  }
 });
 
 

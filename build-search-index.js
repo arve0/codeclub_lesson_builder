@@ -9,6 +9,7 @@ require('lunr-no/lunr.stemmer.support')(lunr);
 require('lunr-no')(lunr);
 var metlunr = require('metalsmith-lunr');
 var config = require('./config.js');
+var tools = require('./tools.js')
 
 // lunr: true on all .md files
 var metadataOptions = [
@@ -37,6 +38,7 @@ module.exports = function build(callback){
   Metalsmith(config.lessonRoot)
   .source(config.sourceFolder)
   .use(ignore(ignoreOptions))
+  .use(tools.removeExternal)
   .clean(false) // do not delete files, allow gulp tasks in parallel
   .use(setMetadata(metadataOptions))
   .use(metlunr({
