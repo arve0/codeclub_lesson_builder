@@ -47,12 +47,10 @@ var config = {
   productionCrawlStart: 'http://kodeklubben.github.io/',
   // level names
   levelNames: {
-    1: 'Novice',
-    2: 'Apprentice',
-    3: 'Journeyman',
-    4: 'Expert',
-    5: 'Master',
-    6: 'Champion'
+    1: 'Introduksjon',
+    2: 'Nybegynner',
+    3: 'Erfaren',
+    4: 'Ekspert'
   }
 };
 
