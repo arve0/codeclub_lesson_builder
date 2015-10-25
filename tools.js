@@ -28,7 +28,22 @@ function frontmatter(filename) {
   return m.data;
 }
 
+
+/**
+ * remove files from build which have external set
+ */
+function removeExternal(files, _, done) {
+  Object.keys(files).forEach(function(key){
+    if (files[key].external) {
+      delete files[key];
+    }
+  });
+  done();
+}
+
+
 module.exports = {
   isFile: isFile,
-  frontmatter: frontmatter
+  frontmatter: frontmatter,
+  removeExternal: removeExternal
 }
