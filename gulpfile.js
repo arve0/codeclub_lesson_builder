@@ -163,8 +163,16 @@ gulp.task('github', function(cb){
       console.log('Webhook event "' + event + '". Nothing to do.');
     }
   });
-  github.on('pull_request', function(repo, ref, data) {
-    if (data.pull_request.merged) {
+  github.on('pull_request', build);
+  github.listen();
+  var currentlyBuilding = false;
+  function build(repo, ref, data) {
+    if (currentlyBuilding) {
+      console.log('Already building. Waiting 4 minutes...');
+      _.delay(build, 4*60*1000, repo, ref, data);
+    }
+    else if (data.pull_request.merged) {
+      currentlyBuilding = true;
       console.log('Merged PR, building...');
       deployProc = exec(config.ghMergeCommand, function(err, stdout, stderr) {
         if(err!==null) {
@@ -172,12 +180,12 @@ gulp.task('github', function(cb){
         } else {
           console.log('Build successfull.');
         }
+        currentlyBuilding = false;
       });
     } else {
       console.log('Webhook event "pull_request", not merged. Nothing to do.');
     }
-  });
-  github.listen();
+  }
 });
 
 
