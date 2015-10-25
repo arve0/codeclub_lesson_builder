@@ -101,6 +101,7 @@ module.exports = function build(callback){
   .use(filepath())
   // remove lessons *after* we have necessary metadata
   .use(ignore(['**', '!**/index.md']))
+  .use(tools.removeExternal)
   // convert to html
   .use(pandoc({
     to: 'html5',
