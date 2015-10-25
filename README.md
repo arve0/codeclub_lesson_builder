@@ -84,9 +84,8 @@ You could read about the format in [FORMAT.md](FORMAT.md).
 - [x] Create playlists and hide lessons from index
 - [x] Use material from other webpages with `external`-tag
 - [x] Add notes to footer with `footer`-tag
-- [ ] Lesson tags
-- [ ] Sortable index with search
-- [ ] Support for several languages
+- [x] Lesson tags (searchable, but not displayed)
+- [x] Sortable index with search
 
 ### gulp tasks
 You can run tasks with `./gulp taskname` when in the lesson repo, or with `gulp taskname` in
@@ -95,6 +94,8 @@ You can run tasks with `./gulp taskname` when in the lesson repo, or with `gulp 
 **list of gulp tasks**
 - `assets` copies assets to `build/assets`
 - `build` builds all markdown files (except README.md) to html and copy files which are in lesson-folders
+- `build-indexes` builds front-page and lesson indexes
+- `build-search-index` builds `searchIndex.json` which is used for client-side search with [lunr](http://lunrjs.com)
 - `clean` delete all files in `build`
 - `css` will process less files, add asset-css, autoprefix, minify and concat to `style.min.css`
 - `js` uglify, add already uglified asset-js and concat to `script.min.js`
