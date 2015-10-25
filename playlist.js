@@ -2,18 +2,18 @@ var fs = require('fs');
 var path = require('path');
 var yaml = require('yaml-front-matter');
 var _ = require('lodash');
+var config = require('./config.js');
 
 /*
  * export
  */
-module.exports = function(collectionRoot, playlistFolder){
+module.exports = function(collectionRoot){
   // windows: replace / with \
   if (path.sep !== '/') {
     collectionRoot = collectionRoot.split('/').join(path.sep);
-    playlistFolder = playlistFolder.split('/').join(path.sep);
   }
   // return playlists found in collectionRoot/playlistFolder
-  var playlistRoot = path.join(collectionRoot, playlistFolder);
+  var playlistRoot = path.join(collectionRoot, config.playlistFolder);
 
   if (!fs.existsSync(playlistRoot)) {
     return [];
