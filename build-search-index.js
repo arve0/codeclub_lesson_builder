@@ -24,6 +24,7 @@ words.splice(words.indexOf('for'), 1);
 var ignoreOptions = [
   '**',
   '!**/*.md',
+  '**/README.md'
 ];
 
 

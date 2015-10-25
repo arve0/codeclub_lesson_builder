@@ -21,11 +21,10 @@ mixin levelIndex(level, lessons)
 
     //- all lessons which does not have `indexed: false`
     each lesson in lessons
-      if lesson.indexed !== false
-        //- if external tag set, use that as link
-        -link = lesson.external || relative(lesson.link)
-        a(href=link)
-          li.lesson= lesson.title
+      //- if external tag set, use that as link
+      -link = lesson.external || relative(lesson.link.replace(/\.md$/, '.html'))
+      a(href=link)
+        li.lesson= lesson.title
 
 
 block content

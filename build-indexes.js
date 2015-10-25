@@ -38,9 +38,9 @@ var metadataOptions = [
 // ignore everything except index files
 var ignoreOptions = [
   '**',
-  '!index.md',
-  '!*/index.md'
-]
+  '!**/*.md',
+  '**/README.md'
+];
 
 // collections
 var collectionOptions = {};
@@ -86,8 +86,9 @@ module.exports = function build(callback){
   // do the building
   Metalsmith(config.lessonRoot)
   .source(config.sourceFolder)
-  .use(ignore(ignoreOptions))
   .clean(false) // do not delete files, allow gulp tasks in parallel
+  .use(ignore(ignoreOptions))
+  .use(ignoreIndexedFalse)
   .use(paths())
   // set template for exercises
   .use(setMetadata(metadataOptions))
@@ -96,15 +97,15 @@ module.exports = function build(callback){
   // create collections for index
   .use(collections(collectionOptions))
   .use(paths())
-  // remove lessons *after* we have set collections metadata
+  // add file.link metadata (files are .md here)
+  .use(filepath())
+  // remove lessons *after* we have necessary metadata
   .use(ignore(['**', '!**/index.md']))
   // convert to html
   .use(pandoc({
     to: 'html5',
     args: ['--section-divs', '--smart']
   }))
-  // add file.link metadata (files are .html here)
-  .use(filepath())
   // globals for use in templates
   .use(define(defineOptions))
   // apply templates
@@ -117,3 +118,16 @@ module.exports = function build(callback){
     callback(err);
   });
 };
+
+/**
+ * remove files from build which have set indexed: false in frontmatter
+ */
+function ignoreIndexedFalse(files, _, done) {
+  Object.keys(files).forEach(function(key){
+    var file = files[key];
+    if (file.indexed === false) {
+      delete files[key];
+    }
+  });
+  done();
+}
