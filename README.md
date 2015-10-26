@@ -79,7 +79,7 @@ You could read about the format in [FORMAT.md](FORMAT.md).
 - [x] Link-checker
 - [x] Automatic build with [github webhooks](https://developer.github.com/webhooks/)
 - [x] Styled scratch code blocks
-- [x] Adjust the [templates](templates) to your own liking
+- [x] Adjust the [layouts](layouts) to your own liking
 - [x] Watch files and re-render lesson upon changes (live-reload in browser)
 - [x] Create playlists and hide lessons from index
 - [x] Use material from other webpages with `external`-tag

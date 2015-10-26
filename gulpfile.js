@@ -207,7 +207,7 @@ gulp.task('default', ['server'], function(){
    */
   // files which are built with metalsmith
   gulp.watch([config.sourceRoot + '/**', '!' + config.sourceRoot + '/**/index.md'], ['build', reload]);
-  gulp.watch([__dirname + '/templates/**', config.sourceRoot + '/**/index.md'], ['build-indexes', reload]);
+  gulp.watch([__dirname + '/layouts/**', config.sourceRoot + '/**/index.md'], ['build-indexes', reload]);
 
   // styles
   gulp.watch(path.join(__dirname, 'styles', '**', '*'), ['css', reload]);

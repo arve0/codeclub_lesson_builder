@@ -2,7 +2,7 @@
  * # DEPENDENCIES #
  */
 var Metalsmith = require('metalsmith');
-var templates = require('metalsmith-templates');
+var layouts = require('metalsmith-layouts');
 var collections = require('metalsmith-collections');
 var setMetadata = require('metalsmith-filemetadata');
 var filepath = require('metalsmith-filepath');
@@ -26,12 +26,12 @@ var tools = require('./tools.js');
  */
 // metadata
 var metadataOptions = [
-  // template for lessons
+  // scratch lesson layout
   { pattern: '**/*.md',
-    metadata: { template: 'lesson.jade' }},
-  // scratch lesson template
+    metadata: { layout: 'lesson.jade' }},
+  // scratch lesson layout
   { pattern: 'scratch/**/*.md',
-    metadata: { template: 'scratch.jade' }},
+    metadata: { layout: 'scratch.jade' }},
 ];
 
 // ignores
@@ -50,7 +50,7 @@ config.collections.forEach(function(collection){
   };
 });
 
-// defines available in template
+// defines available in layout 
 var defineOptions = {
   marked: marked,
   _: _,
@@ -59,10 +59,10 @@ var defineOptions = {
   matter: tools.frontmatter,
 };
 
-// template
-var templateOptions = {
+// layout 
+var layoutOptions = {
   engine: 'jade',
-  directory: config.builderRoot + '/templates',
+  directory: config.builderRoot + '/layouts'
 };
 
 
@@ -80,9 +80,9 @@ module.exports = function build(callback, options){
   .use(ignore(ignoreOptions))
   .clean(false) // do not delete files, allow gulp tasks in parallel
   .use(paths())
-  // set template for exercises
+  // set layout for exercises
   .use(setMetadata(metadataOptions))
-  // add relative(path) for use in templates
+  // add relative(path) for use in layouts
   .use(relative())
   // create collections
   .use(collections(collectionOptions))
@@ -105,10 +105,10 @@ module.exports = function build(callback, options){
   }))
   // add file.link metadata (now files are .html)
   .use(filepath())
-  // globals for use in templates
+  // globals for use in layouts
   .use(define(defineOptions))
-  // apply templates
-  .use(templates(templateOptions))
+  // apply layouts
+  .use(layouts(layoutOptions))
   //build
   .destination('build')
   .build(function(err){
@@ -116,4 +116,4 @@ module.exports = function build(callback, options){
     // callback when build is done
     callback(err);
   });
-};
+}
