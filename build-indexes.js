@@ -2,7 +2,7 @@
  * build index files
  */
 var Metalsmith = require('metalsmith');
-var templates = require('metalsmith-templates');
+var layouts = require('metalsmith-layouts');
 var collections = require('metalsmith-collections');
 var setMetadata = require('metalsmith-filemetadata');
 var filepath = require('metalsmith-filepath');
@@ -27,12 +27,9 @@ var getPlaylists = require('./playlist.js');
  */
 // metadata
 var metadataOptions = [
-  // front page template
+  // front page layout
   { pattern: 'index.md',
-    metadata: { template: 'index.jade' }},
-  // lesson index template
-  { pattern: '*/index.md',
-    metadata: { template: 'lesson-index.jade' }},
+    metadata: { layout: 'index.jade' }},
 ];
 
 // ignore everything except index files
@@ -51,7 +48,7 @@ config.collections.forEach(function(collection){
   };
 });
 
-// defines available in template
+// defines available in layout
 var defineOptions = {
   marked: marked,
   _: _,
@@ -61,10 +58,11 @@ var defineOptions = {
 };
 
 
-// template
-var templateOptions = {
+// layout
+var layoutOptions = {
   engine: 'jade',
-  directory: config.builderRoot + '/templates',
+  directory: config.builderRoot + '/layouts',
+  default: 'lesson-index.jade'
 };
 
 
@@ -80,7 +78,7 @@ module.exports = function build(callback){
     var collectionFolder = [config.lessonRoot, config.sourceFolder, collection].join("/");
     playlists[collection] = getPlaylists(collectionFolder);
   });
-  // make it available in template
+  // make it available in layout
   defineOptions.playlists = playlists;
 
   // do the building
@@ -90,9 +88,9 @@ module.exports = function build(callback){
   .use(ignore(ignoreOptions))
   .use(ignoreIndexedFalse)
   .use(paths())
-  // set template for exercises
+  // set layout for exercises
   .use(setMetadata(metadataOptions))
-  // add relative(path) for use in templates
+  // add relative(path) for use in layouts
   .use(relative())
   // create collections for index
   .use(collections(collectionOptions))
@@ -107,10 +105,10 @@ module.exports = function build(callback){
     to: 'html5',
     args: ['--section-divs', '--smart']
   }))
-  // globals for use in templates
+  // globals for use in layouts
   .use(define(defineOptions))
-  // apply templates
-  .use(templates(templateOptions))
+  // apply layouts
+  .use(layouts(layoutOptions))
   //build
   .destination('build')
   .build(function(err){
