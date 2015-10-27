@@ -20,6 +20,7 @@ $('.top-menu a.intro').click(startTour);
 var question = $('.intro-question');
 var tourCookie = Cookie.get('tour');
 var lastVisitCookie = Cookie.get('last visit');
+var now = moment();
 
 if (tourCookie === 'front page') {
   showFrontPageIntro();
@@ -36,8 +37,7 @@ if (tourCookie === 'front page') {
   var lastVisit = moment(lastVisitCookie);
   if (lastVisit.add(30, 'days') < now) {
     // not visited in 30 days (time to refresh)
-    var questionBody = $('.intro-question .modal-body > b');
-
+    var questionBody = $('.intro-question .modal-body > p');
     questionBody.text("Seems like it's a while since you've been here. Would you like a tour?");
     question.modal();
   }
@@ -45,7 +45,6 @@ if (tourCookie === 'front page') {
 
 
 // update "last visit"-cookie
-var now = moment();
 Cookie.set('last visit', now.format());
 
 
