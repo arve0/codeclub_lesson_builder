@@ -140,6 +140,8 @@ function showLessonIntro(){
 function tourDone(){
   var entry = Cookie.get('entry page');
   Cookie.remove('entry page');
-  window.location.href = entry;
+  if (entry !== window.location.href) {
+    window.location.href = entry;
+  }
 }
 
