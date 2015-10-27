@@ -18,15 +18,6 @@ block content
         img(src=logo)
         span= realName
 
-  .intro-question.modal.fade
-    .modal-dialog
-      .modal-content
-        .modal-header
-          button.close(type="button" data-dismiss="modal" aria-label="Close")
-            span(aria-hidden="true") &times;
-          h4.modal-title Hi there!
-        .modal-body
-          p Seems like this is your first time here. Would you like a tour?
-        .modal-footer
-          button.btn.btn-success Yes!
-          button.btn.btn-danger(data-dismiss="modal") No thanks
+  script.
+    // detect if first time users enters through index
+    window.thisIsTheIndex = true;
