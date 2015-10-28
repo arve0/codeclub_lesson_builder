@@ -44,8 +44,8 @@ if (tourCookie === 'front page') {
 }
 
 
-// update "last visit"-cookie
-Cookie.set('last visit', now.format());
+// update "last visit"-cookie, keep for a year
+Cookie.set('last visit', now.format(), {expires: 365});
 
 
 function startTour() {
