@@ -24,17 +24,18 @@ h1.info {
 // playlists
 .playlist {
   .list-group-item;
-  color: @link-color;
   cursor: pointer;
   padding-left:40px;
   .icon {
     .glyphicon;
     .glyphicon-play;
+    color: @link-color;
     display: block;
     margin-left:-25px;
     font-size:17px;
   }
   .name {
+    color: @link-color;
     margin-top:-18px;
     font-size:15px;
     font-weight:500;
@@ -44,5 +45,5 @@ h1.info {
   }
 }
 .playlist:hover > .name {
-  font-weight: bold;
+  color: darken(@link-color, 15%);
 }
