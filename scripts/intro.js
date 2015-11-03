@@ -38,7 +38,7 @@ if (tourCookie === 'front page') {
   if (lastVisit.add(30, 'days') < now) {
     // not visited in 30 days (time to refresh)
     var questionBody = $('.intro-question .modal-body > p');
-    questionBody.text("Seems like it's a while since you've been here. Would you like a tour?");
+    questionBody.text("Ser ut som du ikke har vært innom på en stund, vil du ha en omvisning?");
     question.modal();
   }
 }
@@ -67,19 +67,21 @@ function showFrontPageIntro(){
   Cookie.remove('tour');
   introjs()
     .setOptions({
-      skipLabel: 'Exit tour',
+      nextLabel: 'Neste',
+      prevLabel: 'Forrige',
+      skipLabel: 'Avslutt omvisning',
       scrollToElement: false,
-      doneLabel: 'Continue tour in Python page',
+      doneLabel: 'Fortsett omvisning på Python-siden',
       steps: [{
             element: document.querySelector('.courses'),
-            intro: 'The front page contains all the programming languages you can learn.',
+            intro: 'Fremsiden inneholder alle programeringsspråkene du kan lære deg.',
             position: 'top'
           }, {
             element: document.querySelector('#scratch'),
-            intro: '<b>Scratch</b> is suitable for all ages. It consists of a simple <b>drag-and-drop</b> interface which makes creation of games <i>really</i> simple.'
+            intro: '<b>Scratch</b> passer for alle aldre. I Scratch er koden klosser som plasseres ved <i>dra-og-slipp</i>, som gjør det <i>meget</i> enkelt å lage <b>spill</b>.'
           }, {
             element: document.querySelector('#python'),
-            intro: '<b>Python</b> is a text based language with a <i>simple</i> syntax. Python is a serious programming language which is used alot in <b>business, science and scripting.</b>'
+            intro: '<b>Python</b> er et tekstbasert språk som har en <i>enkel skrivemåte</i> med få unødige tegn. Python er et seriøst programmeringsspråk som brukes mye i <b>bedrifter, vitenskap og automatisering</b>.'
           }]
 
     })
@@ -97,22 +99,27 @@ function showLessonIndexIntro(){
   Cookie.remove('tour');
   introjs()
     .setOptions({
-      skipLabel: 'Exit tour',
+      nextLabel: 'Neste',
+      prevLabel: 'Forrige',
+      skipLabel: 'Avslutt omvisning',
       scrollToElement: false,
-      doneLabel: 'Continue tour in Hangman lesson',
+      doneLabel: 'Fortsett omvisning på oppgave-siden "Kuprat"',
       steps: [{
             element: document.querySelector('h1.info'),
-            intro: 'Every programming language has a short introduction. Click <span class="glyphicon glyphicon-info-sign"></span> to reveal the introduction.',
+            intro: 'Hvert programmeringsspråk har en kort introduksjon. Klikk på <span class="glyphicon glyphicon-info-sign"></span> for å vise introduksjonen.',
+          }, {
+            element: document.querySelector('.playlists h2'),
+            intro: 'Oppgavesamlinger inneholder oppgaver som passer godt i lag. Klikk på <span class="glyphicon glyphicon-play"></span> for å vise oppgavene.',
           }, {
             element: document.querySelector('h2.level-1'),
-            intro: 'Lessons are sorted in degree of difficulty. Here are the introduction lessons, which should be a good start for everyone.'
+            intro: 'Oppgavene er sortert etter vanskelighetsgrad. Her er introduksjonsoppgaver, som er en god start for helt ferske kodere.'
           }]
     })
     .start()
     .oncomplete(function(){
       // take to python page
       Cookie.set('tour', 'lesson');
-      window.location.href = 'lessons/Hangman/Hangman.html';
+      window.location.href = 'kuprat/kuprat.html';
     })
     .onexit(tourDone);
 }
@@ -122,16 +129,18 @@ function showLessonIntro(){
   Cookie.remove('tour');
   introjs()
     .setOptions({
-      skipLabel: 'Exit tour',
+      nextLabel: 'Neste',
+      prevLabel: 'Forrige',
+      skipLabel: 'Avslutt omvisning',
       scrollToElement: false,
-      doneLabel: 'Go back to where you started',
+      doneLabel: 'Gå tilbake til der du startet',
       steps: [{
             element: document.querySelector('.lesson-icons'),
-            intro: 'Level and programming language is shown here. You can also download the lesson as a PDF.',
+            intro: 'Nivå og programmeringsspråk vises her. Du kan også laste ned oppgaven som PDF.',
           }, {
-            element: document.querySelector('#step-1-pick-a-word'),
+            element: document.querySelector('#steg-1-hei-verden'),
             position: 'top',
-            intro: "Lessons consists of steps with instructions and code blocks.<br><br> That's it! Happy coding :-)"
+            intro: "Oppgavene består av steg med instruksjoner og kodeblokker.<br><br> Det var det! Lykke til :-)"
           }]
     })
     .start()
