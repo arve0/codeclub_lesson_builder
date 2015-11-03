@@ -67,8 +67,9 @@ function showFrontPageIntro(){
   Cookie.remove('tour');
   introjs()
     .setOptions({
+      skipLabel: 'Exit tour',
       scrollToElement: false,
-      doneLabel: 'Continue tour on next page',
+      doneLabel: 'Continue tour in Python page',
       steps: [{
             element: document.querySelector('.courses'),
             intro: 'The front page contains all the programming languages you can learn.',
@@ -96,8 +97,9 @@ function showLessonIndexIntro(){
   Cookie.remove('tour');
   introjs()
     .setOptions({
+      skipLabel: 'Exit tour',
       scrollToElement: false,
-      doneLabel: 'Go to the Hangman lesson',
+      doneLabel: 'Continue tour in Hangman lesson',
       steps: [{
             element: document.querySelector('h1.info'),
             intro: 'Every programming language has a short introduction. Click <span class="glyphicon glyphicon-info-sign"></span> to reveal the introduction.',
@@ -120,6 +122,7 @@ function showLessonIntro(){
   Cookie.remove('tour');
   introjs()
     .setOptions({
+      skipLabel: 'Exit tour',
       scrollToElement: false,
       doneLabel: 'Go back to where you started',
       steps: [{
