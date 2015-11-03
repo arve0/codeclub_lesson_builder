@@ -12,7 +12,7 @@
   animation-iteration-count: 3;
 }
 .attention:hover {
-  animation-iteration-count: infinite;
+  transform: scale(1.02);
 }
 
 // course info
@@ -43,7 +43,8 @@ h1.info {
   &.lesson {
     margin-left:10px;
   }
-}
-.playlist:hover > .name {
-  color: darken(@link-color, 15%);
+  &:hover {
+    color: darken(@link-color, 15%);
+    transform: scale(1.02);
+  }
 }

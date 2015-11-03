@@ -72,11 +72,11 @@ div.search {
     a {
       color: #000;
     }
-    a:hover p {
-      font-weight: normal;
+    a:hover, a:hover > * {
+      transform: none;
     }
-    a:hover h2 {
-      font-weight: bold;
+    li:hover {
+      transform: scale(1.01);
     }
     li {
       max-height: 100px;
@@ -99,6 +99,7 @@ div.search {
 // links
 a:hover, a:hover > * {
   text-decoration: none;
+  transform: scale(1.02);
 }
 
 // courses
