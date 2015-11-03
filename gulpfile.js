@@ -60,7 +60,8 @@ gulp.task('css', function(cb) {
     .pipe(addsrc([
       'styles/pulse.css',
       'node_modules/scratchblocks2/build/scratchblocks2.css',
-      'node_modules/metalsmith-metallic/node_modules/highlight.js/styles/idea.css'
+      'node_modules/metalsmith-metallic/node_modules/highlight.js/styles/idea.css',
+      'node_modules/intro.js/introjs.css'
     ]))
     .pipe(autoprefixer())
     .pipe(minify())
@@ -104,6 +105,7 @@ gulp.task('js', ['browserify'], function(){
   return gulp.src([
     'node_modules/scratchblocks2/build/scratchblocks2.js',
     'node_modules/scratchblocks2/src/translations.js',
+    'node_modules/bootstrap/js/modal.js',
     'node_modules/bootstrap/js/tooltip.js'
   ])
   .pipe(uglify())
@@ -207,7 +209,7 @@ gulp.task('default', ['server'], function(){
    */
   // files which are built with metalsmith
   gulp.watch([config.sourceRoot + '/**', '!' + config.sourceRoot + '/**/index.md'], ['build', reload]);
-  gulp.watch([__dirname + '/templates/**', config.sourceRoot + '/**/index.md'], ['build-indexes', reload]);
+  gulp.watch([__dirname + '/layouts/**', config.sourceRoot + '/**/index.md'], ['build-indexes', reload]);
 
   // styles
   gulp.watch(path.join(__dirname, 'styles', '**', '*'), ['css', reload]);

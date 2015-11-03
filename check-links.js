@@ -94,7 +94,7 @@ module.exports = function(start) {
         }
 
         // do not parse binary files
-        if (!/text|javascript|css|json|xml/i.test(doc.res.headers['content-type'])) {
+        if (!/text|css|json|xml/i.test(doc.res.headers['content-type'])) {
           return;
         }
 

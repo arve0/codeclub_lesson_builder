@@ -6,7 +6,7 @@ file=$1
 
 echo inserting to $file
 
-sed -i '' '
+sed -i '
 # find YAML header
 /^---$/ {
 # read next line

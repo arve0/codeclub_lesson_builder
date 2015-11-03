@@ -4,7 +4,7 @@
 
 file=$1
 
-sed -i '' '
+sed -i '
 # exclude header
 12,$ {
   # find and replace
