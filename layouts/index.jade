@@ -14,6 +14,10 @@ block content
       -link = collectionMetadata.external  || relative(collectionIndex + '.html')
       -logo = relative('/' + name + '/logo-black.png')
       -if (!isFile(path.dir, logo)) logo = relative('/logo-black.png')
-      a(href=link)
+      a(href=link id=name)
         img(src=logo)
         span= realName
+
+  script.
+    // detect if first time users enters through index
+    window.thisIsTheIndex = true;

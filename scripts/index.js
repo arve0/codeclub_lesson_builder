@@ -3,6 +3,7 @@
  */
 
 require('./search.js');
+require('./intro.js');
 
 
 $(function(){

@@ -60,7 +60,8 @@ gulp.task('css', function(cb) {
     .pipe(addsrc([
       'styles/pulse.css',
       'node_modules/scratchblocks2/build/scratchblocks2.css',
-      'node_modules/metalsmith-metallic/node_modules/highlight.js/styles/idea.css'
+      'node_modules/metalsmith-metallic/node_modules/highlight.js/styles/idea.css',
+      'node_modules/intro.js/introjs.css'
     ]))
     .pipe(autoprefixer())
     .pipe(minify())
@@ -104,6 +105,7 @@ gulp.task('js', ['browserify'], function(){
   return gulp.src([
     'node_modules/scratchblocks2/build/scratchblocks2.js',
     'node_modules/scratchblocks2/src/translations.js',
+    'node_modules/bootstrap/js/modal.js',
     'node_modules/bootstrap/js/tooltip.js'
   ])
   .pipe(uglify())

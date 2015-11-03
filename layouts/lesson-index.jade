@@ -37,7 +37,7 @@ block content
 
   //- plalists
   if playlists[path.dir] && playlists[path.dir].length
-    .level.col-xs-12.col-sm-6.col-md-4(id=name)
+    .playlists.col-xs-12.col-sm-6.col-md-4(id=name)
       h2 Playlists
       each playlist in playlists[path.dir] || []
         +playlistIndex(playlist)
