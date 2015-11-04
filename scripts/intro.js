@@ -74,7 +74,7 @@ function showFrontPageIntro(){
       doneLabel: 'Fortsett omvisning på Python-siden',
       steps: [{
             element: document.querySelector('.courses'),
-            intro: 'Fremsiden inneholder alle programeringsspråkene du kan lære deg.',
+            intro: 'Fremsiden inneholder alle kursene vi har.',
             position: 'top'
           }, {
             element: document.querySelector('#scratch'),
