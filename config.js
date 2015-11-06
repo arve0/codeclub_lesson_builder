@@ -2,7 +2,7 @@
  * # DEPENDENCIES #
  */
 var path = require('path');
-var fs = require('fs');
+var globby = require('globby');
 
 /*
  * Variables that depend on each other
@@ -16,8 +16,20 @@ var assetRoot = path.join(buildRoot, 'assets');
 var sourceFolder = 'src';
 var sourceRoot = path.join(lessonRoot, sourceFolder);
 
-var collections = fs.readdirSync(sourceRoot).filter(function(file) {
-  return fs.statSync(path.join(sourceRoot, file)).isDirectory();
+
+/**
+ * Collections
+ * Collections are folders which contain an index.md file.
+ * This allows for redirections, e.g., empty index.html with
+ * <script> window.location = "newUrl" </script>
+ */
+var collectionIndexPath = sourceRoot + '/*/index.md';
+var collectionIndexes = globby.sync(collectionIndexPath);
+var collections = collectionIndexes.map(function(value){
+  // ["../src/python/index.md", ...] -> ["python", ...]
+  var start = sourceRoot.length + 1;
+  var length = value.indexOf('/index.md') - start;
+  return value.substr(start, length);
 });
 
 
