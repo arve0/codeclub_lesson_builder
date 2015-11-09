@@ -106,7 +106,8 @@ gulp.task('js', ['browserify'], function(){
     'node_modules/scratchblocks2/build/scratchblocks2.js',
     'node_modules/scratchblocks2/src/translations.js',
     'node_modules/bootstrap/js/modal.js',
-    'node_modules/bootstrap/js/tooltip.js'
+    'node_modules/bootstrap/js/tooltip.js',
+    'node_modules/bootstrap/js/popover.js'
   ])
   .pipe(uglify())
   .pipe(addsrc.prepend([
