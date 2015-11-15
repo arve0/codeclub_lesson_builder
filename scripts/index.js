@@ -34,21 +34,21 @@ $('[title]').tooltip();
  * external resources
  */
 $('.courses > a[href^="http"]')
-  .each(externalResourcePopover('course'));
+  .each(externalResourcePopover('Dette er et eksternt kurs.', 'kurset'));
 $('.playlists > a[href^="http"], .level > a[href^="http"]')
-  .each(externalResourcePopover('lesson'));
+  .each(externalResourcePopover('Dette er en ekstern oppgave.', 'oppgaven'));
 
 var openExternalPopover;  // global state
-function externalResourcePopover(type) {
+function externalResourcePopover(thisIs, continueTo) {
   return function(){
-    var content = '<p>This is an external '+ type +'.<br><br>'
-    content += '<a href="'+ this.href +'">Continue to '+ type +'.</a></p>';
+    var content = '<p>'+ thisIs +'<br><br>'
+    content += '<a href="'+ this.href +'">Fortsett til '+ continueTo +'.</a></p>';
     $(this).popover({
       animate: true,
       placement: 'top',
       trigger: 'manual',
       html: 'true',
-      title: 'External resource',
+      title: 'Ekstern ressurs',
       content: content
     });
     $(this).click(function(event){
