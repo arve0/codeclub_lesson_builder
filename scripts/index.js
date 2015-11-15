@@ -33,33 +33,36 @@ $('[title]').tooltip();
 /*
  * external resources
  */
-var selectorExternalResources = [
- '.courses > a[href^="http"]',
- '.playlists > a[href^="http"]',
- '.level > a[href^="http"]'
-].join(', ');
-var openExternalPopover;
-$(selectorExternalResources).each(function(){
-  var content = '<p>This is an external resource outside our control. Content might therefore be of variable quality.<br><br><a href="'+ this.href +'">Continue to resource.</a></p>';
-  $(this).popover({
-    animate: true,
-    placement: 'top',
-    trigger: 'manual',
-    html: 'true',
-    title: 'External resource',
-    content: content
-  });
-  $(this).click(function(event){
-    event.preventDefault();
-    // if other popover is open, hide it
-    if (openExternalPopover && openExternalPopover !== this) {
-      $(openExternalPopover).popover('hide');
-    }
-    // if already open, set openExternalPopover to false
-    // else, keep track of open popover
-    openExternalPopover = (openExternalPopover === this) ? false : this;
-    $(this).popover('toggle');
-  });
-});
+$('.courses > a[href^="http"]')
+  .each(externalResourcePopover('course'));
+$('.playlists > a[href^="http"], .level > a[href^="http"]')
+  .each(externalResourcePopover('lesson'));
+
+var openExternalPopover;  // global state
+function externalResourcePopover(type) {
+  return function(){
+    var content = '<p>This is an external '+ type +'.<br><br>'
+    content += '<a href="'+ this.href +'">Continue to '+ type +'.</a></p>';
+    $(this).popover({
+      animate: true,
+      placement: 'top',
+      trigger: 'manual',
+      html: 'true',
+      title: 'External resource',
+      content: content
+    });
+    $(this).click(function(event){
+      event.preventDefault();
+      // if other popover is open, hide it
+      if (openExternalPopover && openExternalPopover !== this) {
+        $(openExternalPopover).popover('hide');
+      }
+      // if already open, set openExternalPopover to false
+      // else, keep track of open popover
+      openExternalPopover = (openExternalPopover === this) ? false : this;
+      $(this).popover('toggle');
+    });
+  }
+}
 
 });
