@@ -12,6 +12,8 @@ mixin playlistIndex(playlist)
     a(href=link)
       li.playlist.lesson(style="display:none" class=playlist.id + ' level-' + lesson.level)
         = lesson.title
+        if lesson.external
+          span.glyphicon.glyphicon-new-window
 
 
 //- levels
@@ -25,6 +27,8 @@ mixin levelIndex(level, lessons)
       -link = lesson.external || relative(lesson.link.replace(/\.md$/, '.html'))
       a(href=link)
         li.lesson= lesson.title
+          if lesson.external
+            span.glyphicon.glyphicon-new-window
 
 
 block content

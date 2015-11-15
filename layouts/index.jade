@@ -16,7 +16,10 @@ block content
       -if (!isFile(path.dir, logo)) logo = relative('/logo-black.png')
       a(href=link id=name)
         img(src=logo)
-        span= realName
+        .name
+          span= realName
+          if collectionMetadata.external
+            span.external
 
   script.
     // detect if first time users enters through index
