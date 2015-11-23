@@ -1,9 +1,9 @@
 # The codeclub_lesson_builder format
 This builder uses a format that is heavily based on the format used by
-[Code Club UK][lesson_format]. It is capable of
-building lessons intended for the Code Club UK's builder, but there are some
-differences. The main differences are related to meta data, and in general we
-require less meta data than the UK builder.
+[Code Club UK][lesson_format]. It is capable of building lessons intended for
+the Code Club UK's builder, but there are some differences. The main
+differences are related to meta data, and in general we require less meta data
+than the UK builder.
 
 [lesson_format]: https://github.com/codeclub/lesson_format
 
@@ -45,8 +45,14 @@ find generic black and white logos in [images].
 
 
 ## Markdown
-We use pandoc's variant of markdown. Pandoc's documentation covers all the details:
-http://johnmacfarlane.net/pandoc/demo/example9/pandocs-markdown.html
+We use [CommonMark](http://commonmark.org/) variant of markdown with inline
+HTML and [linkify](https://github.com/markdown-it/markdown-it#init-with-presets-and-options)
+enabled. Extra plugins in use are:
+- [attrs](https://github.com/arve0/markdown-it-attrs)
+- [header sections](https://github.com/arve0/markdown-it-header-sections)
+- [implicit figures](https://github.com/arve0/markdown-it-implicit-figures)
+
+You can easily learn markdown by [following this tutorial](http://eherrera.net/markdowntutorial/).
 
 
 ## YAML header
