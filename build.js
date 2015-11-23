@@ -6,14 +6,17 @@ var layouts = require('metalsmith-layouts');
 var collections = require('metalsmith-collections');
 var setMetadata = require('metalsmith-filemetadata');
 var filepath = require('metalsmith-filepath');
-var pandoc = require('metalsmith-pandoc');
 var ignore = require('metalsmith-ignore');
 var relative = require('metalsmith-relative');
 var define = require('metalsmith-define');
-var marked = require('marked'); // for md strings in YAML header
 var _ = require('lodash');
 var changed = require('metalsmith-changed');
 var paths = require('metalsmith-paths');
+// markdown parsing
+var markdownit = require('metalsmith-markdownit');
+var markdownitHeaderSections = require('markdown-it-header-sections');
+var markdownitAttrs = require('markdown-it-attrs');
+var markdownitImplicitFigures = require('markdown-it-implicit-figures');
 // code highlighting
 var highlight = require('metalsmith-metallic');
 var branch = require('metalsmith-branch');
@@ -50,16 +53,28 @@ config.collections.forEach(function(collection){
   };
 });
 
-// defines available in layout 
+// setup markdown parser
+var md = markdownit({
+  html: true,  // allow html in source
+  linkify: true  // parse URL-like text to links
+});
+
+
+md.parser
+  .use(markdownitAttrs)
+  .use(markdownitHeaderSections)
+  .use(markdownitImplicitFigures);
+
+// defines available in layout
 var defineOptions = {
-  marked: marked,
+  markdown: markdownit().parser,
   _: _,
   config: config,
   isFile: tools.isFile,
   matter: tools.frontmatter,
 };
 
-// layout 
+// layout
 var layoutOptions = {
   engine: 'jade',
   directory: config.builderRoot + '/layouts'
@@ -98,11 +113,8 @@ module.exports = function build(callback, options){
     .pattern(['**/*.md', '!scratch/**/*.md']) // no highlight on scratch blocks
     .use(highlight())
   )
-  // convert to html
-  .use(pandoc({
-    to: 'html5',
-    args: ['--section-divs', '--smart']
-  }))
+  // convert markdown to html
+  .use(md)
   // add file.link metadata (now files are .html)
   .use(filepath())
   // globals for use in layouts

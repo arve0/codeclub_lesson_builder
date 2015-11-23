@@ -6,14 +6,16 @@ var layouts = require('metalsmith-layouts');
 var collections = require('metalsmith-collections');
 var setMetadata = require('metalsmith-filemetadata');
 var filepath = require('metalsmith-filepath');
-var pandoc = require('metalsmith-pandoc');
 var ignore = require('metalsmith-ignore');
 var relative = require('metalsmith-relative');
 var define = require('metalsmith-define');
-var marked = require('marked'); // for md strings in YAML header
 var path = require('path');
 var _ = require('lodash');
 var paths = require('metalsmith-paths');
+// markdown parsing
+var markdownit = require('metalsmith-markdownit');
+var markdownitHeaderSections = require('markdown-it-header-sections');
+var markdownitAttrs = require('markdown-it-attrs');
 // code highlighting
 var highlight = require('metalsmith-metallic');
 var branch = require('metalsmith-branch');
@@ -48,9 +50,18 @@ config.collections.forEach(function(collection){
   };
 });
 
+// setup markdown parser
+var md = markdownit({
+  html: true,  // allow html in source
+  linkify: true  // parse URL-like text to links
+});
+md.parser
+  .use(markdownitAttrs)
+  .use(markdownitHeaderSections);
+
 // defines available in layout
 var defineOptions = {
-  marked: marked,
+  markdown: markdownit().parser,
   _: _,
   config: config,
   isFile: tools.isFile,
@@ -100,11 +111,8 @@ module.exports = function build(callback){
   // remove lessons *after* we have necessary metadata
   .use(ignore(['**', '!**/index.md']))
   .use(tools.removeExternal)
-  // convert to html
-  .use(pandoc({
-    to: 'html5',
-    args: ['--section-divs', '--smart']
-  }))
+  // convert markdown to html
+  .use(md)
   // globals for use in layouts
   .use(define(defineOptions))
   // apply layouts
