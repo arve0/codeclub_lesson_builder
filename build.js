@@ -59,11 +59,11 @@ var md = markdownit({
   linkify: true  // parse URL-like text to links
 });
 
-
 md.parser
   .use(markdownitAttrs)
   .use(markdownitHeaderSections)
-  .use(markdownitImplicitFigures);
+  .use(markdownitImplicitFigures)
+  .linkify.tlds('.py', false);  // linkify: turn of .py top level domain;
 
 // defines available in layout
 var defineOptions = {
