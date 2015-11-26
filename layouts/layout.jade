@@ -36,23 +36,23 @@ html
               .license
                 p: strong License:
                 if license
-                  - license = marked(license)
+                  - license = markdown.render(license)
                   != license
                 else
                   a(rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/").
                     CC BY-SA 4.0
             if author
-              - author = marked(author)
+              - author = markdown.render(author)
               .author
                 p: strong Author:
                 != author
             if translator
-              - translator = marked(translator)
+              - translator = markdown.render(translator)
               .translator
                 p: strong Translator:
                 != translator
             if footer
-              - footer = marked(footer)
+              - footer = markdown.render(footer)
               .note!= footer
 
     .intro-question.modal.fade
