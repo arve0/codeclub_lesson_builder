@@ -16,9 +16,7 @@ var paths = require('metalsmith-paths');
 var markdownit = require('metalsmith-markdownit');
 var markdownitHeaderSections = require('markdown-it-header-sections');
 var markdownitAttrs = require('markdown-it-attrs');
-// code highlighting
-var highlight = require('metalsmith-metallic');
-var branch = require('metalsmith-branch');
+var hljs = require('highlight.js');
 // get configuration variables
 var config = require('./config.js');
 var tools = require('./tools.js');
@@ -53,7 +51,24 @@ config.collections.forEach(function(collection){
 // setup markdown parser
 var md = markdownit({
   html: true,  // allow html in source
-  linkify: true  // parse URL-like text to links
+  linkify: true,  // parse URL-like text to links
+  langPrefix: '',  // no prefix in class for code blocks
+  highlight: function(str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      // highlight supported languages
+      try {
+        return hljs.highlight(lang, str).value;
+      } catch(e) {}
+    }
+    if (!lang) {
+      // autodetect language
+      try {
+        return hljs.highlightAuto(str).value;
+      } catch(e) {}
+    }
+    // do not highlight unsupported or undetected
+    return '';
+  }
 });
 md.parser
   .use(markdownitAttrs)
