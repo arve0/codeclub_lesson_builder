@@ -3,6 +3,8 @@ extends ./lesson.jade
 block scripts
   script.
     $(document).ready(function(){
+      $('pre').has('code.blocks').addClass('blocks');
       scratchblocks2.load_language(scratchblocks2._translations['nb']);
-      scratchblocks2.parse("pre.blocks");
+      scratchblocks2.parse('code.blocks');
+      scratchblocks2.parse('code.b', {inline: true});
     });

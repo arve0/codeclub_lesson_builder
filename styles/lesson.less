@@ -55,7 +55,7 @@ header {
   font-size: 26px;
 }
 
-// placement for list items
+// list items in .check, .activity and .save
 .check, .activity, .save {
   ul, ol {
     padding: 0;
@@ -80,36 +80,8 @@ header {
   }
 }
 
-// styles for activities
-.activity {
-  h1 {
-    color: #FFF;
-    background: #349946;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  .subsection h2 {
-    &:extend(.activity h1);
-    font-weight: 300;
-  }
-}
-
-
-
-// style for header to check lists
-.check {
-  h2 {
-    background-image: url(img/check.svg);
-    background-size: 40px 40px;
-    background-repeat: no-repeat;
-    padding-top: 4px;
-    padding-bottom: 9px;
-    padding-left: 50px;
-  }
-}
-
 // scratch code blocks
-pre.blocks {
+pre.blocks, code.b {
   background-color: inherit;
   border: 0;
 }
@@ -121,7 +93,31 @@ pre > code {
 }
 
 // sections
-.try {
+section.activity {
+  // activities, "Step 1: Bla bla"
+  h1 {
+    color: #FFF;
+    background: #349946;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .subsection h2 {
+    &:extend(.activity h1);
+    font-weight: 300;
+  }
+}
+section.check {
+  // check lists
+  h2 {
+    background-image: url(img/check.svg);
+    background-size: 40px 40px;
+    background-repeat: no-repeat;
+    padding-top: 4px;
+    padding-bottom: 9px;
+    padding-left: 50px;
+  }
+}
+section.try {
   background: #ABDBEA;
   border-radius: 10px;
   padding: 1px 20px 10px 20px;
@@ -133,7 +129,7 @@ pre > code {
     border: 3px solid #fff !important;
   }
 }
-.tip {
+section.protip, section.tip {
   border: 3px solid #ff7f00;
   background: #fff99d;
   border-radius: 12px;
@@ -141,10 +137,7 @@ pre > code {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-.protip { // alias for .tip
-  .tip;
-}
-.flag {
+section.flag {
   border-top: 3px dotted rgb(230,134,45);
   padding-bottom: 20px;
   margin-top: 20px;
@@ -162,7 +155,7 @@ pre > code {
     padding-left: 60px;
   }
 }
-.save {
+section.save {
   border-top: 3px solid rgb(36,90,154);
   margin: 20px 0;
   h2 {
@@ -177,7 +170,7 @@ pre > code {
     padding-left: 50px;
   }
 }
-.challenge {
+section.challenge {
   border: 3px solid #00b1da;
   border-radius: 12px;
   padding-bottom: 10px;

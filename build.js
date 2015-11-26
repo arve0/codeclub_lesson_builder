@@ -6,17 +6,18 @@ var layouts = require('metalsmith-layouts');
 var collections = require('metalsmith-collections');
 var setMetadata = require('metalsmith-filemetadata');
 var filepath = require('metalsmith-filepath');
-var pandoc = require('metalsmith-pandoc');
 var ignore = require('metalsmith-ignore');
 var relative = require('metalsmith-relative');
 var define = require('metalsmith-define');
-var marked = require('marked'); // for md strings in YAML header
 var _ = require('lodash');
 var changed = require('metalsmith-changed');
 var paths = require('metalsmith-paths');
-// code highlighting
-var highlight = require('metalsmith-metallic');
-var branch = require('metalsmith-branch');
+// markdown parsing
+var markdownit = require('metalsmith-markdownit');
+var markdownitHeaderSections = require('markdown-it-header-sections');
+var markdownitAttrs = require('markdown-it-attrs');
+var markdownitImplicitFigures = require('markdown-it-implicit-figures');
+var hljs = require('highlight.js');
 // get configuration variables
 var config = require('./config.js');
 var tools = require('./tools.js');
@@ -50,16 +51,45 @@ config.collections.forEach(function(collection){
   };
 });
 
-// defines available in layout 
+// setup markdown parser
+var md = markdownit({
+  html: true,  // allow html in source
+  linkify: true,  // parse URL-like text to links
+  langPrefix: '',  // no prefix in class for code blocks
+  highlight: function(str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      // highlight supported languages
+      try {
+        return hljs.highlight(lang, str).value;
+      } catch(e) {}
+    }
+    if (!lang) {
+      // autodetect language
+      try {
+        return hljs.highlightAuto(str).value;
+      } catch(e) {}
+    }
+    // do not highlight unsupported or undetected
+    return '';
+  }
+});
+
+md.parser
+  .use(markdownitAttrs)
+  .use(markdownitHeaderSections)
+  .use(markdownitImplicitFigures)
+  .linkify.tlds('.py', false);  // linkify: turn of .py top level domain;
+
+// defines available in layout
 var defineOptions = {
-  marked: marked,
+  markdown: markdownit().parser,
   _: _,
   config: config,
   isFile: tools.isFile,
   matter: tools.frontmatter,
 };
 
-// layout 
+// layout
 var layoutOptions = {
   engine: 'jade',
   directory: config.builderRoot + '/layouts'
@@ -93,16 +123,8 @@ module.exports = function build(callback, options){
           '.md': '.html',
       },
   }))
-  // highlight code - exclude scratch code blocks
-  .use(branch()
-    .pattern(['**/*.md', '!scratch/**/*.md']) // no highlight on scratch blocks
-    .use(highlight())
-  )
-  // convert to html
-  .use(pandoc({
-    to: 'html5',
-    args: ['--section-divs', '--smart']
-  }))
+  // convert markdown to html
+  .use(md)
   // add file.link metadata (now files are .html)
   .use(filepath())
   // globals for use in layouts
