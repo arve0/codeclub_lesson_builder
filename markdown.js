@@ -1,4 +1,5 @@
 var markdownit = require('metalsmith-markdownit');
+var anchor = require('markdown-it-anchor').default;  // .default: babel build error
 var attrs = require('markdown-it-attrs');
 var headerSections = require('markdown-it-header-sections');
 var implicitFigures = require('markdown-it-implicit-figures');
@@ -31,6 +32,7 @@ md.parser
   .use(attrs)
   .use(headerSections)
   .use(implicitFigures)
+  .use(anchor)
   .linkify.tlds('.py', false);  // linkify: turn of .py top level domain;
 
 module.exports = md;

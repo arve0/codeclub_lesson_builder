@@ -9,7 +9,6 @@ var filepath = require('metalsmith-filepath');
 var ignore = require('metalsmith-ignore');
 var relative = require('metalsmith-relative');
 var define = require('metalsmith-define');
-var path = require('path');
 var _ = require('lodash');
 var paths = require('metalsmith-paths');
 var md = require('./markdown.js');
