@@ -1,5 +1,5 @@
 var markdownit = require('metalsmith-markdownit');
-var anchor = require('markdown-it-anchor').default;  // .default: babel build error
+var anchor = require('markdown-it-anchor');
 var attrs = require('markdown-it-attrs');
 var headerSections = require('markdown-it-header-sections');
 var implicitFigures = require('markdown-it-implicit-figures');
