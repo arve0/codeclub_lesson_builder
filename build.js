@@ -12,12 +12,7 @@ var define = require('metalsmith-define');
 var _ = require('lodash');
 var changed = require('metalsmith-changed');
 var paths = require('metalsmith-paths');
-// markdown parsing
-var markdownit = require('metalsmith-markdownit');
-var markdownitHeaderSections = require('markdown-it-header-sections');
-var markdownitAttrs = require('markdown-it-attrs');
-var markdownitImplicitFigures = require('markdown-it-implicit-figures');
-var hljs = require('highlight.js');
+var md = require('./markdown.js');
 // get configuration variables
 var config = require('./config.js');
 var tools = require('./tools.js');
@@ -51,38 +46,9 @@ config.collections.forEach(function(collection){
   };
 });
 
-// setup markdown parser
-var md = markdownit({
-  html: true,  // allow html in source
-  linkify: true,  // parse URL-like text to links
-  langPrefix: '',  // no prefix in class for code blocks
-  highlight: function(str, lang) {
-    if (lang && hljs.getLanguage(lang)) {
-      // highlight supported languages
-      try {
-        return hljs.highlight(lang, str).value;
-      } catch(e) {}
-    }
-    if (!lang) {
-      // autodetect language
-      try {
-        return hljs.highlightAuto(str).value;
-      } catch(e) {}
-    }
-    // do not highlight unsupported or undetected
-    return '';
-  }
-});
-
-md.parser
-  .use(markdownitAttrs)
-  .use(markdownitHeaderSections)
-  .use(markdownitImplicitFigures)
-  .linkify.tlds('.py', false);  // linkify: turn of .py top level domain;
-
 // defines available in layout
 var defineOptions = {
-  markdown: markdownit().parser,
+  markdown: md.parser,
   _: _,
   config: config,
   isFile: tools.isFile,
