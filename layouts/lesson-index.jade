@@ -2,18 +2,19 @@ extends ./layout.jade
 
 //- playlists
 mixin playlistIndex(playlist)
-  li.playlist(title="Click to expand" id=playlist.id)
-    .icon
-    .name= playlist.name
+  .playlist
+    li(title="Click to expand" id=playlist.id)
+      .icon
+      .name= playlist.name
 
-  each lesson in playlist.lessons
-    //- if external tag set, use that as link
-    -link = lesson.external || relative(lesson.link)
-    a(href=link)
-      li.playlist.lesson(style="display:none" class=playlist.id + ' level-' + lesson.level)
-        = lesson.title
-        if lesson.external
-          span.glyphicon.glyphicon-new-window
+    each lesson in playlist.lessons
+      //- if external tag set, use that as link
+      -link = lesson.external || relative(lesson.link)
+      a(href=link)
+        li.lesson(style="display:none" class=playlist.id + ' level-' + lesson.level)
+          = lesson.title
+          if lesson.external
+            span.glyphicon.glyphicon-new-window
 
 
 //- levels
