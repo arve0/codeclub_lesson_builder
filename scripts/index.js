@@ -4,18 +4,10 @@
 
 require('./search.js');
 require('./intro.js');
-
+require('./playlist.js');
 
 $(function(){
 // page loaded
-
-/*
- * show/hide playlist
- */
-$('li.playlist').click(function(){
-  $('.' + this.id).slideToggle();
-});
-
 
 /*
  * show/hide course info
