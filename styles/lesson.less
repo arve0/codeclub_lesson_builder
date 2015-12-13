@@ -263,3 +263,15 @@ toggle {
     margin-left: 10px;
   }
 }
+
+/* hidden sections
+ * sections that have a class that starts with "test-"
+ */
+section[class^="test-"], section[class*=" test-"] {
+  display: none;
+}
+input[type="text"] {
+  .form-control;
+  width: inherit;
+  margin-top: 10px;
+}

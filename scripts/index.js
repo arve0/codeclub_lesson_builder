@@ -29,6 +29,18 @@ $('toggle').click(function(){
   $('hide', this).slideToggle();
 });
 
+/**
+ * show sections when correct answer is given
+ */
+$('input[for^="test-"]').keyup(function(event){
+ var answer = this.attributes.answer.value.toLowerCase();
+ var value = this.value.toLowerCase();
+ if (answer == value) {
+   var section = this.attributes.for.value;
+   $("section."+ section).slideDown();
+ }
+})
+
 
 /*
  * external resources
