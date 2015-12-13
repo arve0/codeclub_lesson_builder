@@ -22,6 +22,14 @@ $('h1.info').click(function(){
 $('[title]').tooltip();
 
 
+/**
+ * toggle hints
+ */
+$('toggle').click(function(){
+  $('hide', this).slideToggle();
+});
+
+
 /*
  * external resources
  */
