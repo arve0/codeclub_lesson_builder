@@ -69,22 +69,24 @@ function getLessons(playlist) {
 
 function addNavigation(playlist) {
   var navigation = '<div class="playlist-navigation">';
-  navigation += '<a class="prev">&laquo;</a>';
-  navigation += playlist.name +': ';
+  navigation += '<h1>'+ playlist.name +'</h1>';
 
-  navigation += '<select>';
+  navigation += '<ul class="pagination">';
+  navigation += '<li><a class="prev" title="Previous">&laquo;</a></li>';
   for (var i=0, l=playlist.lessons.length; i<l; ++i) {
     var lesson = playlist.lessons[i];
-    navigation += '<option value="'+ lesson.url +'"';
+    navigation += '<li';
     if (window.location.href === lesson.url) {
-      navigation += ' selected';
+      navigation += ' class="active"';
     }
-    navigation += '>'; // option end
-    navigation += lesson.name;
-    navigation += '</option>';
+    navigation += '><a href="'+ lesson.url +'" ';
+    navigation += 'title="'+ lesson.name +'">';
+    navigation += '<span>'+ (i + 1) +'</span>';
+    navigation += '</a></li>';
   }
-  navigation += '</select>';
-  navigation += '<a class="next">&raquo;</a></div>';
+  navigation += '<li><a class="next" title="Next">&raquo;</a></li>';
+  navigation += '</ul>';
+  navigation += '<div class="clearfix"></div></div>';
 
   $('header').parent().prepend(navigation);
   $('#footer').parent().prepend(navigation);
@@ -97,9 +99,9 @@ function addNavigation(playlist) {
     var i = indexOf(playlist.lessons, window.location.href);
     if ($(this).hasClass('prev')) {
       i -= 1;
-    } else {
+    } else if ($(this).hasClass('next')) {
       i += 1;
-    }
+    } else { return }  // not next/prev button
     if (playlist.lessons[i]) {
       var url = playlist.lessons[i].url;
       Cookie.set('playlist', playlist);

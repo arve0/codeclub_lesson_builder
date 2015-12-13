@@ -23,9 +23,11 @@ h1.info {
 
 // playlists
 .playlist {
-  .list-group-item;
-  cursor: pointer;
-  padding-left:40px;
+  > li {
+    .list-group-item;
+    cursor: pointer;
+    padding-left:40px;
+  }
   .icon {
     .glyphicon;
     .glyphicon-play;
@@ -40,10 +42,10 @@ h1.info {
     font-size:15px;
     font-weight:500;
   }
-  &.lesson {
+  .lesson {
     margin-left:10px;
   }
-  &:hover {
+  > li:hover, .lesson:hover {
     color: darken(@link-color, 15%);
     transform: scale(1.02);
   }
@@ -78,4 +80,3 @@ li.lesson {
 .level-4 {
   background-image: url('img/level4.png');
 }
-
