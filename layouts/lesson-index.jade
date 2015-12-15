@@ -35,9 +35,11 @@ mixin levelIndex(level, lessons)
 block content
   //- insert contents from index.md
   .col-xs-12
-    h1.info.attention(title="Click me for an introduction")
-      span.glyphicon.glyphicon-info-sign
+    h1.info
+      span.infoicon.glyphicon.glyphicon-plus-sign
       = ' ' + title
+      span.clickformore
+        = 'Click for more info'
     .content(style="display:none")!= contents
 
   //- plalists

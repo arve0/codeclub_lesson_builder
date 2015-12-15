@@ -14,6 +14,8 @@ $(function(){
  */
 $('h1.info').click(function(){
   $('.content').slideToggle();
+  $('.infoicon').toggleClass('glyphicon-minus-sign').toggleClass('glyphicon-plus-sign');
+  $('.clickformore').addClass('hide');
 });
 
 /*
