@@ -14,12 +14,34 @@ $(function(){
  */
 $('h1.info').click(function(){
   $('.content').slideToggle();
+  $('.infoicon').toggleClass('glyphicon-minus-sign').toggleClass('glyphicon-plus-sign');
+  $('.clickformore').addClass('hide');
 });
 
 /*
  * tooltips
  */
 $('[title]').tooltip();
+
+
+/**
+ * toggle hints
+ */
+$('toggle').click(function(){
+  $('hide', this).slideToggle();
+});
+
+/**
+ * show sections when correct answer is given
+ */
+$('input[for^="test-"]').keyup(function(event){
+ var answer = this.attributes.answer.value.toLowerCase();
+ var value = this.value.toLowerCase();
+ if (answer == value) {
+   var section = this.attributes.for.value;
+   $("section."+ section).slideDown();
+ }
+})
 
 
 /*
