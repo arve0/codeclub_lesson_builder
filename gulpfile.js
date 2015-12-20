@@ -90,7 +90,9 @@ gulp.task('browserify', function() {
     debug: true
   });
 
-  return b.bundle()
+  return b
+  .transform("babelify", {presets: ["es2015"]})
+  .bundle()
   .pipe(source('script.min.js'))
   .pipe(streamify(uglify()))
   .pipe(gulp.dest(config.assetRoot));

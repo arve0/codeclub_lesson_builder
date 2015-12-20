@@ -55,6 +55,10 @@
     "vinyl-source-stream": "^1.1.0",
     "yaml-front-matter": "^3.2.3"
   },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.3.13",
+    "babelify": "^7.2.0"
+  },
   "napa": {
     "scratchblocks2": "tjvr/scratchblocks2#0ca7d46"
   },
