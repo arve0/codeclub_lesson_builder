@@ -3,7 +3,7 @@ var matter = require('gray-matter');
 var path = require('path');
 var fs = require('fs');
 var getPlaylists = require('./playlist');
-var config = require('./config.js')
+var config = require('./config.js');
 
 /** Returns true if file exists */
 function isFile(dir, file){
@@ -46,4 +46,4 @@ module.exports = {
   isFile: isFile,
   frontmatter: frontmatter,
   removeExternal: removeExternal
-}
+};

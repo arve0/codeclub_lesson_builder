@@ -27,7 +27,7 @@ var metadataOptions = [
     metadata: { layout: 'lesson.jade' }},
   // scratch lesson layout
   { pattern: 'scratch/**/*.md',
-    metadata: { layout: 'scratch.jade' }},
+    metadata: { layout: 'scratch.jade' }}
 ];
 
 // ignores
@@ -42,7 +42,7 @@ var collectionOptions = {};
 config.collections.forEach(function(collection){
   // options for collections
   collectionOptions[collection] = {
-    pattern: collection + '/**/*.md',
+    pattern: collection + '/**/*.md'
   };
 });
 
@@ -52,7 +52,7 @@ var defineOptions = {
   _: _,
   config: config,
   isFile: tools.isFile,
-  matter: tools.frontmatter,
+  matter: tools.frontmatter
 };
 
 // layout
@@ -86,8 +86,8 @@ module.exports = function build(callback, options){
   .use(changed({
       force: forceBuild,
       extnames: {
-          '.md': '.html',
-      },
+          '.md': '.html'
+      }
   }))
   // convert markdown to html
   .use(md)
@@ -104,4 +104,4 @@ module.exports = function build(callback, options){
     // callback when build is done
     callback(err);
   });
-}
+};

@@ -75,7 +75,7 @@ gulp.task('assets', function(){
   return gulp.src([
       'assets/**/*',
       'node_modules/scratchblocks2/build/*/*.png',
-      'node_modules/bootstrap/dist/*/glyphicons-halflings-regular.*',
+      'node_modules/bootstrap/dist/*/glyphicons-halflings-regular.*'
     ])
     .pipe(gulp.dest(config.assetRoot));
 });

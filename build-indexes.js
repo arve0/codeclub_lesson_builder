@@ -24,7 +24,7 @@ var getPlaylists = require('./playlist.js');
 var metadataOptions = [
   // front page layout
   { pattern: 'index.md',
-    metadata: { layout: 'index.jade' }},
+    metadata: { layout: 'index.jade' }}
 ];
 
 // ignore everything except index files
@@ -39,7 +39,7 @@ var collectionOptions = {};
 config.collections.forEach(function(collection){
   // options for collections
   collectionOptions[collection] = {
-    pattern: collection + '/**/*.md',
+    pattern: collection + '/**/*.md'
   };
 });
 
@@ -49,7 +49,7 @@ var defineOptions = {
   _: _,
   config: config,
   isFile: tools.isFile,
-  matter: tools.frontmatter,
+  matter: tools.frontmatter
 };
 
 // layout

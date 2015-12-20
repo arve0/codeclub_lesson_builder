@@ -15,7 +15,7 @@ function length(obj) {
 
 /**
  * Export closure, so that checkLinks can be used in gulp without
- * creating an anynomous function.
+ * creating an anonymous function.
  *
  * @module.exports
  * @param {string} start URL where crawler should start looking for links.
