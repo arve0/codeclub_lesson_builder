@@ -5,9 +5,9 @@
 require('./search.js');
 require('./intro.js');
 require('./playlist.js');
+import i18n from './i18n';
 
-$(function(){
-// page loaded
+i18n.then(function(i18n_t) {
 
 /*
  * show/hide course info
@@ -79,4 +79,7 @@ function externalResourcePopover(type) {
   }
 }
 
+},
+function(err) {
+  console.error(err);
 });

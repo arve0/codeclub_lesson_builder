@@ -1,0 +1,29 @@
+{
+  "test": {
+    "helloWorld": "Hei verden"
+  },
+  "intro": {
+    "askTour": "Ser ut som du ikke har vært innom på en stund, vil du ha en omvisning?",
+    "nextLabel": "Neste",
+    "prevLabel": "Forrige",
+    "skipLabel": "Avslutt omvisning",
+    "frontPage": {
+      "doneLabel": "Fortsett omvisning på Python-siden",
+      "courses": "Fremsiden inneholder alle kursene vi har.",
+      "scratch": "<b>Scratch</b> passer for alle aldre. I Scratch er koden klosser som plasseres ved <i>dra-og-slipp</i>, som gjør det <i>meget</i> enkelt å lage <b>spill</b>.",
+      "python": "<b>Python</b> er et tekstbasert språk som har en <i>enkel skrivemåte</i> med få unødige tegn. Python er et seriøst programmeringsspråk som brukes mye i <b>bedrifter, vitenskap og automatisering</b>."
+    },
+    "lessonIndex": {
+      "doneLabel": "Fortsett omvisning på oppgave-siden \"Kuprat\"",
+      "info": "Hvert programmeringsspråk har en kort introduksjon. Klikk på <span class=\"glyphicon glyphicon-info-sign\"></span> for å vise introduksjonen.",
+      "playlists": "Oppgavesamlinger inneholder oppgaver som passer godt i lag. Klikk på <span class=\"glyphicon glyphicon-play\"></span> for å vise oppgavene.",
+      "level1": "Oppgavene er sortert etter vanskelighetsgrad. Her er introduksjonsoppgaver, som er en god start for helt ferske kodere.",
+      "nextUrl": "kuprat/kuprat.html"
+    },
+    "lesson": {
+      "doneLabel": "Gå tilbake til der du startet",
+      "lessonIcons": "Nivå og programmeringsspråk vises her. Du kan også laste ned oppgaven som PDF.",
+      "pickAWord": "Oppgavene består av steg med instruksjoner og kodeblokker.<br><br> Det var det! Lykke til :-)"
+    }
+  }
+}

@@ -44,7 +44,7 @@ var githubhook = require('githubhook');
 /**
  * serve build directory
  */
-gulp.task('server', ['build', 'build-indexes', 'css', 'js', 'assets'], function () {
+gulp.task('server', ['build', 'build-indexes', 'css', 'js', 'assets', 'i18n'], function () {
   browserSync.init({
     server: { baseDir: config.buildRoot }
   });
@@ -80,6 +80,15 @@ gulp.task('assets', function(){
     .pipe(gulp.dest(config.assetRoot));
 });
 
+/**
+ * copy all i18next resources to build directory
+ */
+gulp.task('i18n', function(){
+  return gulp.src([
+        'locales/**/*'
+      ])
+      .pipe(gulp.dest(config.i18nRoot));
+});
 
 /**
  * browserify and uglify client-side scripts
@@ -94,7 +103,7 @@ gulp.task('browserify', function() {
   .transform("babelify", {presets: ["es2015"]})
   .bundle()
   .pipe(source('script.min.js'))
-  .pipe(streamify(uglify()))
+  //.pipe(streamify(uglify()))
   .pipe(gulp.dest(config.assetRoot));
 });
 
@@ -132,7 +141,7 @@ gulp.task('dist', function(cb){
   // preferred way to this will change in gulp 4
   // see https://github.com/gulpjs/gulp/issues/96
   run('clean',
-      ['assets', 'build', 'build-indexes', 'build-search-index', 'css', 'js'],
+      ['assets', 'i18n', 'build', 'build-indexes', 'build-search-index', 'css', 'js'],
       'pdf',
       cb);
 });
@@ -202,6 +211,7 @@ gulp.task('github', function(cb){
  * build, concat and minify styles
  * concat and uglify scripts
  * copy assets
+ * copy i18n resources
  * serve build directory with livereload
  * watch files -> build and reload upon changes
  */
@@ -221,4 +231,7 @@ gulp.task('default', ['server'], function(){
 
   // assets
   gulp.watch(path.join(__dirname, 'assets', '**'), ['assets', reload]);
+
+  // i18n
+  gulp.watch(path.join(__dirname, 'locales', '**'), ['i18n', reload]);
 });

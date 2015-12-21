@@ -15,6 +15,7 @@ var builderRoot = path.basename(__dirname);
 var assetRoot = path.join(buildRoot, 'assets');
 var sourceFolder = 'src';
 var sourceRoot = path.join(lessonRoot, sourceFolder);
+var i18nRoot = path.join(buildRoot, 'locales');
 
 
 /**
@@ -40,6 +41,7 @@ var config = {
   assetRoot:      assetRoot,
   buildRoot:      buildRoot,
   builderRoot:    builderRoot,
+  i18nRoot:       i18nRoot,
   lessonRoot:     lessonRoot,
   // folder names
   playlistFolder: 'playlists',

@@ -5,7 +5,10 @@
 var introjs = require('intro.js').introJs;
 var moment = require('moment');
 var Cookie = require('js-cookie');
+import i18n from './i18n';
 
+
+i18n.then(function(i18n_t) {
 window.moment = moment;
 window.Cookie = Cookie;
 window.introjs = introjs;
@@ -67,19 +70,21 @@ function showFrontPageIntro(){
   Cookie.remove('tour');
   introjs()
     .setOptions({
-      skipLabel: 'Exit tour',
+      nextLabel: i18n_t('intro.nextLabel'),
+      prevLabel: i18n_t('intro.prevLabel'),
+      skipLabel: i18n_t('intro.skipLabel'),
       scrollToElement: false,
-      doneLabel: 'Continue tour in Python page',
+      doneLabel: i18n_t('intro.frontPage.doneLabel'),
       steps: [{
             element: document.querySelector('.courses'),
-            intro: 'The front page contains all the programming languages you can learn.',
+            intro: i18n_t('intro.frontPage.courses'),
             position: 'top'
           }, {
             element: document.querySelector('#scratch'),
-            intro: '<b>Scratch</b> is suitable for all ages. It consists of a simple <b>drag-and-drop</b> interface which makes creation of games <i>really</i> simple.'
+            intro: i18n_t('intro.frontPage.scratch')
           }, {
             element: document.querySelector('#python'),
-            intro: '<b>Python</b> is a text based language with a <i>simple</i> syntax. Python is a serious programming language which is used alot in <b>business, science and scripting.</b>'
+            intro: i18n_t('intro.frontPage.python')
           }]
 
     })
@@ -97,22 +102,27 @@ function showLessonIndexIntro(){
   Cookie.remove('tour');
   introjs()
     .setOptions({
-      skipLabel: 'Exit tour',
+      nextLabel: i18n_t('intro.nextLabel'),
+      prevLabel: i18n_t('intro.prevLabel'),
+      skipLabel: i18n_t('intro.skipLabel'),
       scrollToElement: false,
-      doneLabel: 'Continue tour in Hangman lesson',
+      doneLabel: i18n_t('intro.lessonIndex.doneLabel'),
       steps: [{
             element: document.querySelector('h1.info'),
-            intro: 'Every programming language has a short introduction. Click <span class="glyphicon glyphicon-info-sign"></span> to reveal the introduction.',
+            intro: i18n_t('intro.lessonIndex.info')
+          }, {
+            element: document.querySelector('.playlists h2'),
+            intro: i18n_t('intro.lessonIndex.playlists')
           }, {
             element: document.querySelector('h2.level-1'),
-            intro: 'Lessons are sorted in degree of difficulty. Here are the introduction lessons, which should be a good start for everyone.'
+            intro: i18n_t('intro.lessonIndex.level1')
           }]
     })
     .start()
     .oncomplete(function(){
       // take to python page
       Cookie.set('tour', 'lesson');
-      window.location.href = 'lessons/Hangman/Hangman.html';
+      window.location.href = i18n_t('intro.lessonIndex.nextUrl');
     })
     .onexit(tourDone);
 }
@@ -122,16 +132,18 @@ function showLessonIntro(){
   Cookie.remove('tour');
   introjs()
     .setOptions({
-      skipLabel: 'Exit tour',
+      nextLabel: i18n_t('intro.nextLabel'),
+      prevLabel: i18n_t('intro.prevLabel'),
+      skipLabel: i18n_t('intro.skipLabel'),
       scrollToElement: false,
-      doneLabel: 'Go back to where you started',
+      doneLabel: i18n_t('intro.lesson.doneLabel'),
       steps: [{
             element: document.querySelector('.lesson-icons'),
-            intro: 'Level and programming language is shown here. You can also download the lesson as a PDF.',
+            intro: i18n_t('intro.lesson.lessonIcons')
           }, {
             element: document.querySelector('#step-1-pick-a-word'),
             position: 'top',
-            intro: "Lessons consists of steps with instructions and code blocks.<br><br> That's it! Happy coding :-)"
+            intro: i18n_t('intro.lesson.pickAWord')
           }]
     })
     .start()
@@ -147,3 +159,7 @@ function tourDone(){
   }
 }
 
+},
+function(err){
+    console.error(err);
+});
