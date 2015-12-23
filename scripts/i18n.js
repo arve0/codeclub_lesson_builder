@@ -23,7 +23,7 @@ var i18nPromise = new Promise(
     function(resolve, reject) {
         i18n.use(XHR).init({
             debug: false,
-            lng: 'nb-NO',
+            lng: 'en-US',
             fallbackLng: 'en-US',
             load: 'currentOnly'
         }, (err, t) => {
