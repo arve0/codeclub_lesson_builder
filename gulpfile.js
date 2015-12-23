@@ -25,6 +25,7 @@ var uglify = require('gulp-uglify');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var streamify = require('gulp-streamify');
+var stripJsonComments = require('gulp-strip-json-comments');
 // pdf generation
 var pdf = require('./pdf.js');
 // link-checking
@@ -85,8 +86,9 @@ gulp.task('assets', function(){
  */
 gulp.task('i18n', function(){
   return gulp.src([
-        'locales/**/*'
+        'locales/**/*.json'
       ])
+      .pipe(stripJsonComments())
       .pipe(gulp.dest(config.i18nRoot));
 });
 

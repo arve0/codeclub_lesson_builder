@@ -1,8 +1,8 @@
-{
-  "test": {
+{ // Captions for US english. NOTE: Comments in this file will be removed during build.
+  "test": { // Keys in "test" are just for testing. Do not put keys used in actual production code here.
     "helloWorld": "hello world"
   },
-  "intro": {
+  "intro": { // Captions for the intro tour.
     "askTour": "Seems like it's a while since you've been here. Would you like a tour?",
     "nextLabel": "Next",
     "prevLabel": "Previous",

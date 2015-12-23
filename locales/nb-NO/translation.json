@@ -1,8 +1,8 @@
-{
-  "test": {
+{ // Tekster (captions) for norsk bokmål (nb-NO). Merk: Kommentarer i denne filen blir fjernet ved build.
+  "test": { // Keys in "test" are just for testing. Do not put keys used in actual production code here.
     "helloWorld": "Hei verden"
   },
-  "intro": {
+  "intro": { // Captions for the intro tour.
     "askTour": "Ser ut som du ikke har vært innom på en stund, vil du ha en omvisning?",
     "nextLabel": "Neste",
     "prevLabel": "Forrige",
