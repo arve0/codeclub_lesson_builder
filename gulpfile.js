@@ -103,7 +103,7 @@ gulp.task('browserify', function() {
   .transform("babelify", {presets: ["es2015"]})
   .bundle()
   .pipe(source('script.min.js'))
-  //.pipe(streamify(uglify()))
+  .pipe(streamify(uglify()))
   .pipe(gulp.dest(config.assetRoot));
 });
 
