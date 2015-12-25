@@ -2,7 +2,7 @@ html
   head
     meta(charset="utf-8")
     meta(name="viewport" content="width=device-width, initial-scale=1")
-    title #{title} | YourCodeClubName
+    title #{title || i18n_t('layout.codeClubName')}
     link(href=relative("/assets/style.min.css") rel="stylesheet")
     //- relative path to root
     script(type="text/javascript").
@@ -22,34 +22,39 @@ html
           .top-menu
             a.btn.btn-default(href=relative("/index.html"))
               span.glyphicon.glyphicon-home(aria-hidden="true")
-              span.hidden-xs  Home
+              span.hidden-xs
+                != ' ' + i18n_t('layout.home')
             form.search
-              input.form-control(type="text" placeholder="Search")
-            a.intro(title="Take introduction tour" data-placement="bottom" href="#")
+              input.form-control(type="text" placeholder=i18n_t('layout.search'))
+            a.intro(title=i18n_t('layout.takeTour') data-placement="bottom" href="#")
         .search
           .results
-            h1 Search Results
+            h1
+              =i18n_t('layout.searchResults')
         block content
         .col-xs-12
           #footer.clearfix
             if license !== false
               .license
-                p: strong License:
+                p: strong
+                  =i18n_t('layout.license') + ':'
                 if license
                   - license = markdown.render(license)
                   != license
                 else
-                  a(rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/").
+                  a(rel="license" href=i18n_t('layout.licenseUrl')).
                     CC BY-SA 4.0
             if author
               - author = markdown.render(author)
               .author
-                p: strong Author:
+                p: strong
+                  =i18n_t('layout.author') + ':'
                 != author
             if translator
               - translator = markdown.render(translator)
               .translator
-                p: strong Translator:
+                p: strong
+                  =i18n_t('layout.translator') + ':'
                 != translator
             if footer
               - footer = markdown.render(footer)
@@ -61,12 +66,16 @@ html
           .modal-header
             button.close(type="button" data-dismiss="modal" aria-label="Close")
               span(aria-hidden="true") &times;
-            h4.modal-title Hi there!
+            h4.modal-title
+              =i18n_t('layout.greeting')
           .modal-body
-            p Seems like this is your first time here. Would you like a tour?
+            p
+              =i18n_t('layout.askTour')
           .modal-footer
-            button.btn.btn-success Yes!
-            button.btn.btn-danger(data-dismiss="modal") No thanks
+            button.btn.btn-success
+              =i18n_t('layout.yes')
+            button.btn.btn-danger(data-dismiss="modal")
+              =i18n_t('layout.no')
 
     script(src=relative("/assets/vendor.min.js"))
     script(src=relative("/assets/script.min.js"))

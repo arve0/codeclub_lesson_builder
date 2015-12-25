@@ -25,5 +25,24 @@
       "lessonIcons": "Nivå og programmeringsspråk vises her. Du kan også laste ned oppgaven som PDF.",
       "pickAWord": "Oppgavene består av steg med instruksjoner og kodeblokker.<br><br> Det var det! Lykke til :-)"
     }
+  },
+  "layout": {
+    "codeClubName": "Kodeklubben",
+    "home": "Forside",
+    "search": "Søk",
+    "takeTour": "Ta en omvisning på siden",
+    "searchResults": "Søkeresultat",
+    "license": "Lisens",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/4.0/deed.no",
+    "author": "Forfatter",
+    "translator": "Oversetter",
+    "greeting": "Hei der!",
+    "askTour": "Ser ut som dette er ditt første besøk, vil du ha en omvisning?",
+    "yes": "Ja!",
+    "no": "Nei takk",
+    "clickToExpand": "Klikk for å utvide",
+    "clickForInfo": "Klikk her for mer info",
+    "playlists": "Oppgavesamlinger",
+    "downloadPdf": "Last ned PDF"
   }
 }

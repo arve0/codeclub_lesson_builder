@@ -25,5 +25,24 @@
       "lessonIcons": "Level and programming language is shown here. You can also download the lesson as a PDF.",
       "pickAWord": "Lessons consists of steps with instructions and code blocks.<br><br> That's it! Happy coding :-)"
     }
+  },
+  "layout": {
+    "codeClubName": "YourCodeClubName",
+    "home": "Home",
+    "search": "Search",
+    "takeTour": "Take introduction tour",
+    "searchResults": "Search Results",
+    "license": "License",
+    "licenseUrl": "http://creativecommons.org/licenses/by-sa/4.0/",
+    "author": "Author",
+    "translator": "Translator",
+    "greeting": "Hi there!",
+    "askTour": "Seems like this is your first time here. Would you like a tour?",
+    "yes": "Yes!",
+    "no": "No thanks",
+    "clickToExpand": "Click to expand",
+    "clickForInfo": "Click for more info",
+    "playlists": "Playlists",
+    "downloadPdf": "Download PDF"
   }
 }

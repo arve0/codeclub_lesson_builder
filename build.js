@@ -17,6 +17,8 @@ var md = require('./markdown.js');
 var config = require('./config.js');
 var tools = require('./tools.js');
 
+import i18nInit from './build-with-i18n.js';
+
 /*
  * # SETUP OBJECTS #
  */
@@ -67,8 +69,12 @@ var layoutOptions = {
  * build-function which takes a callback
  */
 module.exports = function build(callback, options){
+
+function buildWithI18n(i18n_t) {
   options = options || {};
   var forceBuild = options.force || false;
+
+  defineOptions.i18n_t = i18n_t; // Make available in layout
 
   // do the building
   Metalsmith(config.lessonRoot)
@@ -104,4 +110,7 @@ module.exports = function build(callback, options){
     // callback when build is done
     callback(err);
   });
+  }
+
+  i18nInit(buildWithI18n);
 };

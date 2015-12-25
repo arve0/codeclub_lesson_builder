@@ -132,8 +132,8 @@ gulp.task('js', ['browserify'], function(){
 /**
  * metalsmith building
  */
-gulp.task('build', build);
-gulp.task('build-indexes', buildIndexes);
+gulp.task('build', ['i18n'], build);
+gulp.task('build-indexes', ['i18n'], buildIndexes);
 gulp.task('build-search-index', buildSearchIndex);
 
 /**
