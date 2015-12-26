@@ -9,7 +9,7 @@ var globby = require('globby');
  */
 
 // paths
-var lessonRoot = '..';
+var lessonRoot = path.resolve('..');
 var buildRoot = path.join(lessonRoot, 'build');
 var builderRoot = path.basename(__dirname);
 var assetRoot = path.join(buildRoot, 'assets');
@@ -66,7 +66,8 @@ var config = {
     4: 'Expert',
     5: 'Master',
     6: 'Champion'
-  }
+  },
+  locales: ['en-US', 'nb-NO']
 };
 
 module.exports = config;
