@@ -62,12 +62,12 @@ module.exports = function(start) {
       };  // spider options
 
       // text spider for HTML, CSS, etc
-      textSpider = new Spider(opts);
+      var textSpider = new Spider(opts);
 
       // HEAD requests on external sites and binary files
-      headOpts = _.assign({}, opts);
+      var headOpts = _.assign({}, opts);
       headOpts.method = 'HEAD';
-      headSpider = new Spider(headOpts);
+      var headSpider = new Spider(headOpts);
 
       // let's go! :-)
       textSpider.queue(start, parseResponse);
@@ -137,7 +137,7 @@ module.exports = function(start) {
             resources[url] = [doc.url];
           }
         }
-      };
+      }
 
 
       /**
