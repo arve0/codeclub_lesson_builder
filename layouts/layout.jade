@@ -2,7 +2,7 @@ html
   head
     meta(charset="utf-8")
     meta(name="viewport" content="width=device-width, initial-scale=1")
-    title #{title || i18n_t('layout.codeClubName')}
+    title #{title}
     link(href=relative("/assets/style.min.css") rel="stylesheet")
     //- relative path to root
     script(type="text/javascript").
@@ -22,39 +22,41 @@ html
           .top-menu
             a.btn.btn-default(href=relative("/index.html"))
               span.glyphicon.glyphicon-home(aria-hidden="true")
-              span.hidden-xs
-                != ' ' + i18n_t('layout.home')
+              span &nbsp;
+              span.hidden-xs(data-i18n="html=home")
             form.search
-              input.form-control(type="text" placeholder=i18n_t('layout.search'))
-            a.intro(title=i18n_t('layout.takeTour') data-placement="bottom" href="#")
+              input.form-control(type="text" data-i18n="placeholder=search")
+            a.intro(data-i18n="title=takeTour" data-placement="bottom" href="#")
         .search
           .results
-            h1
-              =i18n_t('layout.searchResults')
+            h1(data-i18n="html=searchResults")
         block content
         .col-xs-12
           #footer.clearfix
             if license !== false
               .license
-                p: strong
-                  =i18n_t('layout.license') + ':'
+                p
+                  strong(data-i18n="html=license")
+                  strong :
                 if license
                   - license = markdown.render(license)
                   != license
                 else
-                  a(rel="license" href=i18n_t('layout.licenseUrl')).
+                  a(rel="license" data-i18n="href=licenseUrl").
                     CC BY-SA 4.0
             if author
               - author = markdown.render(author)
               .author
-                p: strong
-                  =i18n_t('layout.author') + ':'
+                p
+                  strong(data-i18n="html=author")
+                  strong :
                 != author
             if translator
               - translator = markdown.render(translator)
               .translator
-                p: strong
-                  =i18n_t('layout.translator') + ':'
+                p
+                  strong(data-i18n="html=translator")
+                  strong :
                 != translator
             if footer
               - footer = markdown.render(footer)
@@ -66,16 +68,12 @@ html
           .modal-header
             button.close(type="button" data-dismiss="modal" aria-label="Close")
               span(aria-hidden="true") &times;
-            h4.modal-title
-              =i18n_t('layout.greeting')
+            h4.modal-title(data-i18n="html=greeting")
           .modal-body
-            p
-              =i18n_t('layout.askTour')
+            p(data-i18n="html=askTour")
           .modal-footer
-            button.btn.btn-success
-              =i18n_t('layout.yes')
-            button.btn.btn-danger(data-dismiss="modal")
-              =i18n_t('layout.no')
+            button.btn.btn-success(data-i18n="html=yes")
+            button.btn.btn-danger(data-dismiss="modal" data-i18n="html=no")
 
     script(src=relative("/assets/vendor.min.js"))
     script(src=relative("/assets/script.min.js"))

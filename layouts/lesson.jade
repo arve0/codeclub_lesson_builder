@@ -21,7 +21,7 @@ block content
           img(src=courseLogo)
           span= courseName
         .pdf
-          a.download(href=link.replace('.html', '.pdf') title=i18n_t("layout.downloadPdf"))
+          a.download(href=link.replace('.html', '.pdf') data-i18n="title=downloadPdf")
             span.glyphicon.glyphicon-save-file
           span PDF
 

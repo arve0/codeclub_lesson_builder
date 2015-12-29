@@ -17,8 +17,6 @@ var config = require('./config.js');
 var tools = require('./tools.js');
 var getPlaylists = require('./playlist.js');
 
-import i18nInit from './build-with-i18n.js';
-
 /**
  * # SETUP OBJECTS #
  */
@@ -67,8 +65,6 @@ var layoutOptions = {
  * build-function, calls callback when done
  */
 module.exports = function build(callback){
-
-  function buildWithI18n(i18n_t) {
   // read playlists upon every build
   var playlists = {};
   config.collections.forEach(function(collection){
@@ -78,7 +74,6 @@ module.exports = function build(callback){
   });
   // make it available in layout
   defineOptions.playlists = playlists;
-  defineOptions.i18n_t = i18n_t;
 
   // do the building
   Metalsmith(config.lessonRoot)
@@ -93,7 +88,6 @@ module.exports = function build(callback){
   .use(relative())
   // create collections for index
   .use(collections(collectionOptions))
-  .use(paths())
   // add file.link metadata (files are .md here)
   .use(filepath())
   // remove lessons *after* we have necessary metadata
@@ -112,9 +106,6 @@ module.exports = function build(callback){
     // callback when build is done
     callback(err);
   });
-}
-
-i18nInit(buildWithI18n);
 };
 
 /**

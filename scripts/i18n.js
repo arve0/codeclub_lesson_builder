@@ -2,13 +2,13 @@
  * Setup the internationalisation (i18n), i.e. captions in different languages
  *
  * Example of use:
- *      import i18n from './i18n';
- *      i18n.then(function(translator) {
- *          // runs if i18n initialized successfully
- *          console.log(translator('key'));
- *      }, function(error) {
- *          // runs if i18n fails to initialize
- *          console.error(error);
+ *      import setLanguage from './i18n';
+ *      setLanguage('nb-NO', function(err, i18n_t) {
+ *          if (!err) {
+ *              console.log(i18n_t('key'));
+ *          } else {
+ *              console.error(err);
+ *          }
  *      });
  *
  * The resource files are (by default) in locales/<language>/translation.json.
@@ -19,24 +19,20 @@
 import i18n from 'i18next';
 import XHR from 'i18next-xhr-backend';
 
-var i18nPromise = new Promise(
-    function(resolve, reject) {
+var initialized = false;
+
+// callback(err, i18n_t)
+export default function setLanguage(lng, callback) {
+    if (!initialized) {
+        initialized = true;
         i18n.use(XHR).init({
             debug: false,
-            lng: 'en-US', // 'nb-NO'
+            lng: lng,
             fallbackLng: 'en-US',
             load: 'currentOnly'
-        }, (err, t) => {
-            if (!err) {
-                // initialized and ready to go!
-                //console.log(t('test.helloWorld'));
-                resolve(t);
-            } else {
-                reject('Failed to initialize i18next.(' + err + ')');
-            }
-
-        });
+        }, callback);
+    } else {
+        i18n.changeLanguage(lng, callback);
     }
-);
 
-export default i18nPromise;
+}

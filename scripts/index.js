@@ -2,12 +2,16 @@
  * Entry point for scripts.
  */
 
-require('./search.js');
-require('./intro.js');
-require('./playlist.js');
-import i18n from './i18n';
+import initSearch from './search.js';
+import initIntro from './intro.js';
+import initPlaylist from './playlist';
+import setLanguage from './i18n';
+import setHtmlCaptions from './captions.js';
+var Cookies = require('js-cookie');
 
-i18n.then(function(i18n_t) {
+function initHtml(i18n_t) {
+
+//console.log('Running setup in index.js');
 
 /*
  * show/hide course info
@@ -78,8 +82,59 @@ function externalResourcePopover(type) {
     });
   }
 }
+}
 
-},
-function(err) {
-  console.error(err);
+
+// Copied from http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+function getParameterByName(name) {
+  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+  var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search);
+  return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+
+function getLocale() {
+  var locales = ['en-US', 'nb-NO'];
+  var cookieLngKey = 'i18n-lng';
+  var getParamLngKey = 'lng';
+
+  var locale = getParameterByName(getParamLngKey);
+  if (locales.indexOf(locale) >= 0) {
+    Cookies.set(cookieLngKey, locale);
+    //console.log('Got valid locale from url, setting locale cookie: "' + locale + '"');
+  } else {
+    locale = "";
+  }
+  if (!locale) {
+    locale = Cookies.get(cookieLngKey);
+    //console.log('Got locale from cookie: "' + locale + '"');
+  }
+  if (!locale) {
+    locale = locales[0];
+    //console.log('Using first locale from config: "' + locale + '"');
+  }
+  return locale;
+}
+
+
+function initMain(i18n_t){
+  //console.log('initMain');
+  setHtmlCaptions(i18n_t);
+  initSearch();
+  initIntro(i18n_t);
+  initPlaylist();
+  initHtml(i18n_t);
+}
+
+
+$(function() {
+  // page has loaded
+  var lng = getLocale();
+  setLanguage(lng, function(err, i18n_t) {
+    if (!err) {
+      initMain(i18n_t);
+    } else {
+      console.error(err);
+    }
+  });
 });

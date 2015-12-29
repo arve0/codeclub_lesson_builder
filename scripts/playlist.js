@@ -8,8 +8,8 @@
 var Cookie = require('js-cookie');
 
 
-$(function(){
-// page loaded
+export default function initPlaylist(){
+//console.log("Running setup in playlist.js");
 
 /**
  * show/hide playlist
@@ -43,7 +43,7 @@ if (playlist) {
    }
 }
 
-})
+}
 
 
 /**

@@ -66,8 +66,7 @@ var config = {
     4: 'Expert',
     5: 'Master',
     6: 'Champion'
-  },
-  locales: ['en-US', 'nb-NO']
+  }
 };
 
 module.exports = config;

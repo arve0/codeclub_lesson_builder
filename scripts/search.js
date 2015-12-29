@@ -3,6 +3,9 @@ var lunr = require('lunr')
 require('lunr-no/lunr.stemmer.support.js')(lunr);
 require('lunr-no')(lunr);
 
+export default function initSearch() {
+//console.log("Running setup in search.js");
+
 // for is not a stopword in this context
 var words = lunr.no.stopWordFilter.stopWords.elements;
 words.splice(words.indexOf('for'), 1);
@@ -127,4 +130,6 @@ function getTitle(searchResult){
 function getContent(searchResult){
   searchResult.content = $(searchResult.html).find('.content > *').text();
   return searchResult;
+}
+
 }

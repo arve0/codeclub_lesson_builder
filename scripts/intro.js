@@ -5,10 +5,11 @@
 var introjs = require('intro.js').introJs;
 var moment = require('moment');
 var Cookie = require('js-cookie');
-import i18n from './i18n';
 
+export default function initIntro(i18n_t) {
 
-i18n.then(function(i18n_t) {
+//console.log('Running setup in intro.js');
+
 window.moment = moment;
 window.Cookie = Cookie;
 window.introjs = introjs;
@@ -159,7 +160,4 @@ function tourDone(){
   }
 }
 
-},
-function(err){
-    console.error(err);
-});
+}
