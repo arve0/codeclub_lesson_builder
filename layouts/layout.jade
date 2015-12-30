@@ -27,6 +27,12 @@ html
             form.search
               input.form-control(type="text" data-i18n="placeholder=layout.search")
             a.intro(data-i18n="title=layout.takeTour" data-placement="bottom" href="#")
+            if config.showFlags
+              .flags
+                a.flag.btn.btn-default(onclick="setLanguage('nb-NO')")
+                  img(src="/assets/img/flag_norway.png")
+                a.flag.btn.btn-default(onclick="setLanguage('en-US')")
+                  img(src="/assets/img/flag_usa.png")
         .search
           .results
             h1(data-i18n="html=layout.searchResults")

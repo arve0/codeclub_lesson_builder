@@ -5,14 +5,15 @@ var Cookies = require('js-cookie');
 
 var initialized = false;
 var locales = ['en-US', 'nb-NO'];
+var cookieLngKey = 'i18n-lng';
 
 
 /**
  * Setup the internationalisation (i18n), i.e. captions in different languages.
  *
  * Example of use:
- *      import setLanguage from './i18n';
- *      setLanguage('nb-NO', function(err, i18n_t) {
+ *      import setLocale from './i18n';
+ *      setLocale('nb-NO', function(err, i18n_t) {
  *          if (!err) {
  *              console.log(i18n_t('key'));
  *          } else {
@@ -24,17 +25,21 @@ var locales = ['en-US', 'nb-NO'];
  *
  * See http://i18next.com/ for more info.
  */
-export function setLanguage(lng, callback) {
+export function setLocale(locale, callback) {
+    var cb = function(err, i18n_t) {
+        Cookies.set(cookieLngKey, locale);
+        callback(err, i18n_t);
+    };
     if (!initialized) {
         initialized = true;
         i18n.use(XHR).init({
             debug: false,
-            lng: lng,
+            lng: locale,
             fallbackLng: locales[0],
             load: 'currentOnly'
-        }, callback);
+        }, cb);
     } else {
-        i18n.changeLanguage(lng, callback);
+        i18n.changeLanguage(locale, cb);
     }
 }
 
@@ -76,10 +81,7 @@ export function setHtmlCaptions(i18n_t) {
  * or (if not saved earlier in cookie) the first locale defined in the variable "locales".
  */
 export function getLocale() {
-    var cookieLngKey = 'i18n-lng';
-    var getParamLngKey = 'lng';
-
-    var locale = getParameterByName(getParamLngKey);
+    var locale = getParameterByName('lng');
     if (locales.indexOf(locale) >= 0) {
         Cookies.set(cookieLngKey, locale);
         //console.log('Got valid locale from url, setting locale cookie: "' + locale + '"');

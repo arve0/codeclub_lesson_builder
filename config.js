@@ -66,7 +66,8 @@ var config = {
     4: 'Expert',
     5: 'Master',
     6: 'Champion'
-  }
+  },
+  showFlags: true
 };
 
 module.exports = config;

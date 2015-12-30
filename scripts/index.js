@@ -5,7 +5,7 @@
 import initSearch from './search.js';
 import initIntro from './intro.js';
 import initPlaylist from './playlist';
-import {setLanguage, setHtmlCaptions, getLocale} from './i18n';
+import {setLocale, setHtmlCaptions, getLocale} from './i18n';
 
 function initHtml() {
 //console.log('initHtml()');
@@ -83,22 +83,29 @@ function externalResourcePopover(type) {
 }
 
 
-function initMain(i18n_t){
-  //console.log('initMain()');
-  setHtmlCaptions(i18n_t);
-  initSearch();
-  initIntro(i18n_t);
-  initPlaylist();
-  initHtml();
-}
+/** Called from html */
+window.setLanguage = function(locale) {
+  setLocale(locale, function(err, i18n_t) {
+    if (!err) {
+      setHtmlCaptions(i18n_t);
+      $('[title]').tooltip('destroy').tooltip();
+    } else {
+      console.error(err);
+    }
+  });
+};
 
 
 $(function() {
   // Run this when page has loaded:
   var lng = getLocale();
-  setLanguage(lng, function(err, i18n_t) {
+  setLocale(lng, function(err, i18n_t) {
     if (!err) {
-      initMain(i18n_t);
+      setHtmlCaptions(i18n_t);
+      initSearch();
+      initIntro(i18n_t);
+      initPlaylist();
+      initHtml();
     } else {
       console.error(err);
     }
