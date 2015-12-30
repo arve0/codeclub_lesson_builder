@@ -3,7 +3,7 @@ extends ./layout.jade
 //- playlists
 mixin playlistIndex(playlist)
   .playlist
-    li(data-i18n="title=clickToExpand" id=playlist.id)
+    li(data-i18n="title=layout.clickToExpand" id=playlist.id)
       .icon
       .name= playlist.name
 
@@ -38,13 +38,13 @@ block content
     h1.info
       span.infoicon.glyphicon.glyphicon-plus-sign
       = ' ' + title
-      span.clickformore(data-i18n="html=clickForInfo")
+      span.clickformore(data-i18n="html=layout.clickForInfo")
     .content(style="display:none")!= contents
 
   //- plalists
   if playlists[path.dir] && playlists[path.dir].length
     .playlists.col-xs-12.col-sm-6.col-md-4(id=name)
-      h2(data-i18n="html=playlists")
+      h2(data-i18n="html=layout.playlists")
       each playlist in playlists[path.dir]
         +playlistIndex(playlist)
 

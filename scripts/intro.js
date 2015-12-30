@@ -7,8 +7,7 @@ var moment = require('moment');
 var Cookie = require('js-cookie');
 
 export default function initIntro(i18n_t) {
-
-//console.log('Running setup in intro.js');
+//console.log('initIntro()');
 
 window.moment = moment;
 window.Cookie = Cookie;

@@ -4,7 +4,7 @@ require('lunr-no/lunr.stemmer.support.js')(lunr);
 require('lunr-no')(lunr);
 
 export default function initSearch() {
-//console.log("Running setup in search.js");
+//console.log("initSearch()");
 
 // for is not a stopword in this context
 var words = lunr.no.stopWordFilter.stopWords.elements;
@@ -75,7 +75,7 @@ function getResult(searchResult){
   .then(getTitle)
   .then(getContent)
   .then(cleanContent)
-  .then(defer.resolve)
+  .then(defer.resolve);
 
   return defer.promise();
 }

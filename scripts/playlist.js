@@ -9,7 +9,7 @@ var Cookie = require('js-cookie');
 
 
 export default function initPlaylist(){
-//console.log("Running setup in playlist.js");
+//console.log("initPlaylist()");
 
 /**
  * show/hide playlist
@@ -27,7 +27,7 @@ $('.playlist a').click(function(event){
   var playlist = getPlaylist(this);
   Cookie.set('playlist', playlist);
   window.location.href = this.attributes.href.value;
-})
+});
 
 /**
  * If cookie is set
@@ -93,7 +93,7 @@ function addNavigation(playlist) {
 
   $('.playlist-navigation select').change(function(){
     window.location.href = this.value;
-  })
+  });
 
   $('.playlist-navigation a').click(function(){
     var i = indexOf(playlist.lessons, window.location.href);
