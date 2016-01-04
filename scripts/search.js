@@ -3,8 +3,6 @@ var lunr = require('lunr')
 require('lunr-no/lunr.stemmer.support.js')(lunr);
 require('lunr-no')(lunr);
 
-export default function initSearch() {
-//console.log("initSearch()");
 
 // for is not a stopword in this context
 var words = lunr.no.stopWordFilter.stopWords.elements;
@@ -120,7 +118,7 @@ function cleanContent(searchResult){
 // get title of html string
 function getTitle(searchResult){
   var title = $(searchResult.html).next('title').text();
-  // title | YourCodeClubName -> title
+  // 'title | YourCodeClubName' => 'title'
   searchResult.title = title.replace(/ \| .*/, '');
   return searchResult;
 }
@@ -130,6 +128,4 @@ function getTitle(searchResult){
 function getContent(searchResult){
   searchResult.content = $(searchResult.html).find('.content > *').text();
   return searchResult;
-}
-
 }

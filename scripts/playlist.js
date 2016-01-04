@@ -5,11 +5,8 @@
  * - Keep track of position in playlist.
  */
 
-var Cookie = require('js-cookie');
+import Cookie from 'js-cookie';
 
-
-export default function initPlaylist(){
-//console.log("initPlaylist()");
 
 /**
  * show/hide playlist
@@ -43,7 +40,6 @@ if (playlist) {
    }
 }
 
-}
 
 
 /**
@@ -72,7 +68,7 @@ function addNavigation(playlist) {
   navigation += '<h1>'+ playlist.name +'</h1>';
 
   navigation += '<ul class="pagination">';
-  navigation += '<li><a class="prev" title="Previous">&laquo;</a></li>';
+  navigation += '<li><a class="prev" title="Previous">&laquo;</a></li>'; // FIXME: translate
   for (var i=0, l=playlist.lessons.length; i<l; ++i) {
     var lesson = playlist.lessons[i];
     navigation += '<li';
@@ -84,7 +80,7 @@ function addNavigation(playlist) {
     navigation += '<span>'+ (i + 1) +'</span>';
     navigation += '</a></li>';
   }
-  navigation += '<li><a class="next" title="Next">&raquo;</a></li>';
+  navigation += '<li><a class="next" title="Next">&raquo;</a></li>'; // FIXME: translate
   navigation += '</ul>';
   navigation += '<div class="clearfix"></div></div>';
 
