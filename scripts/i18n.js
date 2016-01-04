@@ -24,7 +24,8 @@ $(() => {
   .init({
     debug: false,
     whitelist: locales,
-    fallbackLng: locales[0]
+    fallbackLng: locales[0],
+    load: 'currentOnly'
   });
 
 

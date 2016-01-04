@@ -40,7 +40,7 @@ i18n.on('initialized', () => {
       question.modal();
     }
   }
-})
+});
 
 
 // update "last visit"-cookie, keep for a year
@@ -55,7 +55,6 @@ function startTour() {
     // redirect -> start intro
     Cookie.set('tour', 'front page');
     window.location.href = relative('/');
-    return;
   } else {
     showFrontPageIntro();
   }
