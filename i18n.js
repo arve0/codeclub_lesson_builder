@@ -8,17 +8,19 @@ i18n
   .use(backend)
   .init({
     debug: false,
+    lng: config.locales[0],
     whitelist: config.locales,
+    fallbackLng: [],
+    load: 'currentOnly',
     backend: {
       loadPath: join(config.i18nRoot, '{{lng}}/{{ns}}.json5')
     }
   }, function(err) {
     if (err) {
-      console.log(err)
+      console.log(err);
       throw new Error('i18next failed to initialize')
     }
   });
-
 
 /**
  * Export the translate function.
