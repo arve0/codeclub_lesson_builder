@@ -25,7 +25,7 @@ var uglify = require('gulp-uglify');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var streamify = require('gulp-streamify');
-var stripJsonComments = require('gulp-strip-json-comments');
+var json5 = require('gulp-json5');
 // pdf generation
 var pdf = require('./pdf.js');
 // link-checking
@@ -86,10 +86,10 @@ gulp.task('assets', function(){
  */
 gulp.task('i18n', function(){
   return gulp.src([
-        'locales/**/*.json'
-      ])
-      .pipe(stripJsonComments())
-      .pipe(gulp.dest(config.i18nRoot));
+      'locales/**/*.json5'
+    ])
+    .pipe(json5())
+    .pipe(gulp.dest(config.i18nDest));
 });
 
 /**

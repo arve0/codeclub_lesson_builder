@@ -24,8 +24,11 @@ $(() => {
   .init({
     debug: false,
     whitelist: locales,
-    fallbackLng: locales[0],
+    lng: locales[0],
+    fallbackLng: [],
     load: 'currentOnly'
+  }, () => {
+    i18n.on('languageChanged', onLanguageChanged);
   });
 
 
@@ -39,7 +42,7 @@ $(() => {
   *                                          the captions for "key1" and "key2", respectively.
   */
 
-  i18n.on('initialized languageChanged', () => {
+  function onLanguageChanged() {
     $('[data-i18n]').each((_, item) => {
       const captions = $(item).attr('data-i18n').split(';');
       for (let i=0; i<captions.length; ++i) {
@@ -57,7 +60,7 @@ $(() => {
       }
     });
     $('[title]').tooltip('destroy').tooltip();  // reset tooltips
-  });
+  }
 });
 
 
