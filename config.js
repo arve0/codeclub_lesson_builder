@@ -15,7 +15,8 @@ var builderRoot = path.basename(__dirname);
 var assetRoot = path.join(buildRoot, 'assets');
 var sourceFolder = 'src';
 var sourceRoot = path.join(lessonRoot, sourceFolder);
-var i18nRoot = path.join(buildRoot, 'locales');
+var i18nRoot = path.join(__dirname, 'locales');
+var i18nDest = path.join(buildRoot, 'locales');
 
 
 /**
@@ -42,6 +43,7 @@ var config = {
   buildRoot:      buildRoot,
   builderRoot:    builderRoot,
   i18nRoot:       i18nRoot,
+  i18nDest:       i18nDest,
   lessonRoot:     lessonRoot,
   // folder names
   playlistFolder: 'playlists',
@@ -67,7 +69,8 @@ var config = {
     5: 'Master',
     6: 'Champion'
   },
-  showFlags: true
+  showFlags: false,
+  locales: ['nb-NO', 'en-US']
 };
 
 module.exports = config;

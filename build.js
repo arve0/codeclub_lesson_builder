@@ -13,6 +13,7 @@ var _ = require('lodash');
 var changed = require('metalsmith-changed');
 var paths = require('metalsmith-paths');
 var md = require('./markdown.js');
+var translate = require('./i18n.js');
 // get configuration variables
 var config = require('./config.js');
 var tools = require('./tools.js');
@@ -52,7 +53,8 @@ var defineOptions = {
   _: _,
   config: config,
   isFile: tools.isFile,
-  matter: tools.frontmatter
+  matter: tools.frontmatter,
+  t: translate
 };
 
 // layout
