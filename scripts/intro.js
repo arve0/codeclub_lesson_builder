@@ -65,8 +65,8 @@ function showFrontPageIntro(){
   Cookie.remove('tour');
   introJs()
   .setOptions({
-    nextLabel: i18n.t('intro.nextLabel'),
-    prevLabel: i18n.t('intro.prevLabel'),
+    nextLabel: i18n.t('next'),
+    prevLabel: i18n.t('prev'),
     skipLabel: i18n.t('intro.skipLabel'),
     scrollToElement: false,
     doneLabel: i18n.t('intro.frontPage.doneLabel'),
@@ -97,8 +97,8 @@ function showLessonIndexIntro(){
   Cookie.remove('tour');
   introJs()
   .setOptions({
-    nextLabel: i18n.t('intro.nextLabel'),
-    prevLabel: i18n.t('intro.prevLabel'),
+    nextLabel: i18n.t('next'),
+    prevLabel: i18n.t('prev'),
     skipLabel: i18n.t('intro.skipLabel'),
     scrollToElement: false,
     doneLabel: i18n.t('intro.lessonIndex.doneLabel'),
@@ -127,8 +127,8 @@ function showLessonIntro(){
   Cookie.remove('tour');
   introJs()
   .setOptions({
-    nextLabel: i18n.t('intro.nextLabel'),
-    prevLabel: i18n.t('intro.prevLabel'),
+    nextLabel: i18n.t('next'),
+    prevLabel: i18n.t('prev'),
     skipLabel: i18n.t('intro.skipLabel'),
     scrollToElement: false,
     doneLabel: i18n.t('intro.lesson.doneLabel'),

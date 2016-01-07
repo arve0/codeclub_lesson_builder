@@ -29,7 +29,8 @@ $(() => {
     fallbackLng: [],
     load: 'currentOnly',
     backend: {
-      loadPath: 'assets/locales/{{lng}}/{{ns}}.json5',
+      // relative is defined in layout.jade
+      loadPath: relative('assets/locales/{{lng}}/{{ns}}.json5'),
       parse: JSON5.parse
     }
   }, () => {
