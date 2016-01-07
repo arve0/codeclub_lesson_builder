@@ -1,6 +1,7 @@
 import i18n from 'i18next';
 import XHR from 'i18next-xhr-backend';
 import lngDetector from 'i18next-browser-languagedetector';
+import JSON5 from 'json5';
 
 
 /**
@@ -26,7 +27,11 @@ $(() => {
     whitelist: locales,
     lng: locales[0],
     fallbackLng: [],
-    load: 'currentOnly'
+    load: 'currentOnly',
+    backend: {
+      loadPath: 'assets/locales/{{lng}}/{{ns}}.json5',
+      parse: JSON5.parse
+    }
   }, () => {
     i18n.on('languageChanged', onLanguageChanged);
   });

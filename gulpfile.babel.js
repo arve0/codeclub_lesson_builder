@@ -25,7 +25,6 @@ var uglify = require('gulp-uglify');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var streamify = require('gulp-streamify');
-var json5 = require('gulp-json5');
 // pdf generation
 var pdf = require('./pdf.js');
 // link-checking
@@ -45,7 +44,7 @@ var githubhook = require('githubhook');
 /**
  * serve build directory
  */
-gulp.task('server', ['build', 'build-indexes', 'css', 'js', 'assets', 'i18n'], function () {
+gulp.task('server', ['build', 'build-indexes', 'css', 'js', 'assets'], function () {
   browserSync.init({
     server: { baseDir: config.buildRoot }
   });
@@ -79,17 +78,6 @@ gulp.task('assets', function(){
       'node_modules/bootstrap/dist/*/glyphicons-halflings-regular.*'
     ])
     .pipe(gulp.dest(config.assetRoot));
-});
-
-/**
- * copy all i18next resources to build directory
- */
-gulp.task('i18n', function(){
-  return gulp.src([
-      'locales/**/*.json5'
-    ])
-    .pipe(json5())
-    .pipe(gulp.dest(config.i18nDest));
 });
 
 /**
@@ -143,7 +131,7 @@ gulp.task('dist', function(cb){
   // preferred way to this will change in gulp 4
   // see https://github.com/gulpjs/gulp/issues/96
   run('clean',
-      ['assets', 'i18n', 'build', 'build-indexes', 'build-search-index', 'css', 'js'],
+      ['assets', 'build', 'build-indexes', 'build-search-index', 'css', 'js'],
       'pdf',
       cb);
 });
@@ -213,7 +201,6 @@ gulp.task('github', function(cb){
  * build, concat and minify styles
  * concat and uglify scripts
  * copy assets
- * copy i18n resources
  * serve build directory with livereload
  * watch files -> build and reload upon changes
  */
@@ -233,7 +220,4 @@ gulp.task('default', ['server'], function(){
 
   // assets
   gulp.watch(path.join(__dirname, 'assets', '**'), ['assets', reload]);
-
-  // i18n
-  gulp.watch(path.join(__dirname, 'locales', '**'), ['i18n', reload]);
 });
