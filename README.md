@@ -93,7 +93,6 @@ You can run tasks with `./gulp taskname` when in the lesson repo, or with `gulp 
 
 **list of gulp tasks**
 - `assets` copies assets to `build/assets`
-- `i18n` copies (multi language) captions to `build/locales`
 - `build` builds all markdown files (except README.md) to html and copy files which are in lesson-folders
 - `build-indexes` builds front-page and lesson indexes
 - `build-search-index` builds `searchIndex.json` which is used for client-side search with [lunr](http://lunrjs.com)
