@@ -172,3 +172,10 @@ table  {
   // for listing stuff and is not in use for other components like calendars
   .table;
 }
+
+// intro should not be in prints/PDF
+.intro-question, .modal-backdrop {
+  @media print {
+    display: none !important;
+  }
+}
