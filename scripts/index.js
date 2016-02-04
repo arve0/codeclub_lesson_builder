@@ -5,7 +5,18 @@
 import './search.js';
 import './intro.js';
 import './playlist.js';
-import './i18n.js';
+import i18n from './i18n.js';
+
+let t;
+i18n.on('initialized', () => {
+  t = i18n.getFixedT();
+
+  /*
+  * tooltips
+  */
+  $('[title]').tooltip();
+});
+
 
 $(() => {
   // page loaded
@@ -19,12 +30,6 @@ $(() => {
     $('.clickformore').addClass('hide');
   });
 
-  /*
-  * tooltips
-  */
-  $('[title]').tooltip();
-
-
   /**
   * toggle hints
   */
@@ -36,46 +41,49 @@ $(() => {
   * show sections when correct answer is given
   */
   $('input[for^="test-"]').keyup(function(event){
-    var answer = this.attributes.answer.value.toLowerCase();
-    var value = this.value.toLowerCase();
+    const answer = this.attributes.answer.value.toLowerCase();
+    const value = this.value.toLowerCase();
     if (answer == value) {
-      var section = this.attributes.for.value;
+      const section = this.attributes.for.value;
       $("section."+ section).slideDown();
     }
   });
 
 
   /*
-  * external resources
+  * external resources, wait for translation function
   */
   $('.courses > a[href^="http"]')
-  .each(externalResourcePopover('course'));
-  $('.playlists > a[href^="http"], .level > a[href^="http"]')
-  .each(externalResourcePopover('lesson'));
+    .each(externalResourcePopover('indexjs.externalCourse', 'indexjs.continueToCourse'));
+  $('.playlist > a[href^="http"], .level > a[href^="http"]')
+    .each(externalResourcePopover('indexjs.externalLesson', 'indexjs.continueToLesson'));
 
-  var openExternalPopover;  // global state
-  function externalResourcePopover(type) {
-    return function(){
-      var content = '<p>This is an external '+ type +'.<br><br>';
-      content += '<a href="'+ this.href +'">Continue to '+ type +'.</a></p>';
-      $(this).popover({
+  let openExternalPopover;  // global state
+  function externalResourcePopover(thisIs, continueTo) {
+    return function(_, elm){
+      function getContent() {
+        let content = `<span><p data-i18n="html=${thisIs}">${t(thisIs)}</p>`
+        content += `<a href="${elm.href}" data-i18n="html=${continueTo}">${t(continueTo)}</a></span>`
+        return content
+      }
+      $(elm).popover({
         animate: true,
         placement: 'top',
         trigger: 'manual',
         html: 'true',
-        title: 'External resource',
-        content: content
+        title: () => t('indexjs.externalResource'),
+        content: getContent
       });
-      $(this).click(function(event){
+      $(elm).click(function(event){
         event.preventDefault();
         // if other popover is open, hide it
-        if (openExternalPopover && openExternalPopover !== this) {
+        if (openExternalPopover && openExternalPopover !== elm) {
           $(openExternalPopover).popover('hide');
         }
         // if already open, set openExternalPopover to false
         // else, keep track of open popover
-        openExternalPopover = (openExternalPopover === this) ? false : this;
-        $(this).popover('toggle');
+        openExternalPopover = (openExternalPopover === elm) ? false : elm;
+        $(elm).popover('toggle');
       });
     }
   }

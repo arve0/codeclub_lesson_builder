@@ -6,7 +6,26 @@
  */
 
 import Cookie from 'js-cookie';
+import i18n from './i18n.js';
 
+let t;
+i18n.on('initialized', () => {
+  t = i18n.getFixedT();
+
+  /**
+   * If cookie is set
+   */
+  var playlist = Cookie.getJSON('playlist');
+  if (playlist) {
+    if (indexOf(playlist.lessons, window.location.href) !== undefined) {
+      // current lesson is this very page -> add navigation
+      addNavigation(playlist);
+    } else {
+      // remove cookie, we are no longer in playlist
+      Cookie.remove('playlist');
+    }
+  }
+})
 
 /**
  * show/hide playlist
@@ -25,21 +44,6 @@ $('.playlist a').click(function(event){
   Cookie.set('playlist', playlist);
   window.location.href = this.attributes.href.value;
 });
-
-/**
- * If cookie is set
- */
-var playlist = Cookie.getJSON('playlist');
-if (playlist) {
-   if (indexOf(playlist.lessons, window.location.href) !== undefined) {
-     // current lesson is this very page -> add navigation
-     addNavigation(playlist);
-   } else {
-     // remove cookie, we are no longer in playlist
-     Cookie.remove('playlist');
-   }
-}
-
 
 
 /**
@@ -68,7 +72,8 @@ function addNavigation(playlist) {
   navigation += '<h1>'+ playlist.name +'</h1>';
 
   navigation += '<ul class="pagination">';
-  navigation += '<li><a class="prev" title="Previous">&laquo;</a></li>'; // FIXME: translate
+  navigation += '<li><a class="prev" data-i18n="title=prev" ';
+  navigation += 'title="'+ t('prev') +'">&laquo;</a></li>';
   for (var i=0, l=playlist.lessons.length; i<l; ++i) {
     var lesson = playlist.lessons[i];
     navigation += '<li';
@@ -80,7 +85,8 @@ function addNavigation(playlist) {
     navigation += '<span>'+ (i + 1) +'</span>';
     navigation += '</a></li>';
   }
-  navigation += '<li><a class="next" title="Next">&raquo;</a></li>'; // FIXME: translate
+  navigation += '<li><a class="next" data-i18n="title=next" ';
+  navigation += 'title="'+ t('next') +'">&raquo;</a></li>'; // FIXME: translate
   navigation += '</ul>';
   navigation += '<div class="clearfix"></div></div>';
 

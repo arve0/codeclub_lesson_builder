@@ -15,7 +15,7 @@ var builderRoot = path.basename(__dirname);
 var assetRoot = path.join(buildRoot, 'assets');
 var sourceFolder = 'src';
 var sourceRoot = path.join(lessonRoot, sourceFolder);
-var i18nRoot = path.join(__dirname, 'locales');
+var i18nRoot = path.join(__dirname, 'assets', 'locales');
 var i18nDest = path.join(buildRoot, 'locales');
 
 
@@ -59,16 +59,7 @@ var config = {
   ghMergeCommand:  '../deploy.sh',
   ghSecret:       'secret',
   // link crawling
-  productionCrawlStart: 'http://arve0.github.io/example_lessons/',
-  // level names
-  levelNames: {
-    1: 'Novice',
-    2: 'Apprentice',
-    3: 'Journeyman',
-    4: 'Expert',
-    5: 'Master',
-    6: 'Champion'
-  },
+  productionCrawlStart: 'http://kodeklubben.github.io/',
   showFlags: false,
   locales: ['nb-NO', 'en-US']
 };

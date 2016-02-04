@@ -9,8 +9,9 @@ block content
       .lesson-icons
         .level
           img(title="Level " + level src=relative("/assets/img/level" + level + ".png"))
-          -levelName = config.levelNames[level]
-          span= levelName
+          -levelName = 'layout.levelNames.' + level
+          -dataLevelName = 'html=' + levelName
+          span(data-i18n=dataLevelName)= t(levelName)
         .course
           -course = _.first(collection)
           -courseIndex = '/' + course + '/index.md'
