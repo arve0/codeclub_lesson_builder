@@ -149,7 +149,7 @@ function showLessonIntro(){
 function tourDone(){
   const entry = Cookie.get('entry page');
   Cookie.remove('entry page');
-  if (entry !== window.location.href) {
+  if (entry !== undefined && entry !== window.location.href) {
     window.location.href = entry;
   }
 }
