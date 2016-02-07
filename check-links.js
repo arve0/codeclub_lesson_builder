@@ -127,16 +127,27 @@ module.exports = function(start) {
               resources[url].push(doc.url);
               return;
             }
-            // external sites or binaries
-            if (url.search(start) !==0 ||
-                url.search(/\.(jpg|png|gif|zip)$/) === 0) {
-              headSpider.queue(url, parseResponse);
-            } else {  // text, e.g., HTML, CSS, etc
-              textSpider.queue(url, parseResponse);
-            }
+            queue(url);
             // store referrer
             resources[url] = [doc.url];
           }
+        }
+      }
+
+      function queue(url) {
+        // remove earlier entries
+        if (textSpider.visited[url]) {
+          textSpider.visited[url] = false;
+        }
+        if (headSpider.visited[url]) {
+          headSpider.visited[url] = false;
+        }
+        // external sites or binaries
+        if (url.search(start) !==0 ||
+            url.search(/\.(jpg|png|gif|zip)$/) === 0) {
+          headSpider.queue(url, parseResponse);
+        } else {  // text, e.g., HTML, CSS, etc
+          textSpider.queue(url, parseResponse);
         }
       }
 
@@ -149,12 +160,12 @@ module.exports = function(start) {
           // retry timeouts once
           process.stdout.write('r');
           retries.push(url);
-          textSpider.queue(url, parseResponse);
-          return;
+          queue(url);
+        } else {
+          process.stdout.write('t'); // give some feedback
+          broken += 1;
+          failed.push({u:url, c:err.code});
         }
-        process.stdout.write('!'); // give some feedback
-        broken += 1;
-        failed.push({u:url, c:err.code});
       }
 
       /**
@@ -163,7 +174,8 @@ module.exports = function(start) {
       function done() {
         // wait until both spiders are done
         if (textSpider.active.length !== 0 || headSpider.active.length !== 0) {
-          return
+          var d = textSpider.active.length ? 'head done' : 'text done';
+          return;
         }
 
         console.log('\nLink check done');
@@ -181,14 +193,17 @@ module.exports = function(start) {
 
         assert.equal(ok+broken, length(resources));
 
+        if (webserver) {
+          webserver.close();
+        }
+
         if (broken !== 0) {
           // avoid error trace
           process.exit(1);
         } else {
           cb();
-        }
-        if (webserver) {
-          webserver.close();
+          // make sure we exit when node has timed out sockets hanging
+          process.exit(0);
         }
       }
     } // crawl end
