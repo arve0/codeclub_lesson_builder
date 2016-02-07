@@ -123,13 +123,29 @@ a:hover, a:hover > * {
     .make-md-column(3);
     color: #000000;
     font-weight: 300;
-    img {
-      .img-responsive;
-      max-height: 150px;
-      margin: 10px auto;
+    padding-bottom: 60px; /* Vertical spacing between courses */
+    .logo-wrapper {
+      height: 150px;
+      text-align: center; /* align img horizontally inside the logo-wrapper */
+      &:before {
+        content: ' ';
+        display: inline-block;
+        vertical-align: middle; /* vertical alignment of the inline element */
+        height: 100%;
+      }
+      img {
+        .img-responsive;
+        display: inline-block;
+        vertical-align: middle; /* vertical alignment of the inline element */
+
+        max-height: 150px;
+        max-width: 150px;
+        margin: auto;
+      }
     }
     .name {
       .text-center;
+      padding: 10px 0;
     }
   }
 }
