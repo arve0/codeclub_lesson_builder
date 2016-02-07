@@ -49,6 +49,7 @@ module.exports = function(start) {
       var resources = {};  // dict of referrers {link: [referrer1, referrer2, ..], link2..}
       resources[start] = ['start'];
       var failed = [];  // list of failed links
+      var retries = [];
       var ok = 0;  // number of OK links
       var broken = 0;  // number of broken links
 
@@ -144,9 +145,16 @@ module.exports = function(start) {
        * on broken link
        */
       function error(err, url) {
-          process.stdout.write('!'); // give some feedback
-          broken += 1;
-          failed.push({u:url, c:err.code});
+        if (err.code === 'ETIMEDOUT' && retries.indexOf(url) === -1) {
+          // retry timeouts once
+          process.stdout.write('r');
+          retries.push(url);
+          textSpider.queue(url, parseResponse);
+          return;
+        }
+        process.stdout.write('!'); // give some feedback
+        broken += 1;
+        failed.push({u:url, c:err.code});
       }
 
       /**
