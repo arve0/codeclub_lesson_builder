@@ -15,7 +15,8 @@ block content
       -logo = relative('/' + name + '/logo-black.png')
       -if (!isFile(path.dir, logo)) logo = relative('/logo-black.png')
       a(href=link id=name)
-        img(src=logo)
+        .logo-wrapper
+          img(src=logo)
         .name
           span= realName
           if collectionMetadata.external
