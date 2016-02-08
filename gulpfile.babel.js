@@ -24,7 +24,8 @@ var minify = require('gulp-minify-css');
 var uglify = require('gulp-uglify');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
-var streamify = require('gulp-streamify');
+var sourcemaps = require('gulp-sourcemaps');
+var buffer = require('vinyl-buffer');
 // pdf generation
 var pdf = require('./pdf.js');
 // link-checking
@@ -87,14 +88,19 @@ gulp.task('browserify', function() {
   var b = browserify({
     entries: './scripts/index.js',
     debug: true
-  });
+  }).transform("babelify", {presets: ["es2015"]});
 
-  return b
-  .transform("babelify", {presets: ["es2015"]})
-  .bundle()
-  .pipe(source('script.min.js'))
-  .pipe(streamify(uglify()))
-  .pipe(gulp.dest(config.assetRoot));
+  return b.bundle()
+    .on('error', (err) => {
+      console.log(err);
+      this.emit('end');
+    })
+    .pipe(source('script.min.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(uglify())
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest(config.assetRoot));
 });
 
 
