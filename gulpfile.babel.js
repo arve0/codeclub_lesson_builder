@@ -23,6 +23,7 @@ var autoprefixer = require('gulp-autoprefixer');
 var minify = require('gulp-minify-css');
 var uglify = require('gulp-uglify');
 var browserify = require('browserify');
+var watchify = require('watchify');
 var source = require('vinyl-source-stream');
 var sourcemaps = require('gulp-sourcemaps');
 var buffer = require('vinyl-buffer');
@@ -45,7 +46,7 @@ var githubhook = require('githubhook');
 /**
  * serve build directory
  */
-gulp.task('server', ['build', 'build-indexes', 'css', 'js', 'assets'], function () {
+gulp.task('server', ['build', 'build-indexes', 'css', 'js:client', 'js:vendor', 'assets'], function () {
   browserSync.init({
     server: { baseDir: config.buildRoot }
   });
@@ -84,12 +85,27 @@ gulp.task('assets', function(){
 /**
  * browserify and uglify client-side scripts
  */
-gulp.task('browserify', function() {
-  var b = browserify({
-    entries: './scripts/index.js',
-    debug: true
-  }).transform("babelify", {presets: ["es2015"]});
+var b = browserify({
+  entries: './scripts/index.js',
+  cache: {},
+  packageCache: {},
+  plugin: [watchify],
+  debug: true
+}).transform('babelify', { presets: ["es2015"] });
+b.on('log', console.log);
 
+gulp.task('js:client', function () {
+  // do not uglify in dev env
+  return b.bundle()
+    .on('error', (err) => {
+      console.log(err);
+      this.emit('end');
+    })
+    .pipe(source('script.min.js'))
+    .pipe(gulp.dest(config.assetRoot));
+});
+
+gulp.task('js:dist', function () {
   return b.bundle()
     .on('error', (err) => {
       console.log(err);
@@ -103,11 +119,10 @@ gulp.task('browserify', function() {
     .pipe(gulp.dest(config.assetRoot));
 });
 
-
 /**
  * concat and uglify vendor scripts
  */
-gulp.task('js', ['browserify'], function(){
+gulp.task('js:vendor', function(){
   return gulp.src([
     'node_modules/scratchblocks2/build/scratchblocks2.js',
     'node_modules/scratchblocks2/src/translations.js',
@@ -137,9 +152,13 @@ gulp.task('dist', function(cb){
   // preferred way to this will change in gulp 4
   // see https://github.com/gulpjs/gulp/issues/96
   run('clean',
-      ['assets', 'build', 'build-indexes', 'build-search-index', 'css', 'js'],
+      ['assets', 'build', 'build-indexes', 'build-search-index', 'css', 'js:dist', 'js:vendor'],
       'pdf',
-      cb);
+      function (err) {
+        // make sure process exit (b = watchify bundle)
+        b.close();
+        cb(err);
+      });
 });
 
 /**
@@ -222,7 +241,7 @@ gulp.task('default', ['server'], function(){
   gulp.watch(path.join(__dirname, 'styles', '**', '*'), ['css', reload]);
 
   // scripts
-  gulp.watch(path.join(__dirname, 'scripts', '**'), ['js', reload]);
+  gulp.watch(path.join(__dirname, 'scripts', '**'), ['js:client', reload]);
 
   // assets
   gulp.watch(path.join(__dirname, 'assets', '**'), ['assets', reload]);
