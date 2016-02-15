@@ -121,11 +121,28 @@ a:hover, a:hover > * {
     .make-xs-column(6);
     .make-sm-column(4);
     .make-md-column(3);
+    /* make sure rows clear when courses have different height */
+    @media (max-width: @screen-sm) {
+      &:nth-child(2n+1) {
+        clear: left;
+      }
+    }
+    @media (min-width: @screen-sm) and (max-width: @screen-md) {
+      &:nth-child(3n+1) {
+        clear: left;
+      }
+    }
+    @media (min-width: @screen-md) {
+      &:nth-child(4n+1) {
+        clear: left;
+      }
+    }
     color: #000000;
     font-weight: 300;
-    padding-bottom: 60px; /* Vertical spacing between courses */
-    .logo-wrapper {
-      height: 150px;
+    padding-bottom: 45px; /* Vertical spacing between courses */
+    .logo-wrapper { /* FIXME: when "safe" to use flexbox? */
+      height: 35vw;
+      max-height: 150px;
       text-align: center; /* align img horizontally inside the logo-wrapper */
       &:before {
         content: ' ';
@@ -134,13 +151,9 @@ a:hover, a:hover > * {
         height: 100%;
       }
       img {
-        .img-responsive;
-        display: inline-block;
-        vertical-align: middle; /* vertical alignment of the inline element */
-
+        width: 100%;
         max-height: 150px;
         max-width: 150px;
-        margin: auto;
       }
     }
     .name {
