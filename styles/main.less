@@ -10,9 +10,28 @@
 @import "lesson-index";
 @import "pulse";
 
-.container {
-  @media not print {
+// readability: http://baymard.com/blog/line-length-readability
+// not keyword negate _whole_ media query,
+// making `(not print) and (min-width: @screen-sm)` impossible
+@media aural, braille, handheld, projection, screen, tty, tv, embossed {
+  .container {
     max-width: 800px;
+  }
+  section p {
+    @media (max-width: @screen-sm) {
+      font-size: 17px;
+    }
+    @media (min-width: @screen-sm) and (max-width: @screen-md) {
+      font-size: 19px;
+    }
+    @media (min-width: @screen-md) {
+      font-size: 20px;
+    }
+  }
+  pre > code {
+    // horisontal scroll on code blocks, do not wrap
+    word-wrap: normal;
+    white-space: pre;
   }
 }
 
