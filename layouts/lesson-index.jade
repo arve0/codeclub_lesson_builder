@@ -19,7 +19,7 @@ mixin playlistIndex(playlist)
 
 //- levels
 mixin levelIndex(level, lessons)
-  .level.col-xs-12.col-sm-6.col-md-4(id=name)
+  .level.col-xs-12.col-sm-6(id=name)
     -levelName = 'layout.levelNames.' + level
     -dataLevelName = 'html=' + levelName
     h2.clearfix(class='level-' + level data-i18n=dataLevelName)
@@ -46,7 +46,7 @@ block content
 
   //- plalists
   if playlists[path.dir] && playlists[path.dir].length
-    .playlists.col-xs-12.col-sm-6.col-md-4(id=name)
+    .playlists.col-xs-12.col-sm-6(id=name)
       h2(data-i18n="html=layout.playlists")= t('layout.playlists')
       each playlist in playlists[path.dir]
         +playlistIndex(playlist)
