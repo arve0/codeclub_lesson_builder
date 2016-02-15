@@ -98,7 +98,9 @@ You can run tasks with `./gulp taskname` when in the lesson repo, or with `gulp 
 - `build-search-index` builds `searchIndex.json` which is used for client-side search with [lunr](http://lunrjs.com)
 - `clean` delete all files in `build`
 - `css` will process less files, add asset-css, autoprefix, minify and concat to `style.min.css`
-- `js` uglify, add already uglified asset-js and concat to `script.min.js`
+- `js:client` browserify client scripts, entry point is [`scripts/index.js`]
+- `js:dist` same as `js:client`, but also uglify and create source maps
+- `js:vendor` concat vendor scripts
 - `pdf` will create PDFs of all htmls in build folder
 - `server` will start a local web-server and open your browser with the index
 - `default` start the `server`-task and reload browser upon file changes (runs when gulp recieves no arguments)
