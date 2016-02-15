@@ -11,7 +11,9 @@
 @import "pulse";
 
 .container {
-  max-width: 800px;
+  @media not print {
+    max-width: 800px;
+  }
 }
 
 // code blocks
