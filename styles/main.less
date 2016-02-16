@@ -10,6 +10,31 @@
 @import "lesson-index";
 @import "pulse";
 
+// readability: http://baymard.com/blog/line-length-readability
+// not keyword negate _whole_ media query,
+// making `(not print) and (min-width: @screen-sm)` impossible
+@media aural, braille, handheld, projection, screen, tty, tv, embossed {
+  .container {
+    max-width: 800px;
+  }
+  section p {
+    @media (max-width: @screen-sm) {
+      font-size: 17px;
+    }
+    @media (min-width: @screen-sm) and (max-width: @screen-md) {
+      font-size: 19px;
+    }
+    @media (min-width: @screen-md) {
+      font-size: 20px;
+    }
+  }
+  pre > code {
+    // horisontal scroll on code blocks, do not wrap
+    word-wrap: normal;
+    white-space: pre;
+  }
+}
+
 // code blocks
 code {
   // Note that build-system must have the first listed font installed
@@ -122,12 +147,12 @@ a:hover, a:hover > * {
     .make-sm-column(4);
     .make-md-column(3);
     /* make sure rows clear when courses have different height */
-    @media (max-width: @screen-sm) {
+    @media (max-width: @screen-xs-max) {
       &:nth-child(2n+1) {
         clear: left;
       }
     }
-    @media (min-width: @screen-sm) and (max-width: @screen-md) {
+    @media (min-width: @screen-sm) and (max-width: @screen-sm-max) {
       &:nth-child(3n+1) {
         clear: left;
       }
