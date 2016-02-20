@@ -35,6 +35,20 @@
   }
 }
 
+// force display of horisontal scroll bar on safari
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background-color: #aaa;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #000;
+}
+
 // code blocks
 code {
   // Note that build-system must have the first listed font installed
