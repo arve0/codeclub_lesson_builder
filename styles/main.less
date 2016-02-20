@@ -94,12 +94,19 @@ figure > img {
     }
   }
   a.intro {
-    .glyphicon;
-    .glyphicon-question-sign;
     float: right;
     color: #fff;
-    font-size: 35px;
     padding-right: 10px;
+    text-align: center;
+    .icon {
+      .glyphicon;
+      .glyphicon-question-sign;
+      font-size: 21px;
+      display: block;
+    }
+    .text {
+      font-size: 10px;
+    }
   }
   .flags {
     float: right;
@@ -205,6 +212,15 @@ a:hover, a:hover > * {
         max-height: 150px;
         max-width: 150px;
       }
+    }
+    .lessons {
+      position: absolute;
+      right: 0;
+      top: 0;
+      background-color: #000;
+      color: #fff;
+      padding: 3px;
+      border-radius: 3px;
     }
     .name {
       .text-center;

@@ -51,7 +51,8 @@
       '4': 'Expert',
       '5': 'Master',
       '6': 'Champion'
-    }
+    },
+    numberOfLessons: 'Number of lessons'
   },
   indexjs: {
     externalResource: 'External resource',

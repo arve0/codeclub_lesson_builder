@@ -43,6 +43,25 @@ config.collections.forEach(function(collection){
     pattern: collection + '/**/*.md'
   };
 });
+function sortCollections(courses) {
+  var out = [];
+  for (var name in courses) {
+    var course = {};
+    course.lessons = courses[name];
+    course.name = name;
+    out.push(course);
+  }
+  out.sort(function (a, b) {
+    if (a.lessons.length > b.lessons.length) {
+      return -1;
+    }
+    if (a.lessons.length < b.lessons.length) {
+      return 1;
+    }
+    return 0;
+  })
+  return out;
+}
 
 // defines available in layout
 var defineOptions = {
@@ -51,7 +70,8 @@ var defineOptions = {
   config: config,
   isFile: tools.isFile,
   matter: tools.frontmatter,
-  t: translate 
+  t: translate,
+  sort: sortCollections
 };
 
 // layout
