@@ -3,22 +3,23 @@ extends ./layout.jade
 block content
   .col-xs-12
     header.clearfix
-      -if (!logo) logo = relative("/assets/img/ccno_logo.png")
+      -if (!logo) logo = relative('/assets/img/ccno_logo.png')
       img.logo.hidden-xs(src=logo)
       h1.title= title
       .lesson-icons
         .level
-          img(title="Level " + level src=relative("/assets/img/level" + level + ".png"))
+          img(title="Level " + level src=relative('/assets/img/level' + level + '.png'))
           -levelName = 'layout.levelNames.' + level
           -dataLevelName = 'html=' + levelName
           span(data-i18n=dataLevelName)= t(levelName)
-        .course
-          -course = _.first(collection)
-          -courseIndex = '/' + course + '/index.md'
-          -courseMetadata = matter(courseIndex)
-          -courseName = courseMetadata.title || course
-          -courseLogo = relative("/" + course + "/logo-white.png")
-          -if (!isFile(path.dir, courseLogo)) courseLogo = relative('/logo-white.png')
+        -course = _.first(collection)
+        -courseIndex = '/' + course + '/index.md'
+        -courseMetadata = matter(courseIndex)
+        -courseName = courseMetadata.title || course
+        -courseLink = relative('/' + course)
+        -courseLogo = relative('/' + course + '/logo-white.png')
+        -if (!isFile(path.dir, courseLogo)) courseLogo = relative('/logo-white.png')
+        a.course(href=courseLink)
           img(src=courseLogo)
           span= courseName
         .pdf
