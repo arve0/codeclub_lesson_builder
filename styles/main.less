@@ -68,19 +68,29 @@ figure > img {
   margin-top: 20px;
   background-color: @light-background;
   border-radius: 5px;
-  padding: 10px;
-  margin-top: 20px;
+  .clearfix;
   @media print {
     display:none;
+  }
+  > * {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .navigation {
+    line-height: 35px;
+    padding-left: 15px;
+    display: inline-block;
+    a {
+      color: #000;
+    }
   }
   .search {
     .form-inline;
     display: inline-block;
-    vertical-align: middle;
-    margin: 0 0 0 auto;
+    float: right;
+    padding-right: 10px;
     > * {
-      margin-left: 5px;
-      margin-top: 0;
+      margin: 0;
     }
   }
   a.intro {
@@ -89,6 +99,7 @@ figure > img {
     float: right;
     color: #fff;
     font-size: 35px;
+    padding-right: 10px;
   }
   .flags {
     float: right;

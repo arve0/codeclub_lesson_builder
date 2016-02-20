@@ -21,22 +21,30 @@ html
       .row
         .col-xs-12
           .top-menu
-            a.btn.btn-default(href=relative("/index.html"))
-              span.glyphicon.glyphicon-home(aria-hidden="true")
-              span &nbsp;
-              span.hidden-xs(data-i18n="html=layout.home")= t("layout.home")
-            form.search
-              input.form-control(
-                type="text"
-                data-i18n="placeholder=layout.search"
-                placeholder=t('layout.search')
-              )
+            .navigation
+              a(href=relative('/index.html'))
+                span.glyphicon.glyphicon-home(aria-hidden="true")
+                span &nbsp;
+                span(data-i18n="html=layout.home")= t("layout.home")
+              -course = _.first(collection)
+              -courseIndex = '/' + course + '/index.md'
+              -courseMetadata = matter(courseIndex)
+              -courseName = courseMetadata.title || course
+              if course
+                span &nbsp;/&nbsp;
+                a(href=relative('/' + course))= courseName
             a.intro(
               data-i18n="title=layout.takeTour"
               title=t('layout.takeTour')
               data-placement="bottom"
               href="#"
             )
+            form.search
+              input.form-control(
+                type="text"
+                data-i18n="placeholder=layout.search"
+                placeholder=t('layout.search')
+              )
             if config.showFlags
               .flags
                 a.flag.btn.btn-default(onclick="setLanguage('nb-NO')")
