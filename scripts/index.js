@@ -5,6 +5,7 @@
 import './search.js';
 import './intro.js';
 import './playlist.js';
+import './lesson-hover.js';
 import i18n from './i18n.js';
 
 let t;
