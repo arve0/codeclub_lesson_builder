@@ -5,6 +5,7 @@
 import { introJs } from 'intro.js';
 import moment from 'moment';
 import i18n from './i18n.js';
+import Cookie from 'js-cookie';
 
 
 // event handler: tour is wanted
@@ -17,7 +18,8 @@ const question = $('.intro-question');
 let tour, lastVisit
 try {
   tour = localStorage.getItem('tour');
-  lastVisit = localStorage.getItem('last visit');
+  // TODO: remove Cookie when migration to localStorage is complete
+  lastVisit = localStorage.getItem('last visit') || Cookie.get('last visit');
   if (lastVisit) {
     lastVisit = moment(lastVisit)
   }
