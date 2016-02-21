@@ -23,7 +23,8 @@
     lesson: {
       doneLabel: "Gå tilbake til der du startet",
       lessonIcons: "Nivå og programmeringsspråk vises her. Du kan også laste ned oppgaven som PDF.",
-      pickAWord: "Oppgavene består av steg med instruksjoner og kodeblokker.<br><br> Det var det! Lykke til :-)"
+      pickAWord: "Oppgavene består av steg med instruksjoner og kodeblokker.<br><br> Det var det! Lykke til :-)",
+      steps: '#steg-1-hei-verden'
     }
   },
   layout: {

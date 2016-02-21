@@ -23,7 +23,8 @@
     lesson: {
       doneLabel: "Go back to where you started",
       lessonIcons: "Level and programming language is shown here. You can also download the lesson as a PDF.",
-      pickAWord: "Lessons consists of steps with instructions and code blocks.<br><br> That's it! Happy coding :-)"
+      pickAWord: "Lessons consists of steps with instructions and code blocks.<br><br> That's it! Happy coding :-)",
+      steps: '#step-1-pick-a-word'
     }
   },
   layout: {
