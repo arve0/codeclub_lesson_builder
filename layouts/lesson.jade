@@ -29,3 +29,14 @@ block content
 
   .col-xs-12
     .content!= contents
+
+    .improve
+      h3= t('improve.header')
+      p= t('improve.text')
+      -createIssue = config.repo + '/issues/new?'
+      -createIssue += 'title='+ courseName +': '+ title
+      -createIssue += '&body='+ t('improve.describeIssue')
+      a.issue(href=createIssue)= t('improve.createIssue')
+      -codePlacement = config.repo +'/tree/master/'+ config.sourceFolder +'/'
+      -codePlacement += path.dir
+      a.code(href=codePlacement)= t('improve.showCode')

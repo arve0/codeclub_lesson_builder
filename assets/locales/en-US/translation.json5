@@ -55,6 +55,13 @@
     },
     numberOfLessons: 'Number of lessons'
   },
+  improve: {
+    header: 'Improve this lesson',
+    text: 'Found an error? Could something be better? If so, please create an issue or fix the error if you can. We\'re  really grateful for any feedback you can give.',
+    createIssue: 'Create an issue',
+    showCode: 'Show code and fix yourself',
+    describeIssue: 'Describe your issue...'
+  },
   indexjs: {
     externalResource: 'External resource',
     externalCourse: 'This is an external course.',

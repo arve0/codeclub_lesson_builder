@@ -53,6 +53,13 @@
     },
     numberOfLessons: 'Antall oppgaver'
   },
+  improve: {
+    header: 'Forbedre denne oppgaven',
+    text: 'Funnet en feil? Kunne noe vært bedre? Hvis ja, vennligst gi oss tilbakemelding ved å lage en sak på github eller fiks feilen selv om du kan. Vi er takknemlige for enhver tilbakemelding!',
+    createIssue: 'Rapporter et problem',
+    showCode: 'Vis koden og fiks selv',
+    describeIssue: 'Beskriv ditt problem...'
+  },
   indexjs: {
     externalResource: 'Ekstern ressurs',
     externalCourse: 'Dette er et ekstern kurs.',
