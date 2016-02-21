@@ -14,7 +14,7 @@ i18n.on('initialized', () => {
   /**
    * If in lesson of playlist
    */
-  var playlist = localStorage.getItem('playlist');
+  var playlist = JSON.parse(localStorage.getItem('playlist'));
   if (playlist) {
     if (indexOf(playlist.lessons, window.location.href) !== undefined) {
       // current lesson is this very page -> add navigation
@@ -40,7 +40,7 @@ $('.playlist > li').click(function(){
 $('.playlist a').click(function(event){
   event.preventDefault();
   var playlist = getPlaylist(this);
-  localStorage.setItem('playlist', playlist);
+  localStorage.setItem('playlist', JSON.stringify(playlist));
   window.location.href = this.attributes.href.value;
 });
 
@@ -105,7 +105,7 @@ function addNavigation(playlist) {
     } else { return }  // not next/prev button
     if (playlist.lessons[i]) {
       var url = playlist.lessons[i].url;
-      localStorage.setItem('playlist', playlist);
+      localStorage.setItem('playlist', JSON.stringify(playlist));
       window.location.href = url;
     }
   })
