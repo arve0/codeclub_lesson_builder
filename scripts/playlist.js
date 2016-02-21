@@ -5,7 +5,6 @@
  * - Keep track of position in playlist.
  */
 
-import Cookie from 'js-cookie';
 import i18n from './i18n.js';
 
 let t;
@@ -13,16 +12,16 @@ i18n.on('initialized', () => {
   t = i18n.getFixedT();
 
   /**
-   * If cookie is set
+   * If in lesson of playlist
    */
-  var playlist = Cookie.getJSON('playlist');
+  var playlist = localStorage.getItem('playlist');
   if (playlist) {
     if (indexOf(playlist.lessons, window.location.href) !== undefined) {
       // current lesson is this very page -> add navigation
       addNavigation(playlist);
     } else {
-      // remove cookie, we are no longer in playlist
-      Cookie.remove('playlist');
+      // remove playlist from localStorage, we are no longer in a playlist
+      localStorage.removeItem('playlist');
     }
   }
 })
@@ -36,12 +35,12 @@ $('.playlist > li').click(function(){
 
 
 /**
- * create cookie when clicking lesson in playlist
+ * save playlist to localStorage when clicking lesson in playlist
  */
 $('.playlist a').click(function(event){
   event.preventDefault();
   var playlist = getPlaylist(this);
-  Cookie.set('playlist', playlist);
+  localStorage.setItem('playlist', playlist);
   window.location.href = this.attributes.href.value;
 });
 
@@ -106,7 +105,7 @@ function addNavigation(playlist) {
     } else { return }  // not next/prev button
     if (playlist.lessons[i]) {
       var url = playlist.lessons[i].url;
-      Cookie.set('playlist', playlist);
+      localStorage.setItem('playlist', playlist);
       window.location.href = url;
     }
   })
