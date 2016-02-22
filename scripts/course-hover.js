@@ -90,5 +90,6 @@ function createPopover (elm) {
  * remove all intro popovers
  */
 function hideIntro () {
+  clearTimeout(timeout);
   $(CONTAINER).remove();
 }
