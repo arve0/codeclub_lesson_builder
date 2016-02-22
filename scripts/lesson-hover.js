@@ -54,7 +54,7 @@ function filterImgs (dir) {
  */
 function filterContent (data) {
   const intro = {};
-  intro.text = $(data).find('p');
+  intro.text = $(data).find('p, pre');
   intro.img = $(data).find('figure > img');
   if (intro.text.length === 0) {
     intro.text = null;
@@ -101,7 +101,7 @@ function createPopover (elm) {
     elm.popover({
       animate: true,
       container: CONTAINER,
-      placement: 'bottom',
+      placement: 'auto bottom',
       trigger: 'manual',
       html: true,
       content: Intro(data)

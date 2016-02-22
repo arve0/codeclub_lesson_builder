@@ -196,7 +196,7 @@ a:hover, a:hover > * {
     }
     color: #000000;
     font-weight: 300;
-    padding-bottom: 45px; /* Vertical spacing between courses */
+    margin-bottom: 45px; /* Vertical spacing between courses */
     .logo-wrapper { /* FIXME: when "safe" to use flexbox? */
       height: 35vw;
       max-height: 150px;
@@ -214,13 +214,7 @@ a:hover, a:hover > * {
       }
     }
     .lessons {
-      position: absolute;
-      right: 0;
-      top: 0;
-      background-color: #000;
-      color: #fff;
-      padding: 3px;
-      border-radius: 3px;
+      display: none;
     }
     .name {
       .text-center;
@@ -272,7 +266,11 @@ table  {
   }
 }
 
-// do not set max-width on intro boxes and popovers
-.introjs-tooltip, .popover {
+// do not set max-width on intro boxes
+.introjs-tooltip {
   max-width: none;
+}
+
+.courseIntro .popover {
+  max-width: 600px;
 }

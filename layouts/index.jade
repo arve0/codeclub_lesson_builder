@@ -18,7 +18,9 @@ block content
       a(href=link id=course.name)
         .logo-wrapper
           img(src=logo)
-        .lessons(data-i18n="title=layout.numberOfLessons" title=t('layout.numberOfLessons'))= course.lessons.length
+        .lessons
+          strong(data-i18n="html=layout.numberOfLessons")= t('layout.numberOfLessons')
+          span= ': '+ course.lessons.length
         .name
           span= realName
           if collectionMetadata.external
