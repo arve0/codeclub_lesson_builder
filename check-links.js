@@ -119,6 +119,10 @@ module.exports = function(start) {
             if (href.search(/^(mailto|javascript)/) === 0) {
               return;
             }
+            // do not add github new issue links
+            if (href.search(/^https:\/\/github.com\/.*?\/issues\/new/) === 0) {
+              return;
+            }
             // do not check #-link explicit
             var url = doc.resolve(href).split('#')[0];
             // already added
