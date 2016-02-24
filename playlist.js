@@ -44,12 +44,6 @@ function isPlaylist(filename) {
          !fs.statSync(filename).isDirectory();
 }
 
-function playlistId(name){
-  // replace chars in playlist-name, so that it can be used as id or class
-  var id = name.replace(/ /g, '_');
-  id = id.replace(/[\,\.\-\?]/g, '');
-  return id;
-}
 
 function getLink(root, filename) {
   var link = filename.replace('.md', '.html');
@@ -66,8 +60,6 @@ function getPlaylist(filename) {
   lessonFiles = _.map(lessonFiles, withPath, {root: this.root});
 
   var playlist = {};
-  playlist.name = path.basename(filename).replace('.txt', '').replace(/_/g, ' ');
-  playlist.id = playlistId(playlist.name);
   playlist.lessons = _.map(lessonFiles, getFrontMatter, {root: this.root});
 
   return playlist;

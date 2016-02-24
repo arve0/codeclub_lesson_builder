@@ -16,7 +16,7 @@ var translate = require('./i18n.js');
 // get configuration variables
 var config = require('./config.js');
 var tools = require('./tools.js');
-var getPlaylists = require('./playlist.js');
+var playlists = require('./playlists.js');
 
 /**
  * # SETUP OBJECTS #
@@ -87,20 +87,13 @@ var layoutOptions = {
  * build-function, calls callback when done
  */
 module.exports = function build(callback){
-  // read playlists upon every build
-  var playlists = {};
-  config.collections.forEach(function(collection){
-    // playlists
-    var collectionFolder = [config.lessonRoot, config.sourceFolder, collection].join("/");
-    playlists[collection] = getPlaylists(collectionFolder);
-  });
-  // make it available in layout
-  defineOptions.playlists = playlists;
-
   // do the building
   Metalsmith(config.lessonRoot)
   .source(config.sourceFolder)
-  .clean(false) // do not delete files, allow gulp tasks in parallel
+  .clean(false)  // do not delete files, allow gulp tasks in parallel
+  .use(playlists({
+    collections: Object.keys(collectionOptions)
+  }))
   .use(ignore(ignoreOptions))
   .use(ignoreIndexedFalse)
   .use(paths())
