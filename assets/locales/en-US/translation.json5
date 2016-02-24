@@ -53,7 +53,8 @@
       '5': 'Master',
       '6': 'Champion'
     },
-    numberOfLessons: 'Number of lessons'
+    numberOfLessons: 'Number of lessons',
+    teacherNotes: 'Teacher notes'
   },
   improve: {
     header: 'Improve this lesson',

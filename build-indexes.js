@@ -17,6 +17,7 @@ var translate = require('./i18n.js');
 var config = require('./config.js');
 var tools = require('./tools.js');
 var playlists = require('./playlists.js');
+var lessonReadme = require('./lesson-readme.js');
 
 /**
  * # SETUP OBJECTS #
@@ -91,7 +92,8 @@ module.exports = function build(callback){
   Metalsmith(config.lessonRoot)
   .source(config.sourceFolder)
   .clean(false)  // do not delete files, allow gulp tasks in parallel
-  .use(playlists({
+  .use(lessonReadme())  // before ignore
+  .use(playlists({  // before ignore
     collections: Object.keys(collectionOptions)
   }))
   .use(ignore(ignoreOptions))

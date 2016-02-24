@@ -12,7 +12,7 @@ $(SELECTOR).hover(showIntro, hideIntro);
 function showIntro () {
   const elm = $(this).parent();
   const url = elm.attr('href');
-  if (!url) {
+  if (!url || url.search(/^http/) === 0) {
     return;
   }
 

@@ -1,24 +1,20 @@
 extends ./layout.jade
 
 //- playlists
-mixin playlistIndex(playlist)
+mixin PlaylistIndex(playlist)
   .playlist
     li(data-i18n="title=layout.clickToExpand" title=t('layout.clickToExpand') id=playlist.id)
       .icon
       .name= playlist.name
 
     each lesson in playlist.lessons
-      //- if external tag set, use that as link
-      -link = lesson.external || relative(lesson.link)
-      a(href=link)
-        li.lesson(style="display:none" class=playlist.id + ' level-' + lesson.level)
-          = lesson.title
-          if lesson.external
-            span.glyphicon.glyphicon-new-window
-
+      -
+        attrs = { style: 'display:none',
+                  class: playlist.id +' level-'+ lesson.level }
+      +Lesson(lesson, attrs)
 
 //- levels
-mixin levelIndex(level, lessons)
+mixin LevelIndex(level, lessons)
   .level.col-xs-12.col-sm-6(id=name)
     -levelName = 'layout.levelNames.' + level
     -dataLevelName = 'html=' + levelName
@@ -27,12 +23,25 @@ mixin levelIndex(level, lessons)
 
     //- all lessons which does not have `indexed: false`
     each lesson in lessons
-      //- if external tag set, use that as link
-      -link = lesson.external || relative(lesson.link.replace(/\.md$/, '.html'))
-      a(href=link)
-        li.lesson= lesson.title
-          if lesson.external
-            span.glyphicon.glyphicon-new-window
+      +Lesson(lesson)
+
+// lesson
+mixin Lesson(lesson, attrs)
+  -attrs = attrs || {}
+  //- if external tag set, use that as link
+  -link = lesson.external || relative(lesson.link).replace(/\.md$/, '.html')
+  a(href=link)
+    li.lesson&attributes(attrs)= lesson.title
+      if lesson.readme
+        span.readme(
+          href=lesson.readme
+          data-i18n="title=layout.teacherNotes"
+          title=t('layout.teacherNotes')
+        )
+        // click -> js redirect to readme
+      if lesson.external
+        span.external
+
 
 
 block content
@@ -49,10 +58,10 @@ block content
     .playlists.col-xs-12.col-sm-6(id=name)
       h2(data-i18n="html=layout.playlists")= t('layout.playlists')
       each playlist in playlists[path.dir]
-        +playlistIndex(playlist)
+        +PlaylistIndex(playlist)
 
   //- levels
   //- sorted list of levels
   -levels = _.uniq(_.compact(_.pluck(collections[path.dir], 'level'))).sort()
     each level in levels
-      +levelIndex(level, _.where(collections[path.dir], {level: level}))
+      +LevelIndex(level, _.where(collections[path.dir], {level: level}))

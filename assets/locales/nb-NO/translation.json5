@@ -51,7 +51,8 @@
       '3': 'Erfaren',
       '4': 'Ekspert'
     },
-    numberOfLessons: 'Antall oppgaver'
+    numberOfLessons: 'Antall oppgaver',
+    teacherNotes: 'Lærerveiledning'
   },
   improve: {
     header: 'Forbedre denne oppgaven',

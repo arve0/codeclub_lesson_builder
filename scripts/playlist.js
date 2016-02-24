@@ -26,28 +26,29 @@ i18n.on('initialized', () => {
   }
 })
 
-/**
- * show/hide playlist
- */
-$('.playlist > li').click(function(){
-  $('.' + this.id).slideToggle();
-});
+export default function init () {
+  /**
+   * show/hide playlist
+   */
+  $('.playlist > li').click(function(){
+    $('.' + this.id).slideToggle();
+  });
 
-
-/**
- * save playlist to localStorage when clicking lesson in playlist
- */
-$('.playlist a').click(function(event) {
-  event.preventDefault();
-  var url = $(this).attr('href');
-  if (url.search(/^http/) === 0) {
-    // external lesson
-    return;
-  }
-  var playlist = getPlaylist(this);
-  localStorage.setItem('playlist', JSON.stringify(playlist));
-  window.location.href = this.attributes.href.value;
-});
+  /**
+   * save playlist to localStorage when clicking lesson in playlist
+   */
+  $('.playlist a').click(function(event) {
+    event.preventDefault();
+    var url = $(this).attr('href');
+    if (url.search(/^http/) === 0) {
+      // external lesson
+      return;
+    }
+    var playlist = getPlaylist(this);
+    localStorage.setItem('playlist', JSON.stringify(playlist));
+    window.location.href = this.attributes.href.value;
+  });
+}
 
 
 /**
