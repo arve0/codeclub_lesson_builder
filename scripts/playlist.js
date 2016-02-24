@@ -37,8 +37,13 @@ $('.playlist > li').click(function(){
 /**
  * save playlist to localStorage when clicking lesson in playlist
  */
-$('.playlist a').click(function(event){
+$('.playlist a').click(function(event) {
   event.preventDefault();
+  var url = $(this).attr('href');
+  if (url.search(/^http/) === 0) {
+    // external lesson
+    return;
+  }
   var playlist = getPlaylist(this);
   localStorage.setItem('playlist', JSON.stringify(playlist));
   window.location.href = this.attributes.href.value;
