@@ -23,9 +23,14 @@ block content
           img(src=courseLogo)
           span= courseName
         .pdf
-          a.download(href=link.replace('.html', '.pdf') data-i18n="title=layout.downloadPdf" title=t('layout.downloadPdf'))
-            span.glyphicon.glyphicon-save-file
-          span PDF
+          a(href=link.replace('.html', '.pdf') data-i18n="title=layout.downloadPdf" title=t('layout.downloadPdf'))
+            span.icon
+            span.text PDF
+        if readme
+          .readme
+            a(href=readme)
+              span.icon
+              span.text(data-i18n="html=layout.teacherNotes")= t('layout.teacherNotes')
 
   .col-xs-12
     .content!= contents
