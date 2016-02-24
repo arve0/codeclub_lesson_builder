@@ -97,6 +97,8 @@ module.exports = function build(callback){
     collections: Object.keys(collectionOptions)
   }))
   .use(ignore(ignoreOptions))
+  // add file.link metadata (files are .md here)
+  .use(filepath())
   .use(ignoreIndexedFalse)
   .use(paths())
   // set layout for exercises
@@ -105,8 +107,6 @@ module.exports = function build(callback){
   .use(relative())
   // create collections for index
   .use(collections(collectionOptions))
-  // add file.link metadata (files are .md here)
-  .use(filepath())
   // remove lessons *after* we have necessary metadata
   .use(ignore(['**', '!**/index.md']))
   .use(tools.removeExternal)
