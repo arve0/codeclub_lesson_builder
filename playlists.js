@@ -37,7 +37,11 @@ module.exports = function (opts) {
         let lessons = files[file].contents.toString('utf8')
         lessons = lessons.match(/[^\r\n]+/g)  // read lines
         playlist.lessons = lessons.map(file => {
-          const key = path.join(collection, ...file.split('/'))
+          const key = path.normalize(path.join(collection, ...file.split('/')))
+          if (!files[key]) {
+            console.warn('playlist: file not found')
+            console.warn(key +' in '+ file)
+          }
           return files[key]
         })
 
