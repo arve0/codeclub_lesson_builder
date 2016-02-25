@@ -7,6 +7,7 @@ try {
   var reload = browserSync.reload // reload shorthand
 } catch (e) { }
 var path = require('path')
+var join = path.join  // shorthand
 var addsrc = require('gulp-add-src')
 var del = require('del')
 var run = require('run-sequence')
@@ -163,7 +164,7 @@ gulp.task('dist', function (cb) {
  * clean - remove files in build directory
  */
 gulp.task('clean', function (cb) {
-  del([path.join(config.lessonRoot, 'build')], {force: true}, cb)
+  del([join(config.lessonRoot, 'build')], {force: true}, cb)
 })
 
 /**
@@ -230,15 +231,15 @@ gulp.task('default', ['server'], function () {
    * ## WATCHES ##
    */
   // files which are built with metalsmith
-  gulp.watch([config.sourceRoot + '/**', '!' + config.sourceRoot + '/**/index.md'], ['build', reload])
-  gulp.watch([__dirname + '/layouts/**', config.sourceRoot + '/**/index.md'], ['build-indexes', reload])
+  gulp.watch([join(config.sourceRoot, '/**'), '!' + config.sourceRoot + '/**/index.md'], ['build', reload])
+  gulp.watch([join(__dirname, '/layouts/**'), config.sourceRoot + '/**/index.md'], ['build-indexes', reload])
 
   // styles
-  gulp.watch(path.join(__dirname, 'styles', '**', '*'), ['css', reload])
+  gulp.watch(join(__dirname, 'styles', '**', '*'), ['css', reload])
 
   // scripts
-  gulp.watch(path.join(__dirname, 'scripts', '**'), ['js:client', reload])
+  gulp.watch(join(__dirname, 'scripts', '**'), ['js:client', reload])
 
   // assets
-  gulp.watch(path.join(__dirname, 'assets', '**'), ['assets', reload])
+  gulp.watch(join(__dirname, 'assets', '**'), ['assets', reload])
 })

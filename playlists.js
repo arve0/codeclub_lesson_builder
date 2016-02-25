@@ -18,12 +18,12 @@ module.exports = function (opts) {
     metadata.playlists = {}
 
     // for each collection
-    opts.collections.map(collection => {
+    opts.collections.map((collection) => {
       // /course\/playlists\/[^\/]+txt$/
       const re = new RegExp([collection, config.playlistFolder,
                             '[^', ']+txt$'].join('\\' + path.sep))
       // [ course/playlists/learn_python.txt, ...]
-      const playlists = Object.keys(files).filter(file => {
+      const playlists = Object.keys(files).filter((file) => {
         return file.search(re) === 0
       })
 
@@ -36,7 +36,7 @@ module.exports = function (opts) {
 
         let lessons = files[file].contents.toString('utf8')
         lessons = lessons.match(/[^\r\n]+/g)  // read lines
-        playlist.lessons = lessons.map(file => {
+        playlist.lessons = lessons.map((file) => {
           const key = path.normalize(path.join(collection, ...file.split('/')))
           if (!files[key]) {
             console.warn('playlist: file not found')
