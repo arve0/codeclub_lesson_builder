@@ -7,11 +7,12 @@ block content
       img.logo.hidden-xs(src=logo)
       h1.title= title
       .lesson-icons
-        .level
-          img(title="Level " + level src=relative('/assets/img/level' + level + '.png'))
-          -levelName = 'layout.levelNames.' + level
-          -dataLevelName = 'html=' + levelName
-          span(data-i18n=dataLevelName)= t(levelName)
+        if level
+          .level
+            img(title="Level " + level src=relative('/assets/img/level' + level + '.png'))
+            -levelName = 'layout.levelNames.' + level
+            -dataLevelName = 'html=' + levelName
+            span(data-i18n=dataLevelName)= t(levelName)
         -course = _.first(collection)
         -courseIndex = '/' + course + '/index.md'
         -courseMetadata = matter(courseIndex)
@@ -28,9 +29,14 @@ block content
             span.text PDF
         if readme
           .readme
-            a(href=readme)
+            a(href=relative(readme))
               span.icon
               span.text(data-i18n="html=layout.teacherNotes")= t('layout.teacherNotes')
+        if lesson
+          .lesson-link
+            a(href=relative(lesson))
+              span.icon
+              span.text(data-i18n="html=layout.lesson")= t('layout.lesson')
 
   .col-xs-12
     .content!= contents

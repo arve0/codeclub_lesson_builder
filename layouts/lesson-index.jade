@@ -34,7 +34,7 @@ mixin Lesson(lesson, attrs)
     li.lesson&attributes(attrs)= lesson.title
       if lesson.readme
         span.readme(
-          href=lesson.readme
+          href=relative(lesson.readme)
           data-i18n="title=layout.teacherNotes"
           title=t('layout.teacherNotes')
         )

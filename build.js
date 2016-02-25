@@ -34,7 +34,6 @@ var metadataOptions = [
 
 // ignores
 var ignoreOptions = [
-  '**/README.md',
   'index.md',
   '*/index.md'
 ];

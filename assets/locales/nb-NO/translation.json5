@@ -52,7 +52,8 @@
       '4': 'Ekspert'
     },
     numberOfLessons: 'Antall oppgaver',
-    teacherNotes: 'Lærerveiledning'
+    teacherNotes: 'Lærerveiledning',
+    lesson: 'Oppgave'
   },
   improve: {
     header: 'Forbedre denne oppgaven',

@@ -54,7 +54,8 @@
       '6': 'Champion'
     },
     numberOfLessons: 'Number of lessons',
-    teacherNotes: 'Teacher notes'
+    teacherNotes: 'Teacher notes',
+    lesson: 'Lesson'
   },
   improve: {
     header: 'Improve this lesson',
