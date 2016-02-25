@@ -1,5 +1,4 @@
 const path = require('path')
-const config = require('./config.js')
 
 /**
  * Metalsmith plugin.
@@ -19,8 +18,6 @@ module.exports = function (opts) {
       }
       let readme = path.join(path.dirname(file), opts.readme)
       if (readme in files) {
-        let link =  [config.repo, 'tree', 'master',
-                     config.sourceFolder, readme].join('/')
         files[file].readme = readme.replace(/\.md$/, '.html')
       }
     }
