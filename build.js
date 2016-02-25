@@ -1,23 +1,23 @@
 /*
  * # DEPENDENCIES #
  */
-var Metalsmith = require('metalsmith');
-var layouts = require('metalsmith-layouts');
-var collections = require('metalsmith-collections');
-var setMetadata = require('metalsmith-filemetadata');
-var filepath = require('metalsmith-filepath');
-var ignore = require('metalsmith-ignore');
-var relative = require('metalsmith-relative');
-var define = require('metalsmith-define');
-var _ = require('lodash');
-var changed = require('metalsmith-changed');
-var paths = require('metalsmith-paths');
-var md = require('./markdown.js');
-var translate = require('./i18n.js');
+var Metalsmith = require('metalsmith')
+var layouts = require('metalsmith-layouts')
+var collections = require('metalsmith-collections')
+var setMetadata = require('metalsmith-filemetadata')
+var filepath = require('metalsmith-filepath')
+var ignore = require('metalsmith-ignore')
+var relative = require('metalsmith-relative')
+var define = require('metalsmith-define')
+var _ = require('lodash')
+var changed = require('metalsmith-changed')
+var paths = require('metalsmith-paths')
+var md = require('./markdown.js')
+var translate = require('./i18n.js')
 // get configuration variables
-var config = require('./config.js');
-var tools = require('./tools.js');
-var lessonReadme = require('./lesson-readme.js');
+var config = require('./config.js')
+var tools = require('./tools.js')
+var lessonReadme = require('./lesson-readme.js')
 
 /*
  * # SETUP OBJECTS #
@@ -30,22 +30,22 @@ var metadataOptions = [
   // scratch lesson layout
   { pattern: 'scratch/**/*.md',
     metadata: { layout: 'scratch.jade' }}
-];
+]
 
 // ignores
 var ignoreOptions = [
   'index.md',
   '*/index.md'
-];
+]
 
 // collections
-var collectionOptions = {};
-config.collections.forEach(function(collection){
+var collectionOptions = {}
+config.collections.forEach(function (collection) {
   // options for collections
   collectionOptions[collection] = {
     pattern: collection + '/**/*.md'
-  };
-});
+  }
+})
 
 // defines available in layout
 var defineOptions = {
@@ -55,22 +55,21 @@ var defineOptions = {
   isFile: tools.isFile,
   matter: tools.frontmatter,
   t: translate
-};
+}
 
 // layout
 var layoutOptions = {
   engine: 'jade',
   directory: config.builderRoot + '/layouts'
-};
-
+}
 
 /*
  * # EXPORT #
  * build-function which takes a callback
  */
-module.exports = function build(callback, options){
-  options = options || {};
-  var forceBuild = options.force || false;
+module.exports = function build (callback, options) {
+  options = options || {}
+  var forceBuild = options.force || false
 
   // do the building
   Metalsmith(config.lessonRoot)
@@ -86,10 +85,10 @@ module.exports = function build(callback, options){
   // create collections
   .use(collections(collectionOptions))
   .use(changed({
-      force: forceBuild,
-      extnames: {
-          '.md': '.html'
-      }
+    force: forceBuild,
+    extnames: {
+      '.md': '.html'
+    }
   }))
   // convert markdown to html
   .use(md)
@@ -99,11 +98,11 @@ module.exports = function build(callback, options){
   .use(define(defineOptions))
   // apply layouts
   .use(layouts(layoutOptions))
-  //build
+  // build
   .destination('build')
-  .build(function(err){
-    if (err) console.log(err);
+  .build(function (err) {
+    if (err) console.log(err)
     // callback when build is done
-    callback(err);
-  });
-};
+    callback(err)
+  })
+}
