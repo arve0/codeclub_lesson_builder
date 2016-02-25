@@ -84,5 +84,8 @@
   "bugs": {
     "url": "https://github.com/arve0/codeclub_lesson_builder/issues"
   },
-  "homepage": "https://github.com/arve0/codeclub_lesson_builder"
+  "homepage": "https://github.com/arve0/codeclub_lesson_builder",
+  "engines": {
+    "node": ">=4.0"
+  }
 }

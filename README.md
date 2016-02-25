@@ -9,7 +9,7 @@ Here is a screenshot with exmaple of workflow:
 ![](assets/img/workflow.png)
 
 ## Development
-You will need [node](//nodejs.org) and
+You will need [node](//nodejs.org) (>=4.0) and
 [git](//help.github.com/articles/set-up-git/) for using this software.
 
 *codeclub_lesson_builder* should be cloned into a lesson project where markdown
