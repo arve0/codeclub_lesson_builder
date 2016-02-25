@@ -40,7 +40,7 @@ module.exports = function (opts) {
           const key = path.normalize(path.join(collection, ...file.split('/')))
           if (!files[key]) {
             console.warn('playlist: file not found')
-            console.warn(key +' in '+ file)
+            console.warn(key + ' in ' + file)
           }
           return files[key]
         })
@@ -56,9 +56,11 @@ function playlistName (filename) {
   return path.basename(filename).replace('.txt', '').replace(/_/g, ' ')
 }
 
+/**
+ * replace chars in playlist-name, so that it can be used as id or class
+ */
 function playlistId (name) {
-  // replace chars in playlist-name, so that it can be used as id or class
-  var id = name.replace(/ /g, '_');
-  id = id.replace(/[\,\.\-\?]/g, '');
-  return id;
+  var id = name.replace(/ /g, '_')
+  id = id.replace(/[\,\.\-\?]/g, '')
+  return id
 }
