@@ -1,43 +1,41 @@
 /**
  * # DEPENDENCIES #
  */
-var gulp = require('gulp');
+var gulp = require('gulp')
 try {
-  var browserSync = require('browser-sync');
-  var reload = browserSync.reload; // reload shorthand
-} catch(e) { }
-var path = require('path');
-var addsrc = require('gulp-add-src');
-var del = require('del');
-var run = require('run-sequence');
-var merge = require('merge-stream');
-var _ = require('lodash');
+  var browserSync = require('browser-sync')
+  var reload = browserSync.reload // reload shorthand
+} catch (e) { }
+var path = require('path')
+var addsrc = require('gulp-add-src')
+var del = require('del')
+var run = require('run-sequence')
+var _ = require('lodash')
 // metalsmith building
-var build = require('./build.js');
-var buildIndexes = require('./build-indexes.js');
-var buildSearchIndex = require('./build-search-index.js');
+var build = require('./build.js')
+var buildIndexes = require('./build-indexes.js')
+var buildSearchIndex = require('./build-search-index.js')
 // styles and scripts
-var less = require('gulp-less');
-var concat = require('gulp-concat');
-var autoprefixer = require('gulp-autoprefixer');
-var minify = require('gulp-minify-css');
-var uglify = require('gulp-uglify');
-var browserify = require('browserify');
-var watchify = require('watchify');
-var source = require('vinyl-source-stream');
-var sourcemaps = require('gulp-sourcemaps');
-var buffer = require('vinyl-buffer');
+var less = require('gulp-less')
+var concat = require('gulp-concat')
+var autoprefixer = require('gulp-autoprefixer')
+var minify = require('gulp-minify-css')
+var uglify = require('gulp-uglify')
+var browserify = require('browserify')
+var watchify = require('watchify')
+var source = require('vinyl-source-stream')
+var sourcemaps = require('gulp-sourcemaps')
+var buffer = require('vinyl-buffer')
 // pdf generation
-var pdf = require('./pdf.js');
+var pdf = require('./pdf.js')
 // link-checking
-var checkLinks = require('./check-links');
+var checkLinks = require('./check-links')
 // get configuration variables
-var config = require('./config.js');
+var config = require('./config.js')
 
 // github hooks
-var exec = require('child_process').exec;
-var githubhook = require('githubhook');
-
+var exec = require('child_process').exec
+var githubhook = require('githubhook')
 
 /**
  * # TASKS #
@@ -50,13 +48,13 @@ gulp.task('server', ['build', 'build-indexes', 'css', 'js:client', 'js:vendor', 
   browserSync.init({
     server: { baseDir: config.buildRoot },
     ghostMode: false
-  });
-});
+  })
+})
 
 /**
  * build less files to css, prefix and minify
  */
-gulp.task('css', function(cb) {
+gulp.task('css', function (cb) {
   return gulp.src('styles/main.less')
     .pipe(less())
     .on('error', cb)
@@ -68,20 +66,19 @@ gulp.task('css', function(cb) {
     .pipe(autoprefixer())
     .pipe(minify())
     .pipe(concat('style.min.css'))
-    .pipe(gulp.dest(config.assetRoot));
-});
+    .pipe(gulp.dest(config.assetRoot))
+})
 
 /**
  * copy all assets to build directory
  */
-gulp.task('assets', function(){
+gulp.task('assets', function () {
   return gulp.src([
-      'assets/**/*',
-      'node_modules/scratchblocks2/build/*/*.png',
-      'node_modules/bootstrap/dist/*/glyphicons-halflings-regular.*'
-    ])
-    .pipe(gulp.dest(config.assetRoot));
-});
+    'assets/**/*',
+    'node_modules/scratchblocks2/build/*/*.png',
+    'node_modules/bootstrap/dist/*/glyphicons-halflings-regular.*'
+  ]).pipe(gulp.dest(config.assetRoot))
+})
 
 /**
  * browserify and uglify client-side scripts
@@ -92,38 +89,38 @@ var b = browserify({
   packageCache: {},
   plugin: [watchify],
   debug: true
-}).transform('babelify', { presets: ["es2015"] });
-b.on('log', console.log);
+}).transform('babelify', { presets: ['es2015'] })
+b.on('log', console.log)
 
 gulp.task('js:client', function () {
   // do not uglify in dev env
   return b.bundle()
     .on('error', (err) => {
-      console.log(err);
-      this.emit('end');
+      console.log(err)
+      this.emit('end')
     })
     .pipe(source('script.min.js'))
-    .pipe(gulp.dest(config.assetRoot));
-});
+    .pipe(gulp.dest(config.assetRoot))
+})
 
 gulp.task('js:dist', function () {
   return b.bundle()
     .on('error', (err) => {
-      console.log(err);
-      this.emit('end');
+      console.log(err)
+      this.emit('end')
     })
     .pipe(source('script.min.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(uglify())
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest(config.assetRoot));
-});
+    .pipe(gulp.dest(config.assetRoot))
+})
 
 /**
  * concat and uglify vendor scripts
  */
-gulp.task('js:vendor', function(){
+gulp.task('js:vendor', function () {
   return gulp.src([
     'node_modules/scratchblocks2/build/scratchblocks2.js',
     'node_modules/scratchblocks2/src/translations.js',
@@ -136,20 +133,20 @@ gulp.task('js:vendor', function(){
     'node_modules/jquery/dist/jquery.min.js'
   ]))
   .pipe(concat('vendor.min.js'))
-  .pipe(gulp.dest(config.assetRoot));
-});
+  .pipe(gulp.dest(config.assetRoot))
+})
 
 /**
  * metalsmith building
  */
-gulp.task('build', build);
-gulp.task('build-indexes', buildIndexes);
-gulp.task('build-search-index', buildSearchIndex);
+gulp.task('build', build)
+gulp.task('build-indexes', buildIndexes)
+gulp.task('build-search-index', buildSearchIndex)
 
 /**
  * dist - build all without serving
  */
-gulp.task('dist', function(cb){
+gulp.task('dist', function (cb) {
   // preferred way to this will change in gulp 4
   // see https://github.com/gulpjs/gulp/issues/96
   run('clean',
@@ -157,69 +154,67 @@ gulp.task('dist', function(cb){
       'pdf',
       function (err) {
         // make sure process exit (b = watchify bundle)
-        b.close();
-        cb(err);
-      });
-});
+        b.close()
+        cb(err)
+      })
+})
 
 /**
  * clean - remove files in build directory
  */
-gulp.task('clean', function(cb){
-  del([path.join(config.lessonRoot, 'build')], {force: true}, cb);
-});
+gulp.task('clean', function (cb) {
+  del([path.join(config.lessonRoot, 'build')], {force: true}, cb)
+})
 
 /**
  * pdf - generate pdfs of all htmls
  */
-gulp.task('pdf', pdf);
+gulp.task('pdf', pdf)
 
 /**
  * links - check for broken links
  */
-gulp.task('links', checkLinks('http://localhost:3000/'));
-gulp.task('prodlinks', checkLinks(config.productionCrawlStart));
+gulp.task('links', checkLinks('http://localhost:3000/'))
+gulp.task('prodlinks', checkLinks(config.productionCrawlStart))
 
 /**
  * github webhook for automatic building
  */
-gulp.task('github', function(cb){
+gulp.task('github', function (cb) {
   var github = githubhook({
     host: config.ghHost,
     port: config.ghPort,
     path: config.ghPath,
     secret: config.ghSecret
-  });
-  github.on('*', function(event){
+  })
+  github.on('*', function (event) {
     if (event !== 'pull_request') {
-      console.log('Webhook event "' + event + '". Nothing to do.');
+      console.log('Webhook event "' + event + '". Nothing to do.')
     }
-  });
-  github.on('pull_request', build);
-  github.listen();
-  var currentlyBuilding = false;
-  function build(repo, ref, data) {
+  })
+  github.on('pull_request', build)
+  github.listen()
+  var currentlyBuilding = false
+  function build (repo, ref, data) {
     if (currentlyBuilding) {
-      console.log('Already building. Waiting 4 minutes...');
-      _.delay(build, 4*60*1000, repo, ref, data);
-    }
-    else if (data.pull_request.merged) {
-      currentlyBuilding = true;
-      console.log('Merged PR, building...');
-      deployProc = exec(config.ghMergeCommand, function(err, stdout, stderr) {
-        if(err!==null) {
-          console.log(stderr);
+      console.log('Already building. Waiting 4 minutes...')
+      _.delay(build, 4 * 60 * 1000, repo, ref, data)
+    } else if (data.pull_request.merged) {
+      currentlyBuilding = true
+      console.log('Merged PR, building...')
+      exec(config.ghMergeCommand, function (err, stdout, stderr) {
+        if (err !== null) {
+          console.log(stderr)
         } else {
-          console.log('Build successfull.');
+          console.log('Build successfull.')
         }
-        currentlyBuilding = false;
-      });
+        currentlyBuilding = false
+      })
     } else {
-      console.log('Webhook event "pull_request", not merged. Nothing to do.');
+      console.log('Webhook event "pull_request", not merged. Nothing to do.')
     }
   }
-});
-
+})
 
 /**
  * # DEFAULT TASK #
@@ -230,20 +225,20 @@ gulp.task('github', function(cb){
  * serve build directory with livereload
  * watch files -> build and reload upon changes
  */
-gulp.task('default', ['server'], function(){
+gulp.task('default', ['server'], function () {
   /**
    * ## WATCHES ##
    */
   // files which are built with metalsmith
-  gulp.watch([config.sourceRoot + '/**', '!' + config.sourceRoot + '/**/index.md'], ['build', reload]);
-  gulp.watch([__dirname + '/layouts/**', config.sourceRoot + '/**/index.md'], ['build-indexes', reload]);
+  gulp.watch([config.sourceRoot + '/**', '!' + config.sourceRoot + '/**/index.md'], ['build', reload])
+  gulp.watch([__dirname + '/layouts/**', config.sourceRoot + '/**/index.md'], ['build-indexes', reload])
 
   // styles
-  gulp.watch(path.join(__dirname, 'styles', '**', '*'), ['css', reload]);
+  gulp.watch(path.join(__dirname, 'styles', '**', '*'), ['css', reload])
 
   // scripts
-  gulp.watch(path.join(__dirname, 'scripts', '**'), ['js:client', reload]);
+  gulp.watch(path.join(__dirname, 'scripts', '**'), ['js:client', reload])
 
   // assets
-  gulp.watch(path.join(__dirname, 'assets', '**'), ['assets', reload]);
-});
+  gulp.watch(path.join(__dirname, 'assets', '**'), ['assets', reload])
+})
