@@ -1,25 +1,25 @@
+/* eslint-env jquery, browser */
+/* global relative */
 /**
  * Introduction if user is new or has not visited in a month.
  */
 
-import { introJs } from 'intro.js';
-import moment from 'moment';
-import i18n from './i18n.js';
-import Cookie from 'js-cookie';
-
+import { introJs } from 'intro.js'
+import moment from 'moment'
+import i18n from './i18n.js'
+import Cookie from 'js-cookie'
 
 // event handler: tour is wanted
-const yesButton = $('.intro-question .btn-success');
-yesButton.click(startTour);
-$('.top-menu a.intro').click(startTour);
+const yesButton = $('.intro-question .btn-success')
+yesButton.click(startTour)
+$('.top-menu a.intro').click(startTour)
 
-
-const question = $('.intro-question');
+const question = $('.intro-question')
 let tour, lastVisit
 try {
-  tour = localStorage.getItem('tour');
+  tour = localStorage.getItem('tour')
   // TODO: remove Cookie when migration to localStorage is complete
-  lastVisit = localStorage.getItem('last visit') || Cookie.get('last visit');
+  lastVisit = localStorage.getItem('last visit') || Cookie.get('last visit')
   if (lastVisit) {
     lastVisit = moment(lastVisit)
   }
@@ -27,53 +27,50 @@ try {
   // no support for localStorage
   // => do not show "want to take tour" every time
   console.warn('no localStorage support')
-  lastVisit = moment();
+  lastVisit = moment()
 }
-const now = moment();
+const now = moment()
 
 i18n.on('initialized', () => {
   if (tour === 'front page') {
-    showFrontPageIntro();
-  } else if (tour === 'lesson index'){
-    showLessonIndexIntro();
-  } else if (tour === 'lesson'){
-    showLessonIntro();
+    showFrontPageIntro()
+  } else if (tour === 'lesson index') {
+    showLessonIndexIntro()
+  } else if (tour === 'lesson') {
+    showLessonIntro()
   } else if (!lastVisit) {
     // never visited
     // ask if tour is wanted
-    question.modal();
+    question.modal()
   } else {
     // check if it's been more than a month since last visit
     if (lastVisit.add(30, 'days') < now) {
       // not visited in 30 days (time to refresh)
-      const questionBody = $('.intro-question .modal-body > p');
-      questionBody.text("Seems like it's a while since you've been here. Would you like a tour?"); // FIXME: translate
-      question.modal();
+      const questionBody = $('.intro-question .modal-body > p')
+      questionBody.text("Seems like it's a while since you've been here. Would you like a tour?") // FIXME: translate
+      question.modal()
     }
   }
-});
-
+})
 
 // update "last visit"
-localStorage.setItem('last visit',  now.format());
+localStorage.setItem('last visit', now.format())
 
+function startTour () {
+  question.modal('hide')
 
-function startTour() {
-  question.modal('hide');
-
-  localStorage.setItem('entry page',  window.location.href);
+  localStorage.setItem('entry page', window.location.href)
   if (!window.thisIsTheIndex) {
     // redirect -> start intro
-    localStorage.setItem('tour',  'front page');
-    window.location.href = relative('/');
+    localStorage.setItem('tour', 'front page')
+    window.location.href = relative('/')
   } else {
-    showFrontPageIntro();
+    showFrontPageIntro()
   }
 }
 
-
-function showFrontPageIntro(){
-  localStorage.removeItem('tour');
+function showFrontPageIntro () {
+  localStorage.removeItem('tour')
   introJs()
   .setOptions({
     nextLabel: i18n.t('next'),
@@ -95,17 +92,16 @@ function showFrontPageIntro(){
 
   })
   .start()
-  .oncomplete(function(){
+  .oncomplete(function () {
     // take to python page
-    localStorage.setItem('tour',  'lesson index');
-    window.location.href = 'python';
+    localStorage.setItem('tour', 'lesson index')
+    window.location.href = 'python'
   })
-  .onexit(tourDone);
+  .onexit(tourDone)
 }
 
-
-function showLessonIndexIntro(){
-  localStorage.removeItem('tour');
+function showLessonIndexIntro () {
+  localStorage.removeItem('tour')
   introJs()
   .setOptions({
     nextLabel: i18n.t('next'),
@@ -125,17 +121,16 @@ function showLessonIndexIntro(){
     }]
   })
   .start()
-  .oncomplete(function(){
+  .oncomplete(function () {
     // take to python page
-    localStorage.setItem('tour', 'lesson');
-    window.location.href = i18n.t('intro.lessonIndex.nextUrl');
+    localStorage.setItem('tour', 'lesson')
+    window.location.href = i18n.t('intro.lessonIndex.nextUrl')
   })
-  .onexit(tourDone);
+  .onexit(tourDone)
 }
 
-
-function showLessonIntro(){
-  localStorage.removeItem('tour');
+function showLessonIntro () {
+  localStorage.removeItem('tour')
   introJs()
   .setOptions({
     nextLabel: i18n.t('next'),
@@ -153,14 +148,13 @@ function showLessonIntro(){
     }]
   })
   .start()
-  .oncomplete(tourDone);
+  .oncomplete(tourDone)
 }
 
-
-function tourDone(){
-  const entry = localStorage.getItem('entry page');
-  localStorage.removeItem('entry page');
+function tourDone () {
+  const entry = localStorage.getItem('entry page')
+  localStorage.removeItem('entry page')
   if (entry !== undefined && entry !== window.location.href) {
-    window.location.href = entry;
+    window.location.href = entry
   }
 }

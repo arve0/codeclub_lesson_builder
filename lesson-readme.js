@@ -1,5 +1,4 @@
 const path = require('path')
-const config = require('./config.js')
 
 /**
  * Metalsmith plugin.
@@ -19,8 +18,6 @@ module.exports = function (opts) {
       }
       let readme = path.join(path.dirname(file), opts.readme)
       if (readme in files) {
-        let link =  [config.repo, 'tree', 'master',
-                     config.sourceFolder, readme].join('/')
         files[file].readme = readme.replace(/\.md$/, '.html')
       }
     }
@@ -39,7 +36,7 @@ function getFirstLesson (file, files) {
   // (?!not this).+ match anything expect "not this"
   names[names.length - 1] = `(?!${basename}).+\\.md$`
   const re = new RegExp('^' + names.join('\\' + path.sep))
-  const m = Object.keys(files).filter(file => file.search(re) === 0)
+  const m = Object.keys(files).filter((file) => file.search(re) === 0)
   if (m[0]) {
     return m[0].replace(/\.md$/, '.html')
   }

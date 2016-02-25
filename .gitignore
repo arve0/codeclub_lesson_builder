@@ -2,3 +2,4 @@ node_modules/*
 .DS_STORE
 build/*
 assets/css/*
+npm-debug.log
