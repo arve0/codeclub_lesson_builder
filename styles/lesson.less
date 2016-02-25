@@ -3,7 +3,7 @@
 header {
   background-color: #B1DAAE;
   border-radius: 5px;
-  color: #FFFFFF;
+  color: #fff;
   width: 100%;
   min-height: 100px;
   padding: 10px;
@@ -19,39 +19,52 @@ header {
     margin-right: 10px;
   }
   a {
-    color: #FFFFFF;
+    color: #fff;
   }
   .lesson-icons {
-      .h1;
-      float: right;
-      clear: none;
-      > * {
-        margin-left:10px;
+    .h1;
+    float: right;
+    clear: none;
+    > * {
+      margin-left:10px;
+    }
+    div span.icon {
+      .glyphicon;
+      font-size: 1em;
+      padding: 0;
+      &:hover {
+        color: #fff;
       }
-      .pdf > a > span {
-        font-size: 1em;
-        padding: 0;
+    }
+    .pdf span.icon {
+      .glyphicon-save-file;
+    }
+    .readme span.icon {
+      .glyphicon-info-sign;
+    }
+    .lesson-link span.icon {
+      .glyphicon-file;
+    }
+    .course, .level, .pdf, .readme, .lesson-link {
+      float:left;
+      text-align: center;
+      img {
+        max-height: 39px;
+        vertical-align: text-top;
+        display:block;
+        margin: auto;
       }
-      .course, .level, .pdf {
-        float:left;
-        img {
-          max-height: 39px;
-          vertical-align: text-top;
-          display:block;
-          margin: auto;
-        }
-        span {
-          .text-center;
-          display:block;
-          font-size: 0.25em;
-          padding-top:3px;
-        }
+      span, span.text {
+        display:block;
+        font-size: 0.25em;
+        padding-top:3px;
       }
+    }
   }
 }
 
 .playlist-navigation {
-  margin-top: 20px;
+  margin-top: 40px;
   a.prev, a.next {
     cursor: pointer;
   }
@@ -274,4 +287,22 @@ input[type="text"] {
   .form-control;
   width: inherit;
   margin-top: 10px;
+}
+
+.improve {
+  .make-xs-column(12);
+  margin-top: 15px;
+  border-radius: 5px;
+  padding-bottom: 20px;
+  background-color: #00f080;
+  a {
+    .btn;
+    margin-right: 5px;
+  }
+  a.issue {
+    .btn-default;
+  }
+  a.code {
+    .btn-warning;
+  }
 }

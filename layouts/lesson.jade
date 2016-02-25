@@ -3,28 +3,51 @@ extends ./layout.jade
 block content
   .col-xs-12
     header.clearfix
-      -if (!logo) logo = relative("/assets/img/ccno_logo.png")
+      -if (!logo) logo = relative('/assets/img/ccno_logo.png')
       img.logo.hidden-xs(src=logo)
       h1.title= title
       .lesson-icons
-        .level
-          img(title="Level " + level src=relative("/assets/img/level" + level + ".png"))
-          -levelName = 'layout.levelNames.' + level
-          -dataLevelName = 'html=' + levelName
-          span(data-i18n=dataLevelName)= t(levelName)
-        .course
-          -course = _.first(collection)
-          -courseIndex = '/' + course + '/index.md'
-          -courseMetadata = matter(courseIndex)
-          -courseName = courseMetadata.title || course
-          -courseLogo = relative("/" + course + "/logo-white.png")
-          -if (!isFile(path.dir, courseLogo)) courseLogo = relative('/logo-white.png')
+        if level
+          .level
+            img(title="Level " + level src=relative('/assets/img/level' + level + '.png'))
+            -levelName = 'layout.levelNames.' + level
+            -dataLevelName = 'html=' + levelName
+            span(data-i18n=dataLevelName)= t(levelName)
+        -course = _.first(collection)
+        -courseIndex = '/' + course + '/index.md'
+        -courseMetadata = matter(courseIndex)
+        -courseName = courseMetadata.title || course
+        -courseLink = relative('/' + course)
+        -courseLogo = relative('/' + course + '/logo-white.png')
+        -if (!isFile(path.dir, courseLogo)) courseLogo = relative('/logo-white.png')
+        a.course(href=courseLink)
           img(src=courseLogo)
           span= courseName
         .pdf
-          a.download(href=link.replace('.html', '.pdf') data-i18n="title=layout.downloadPdf" title=t('layout.downloadPdf'))
-            span.glyphicon.glyphicon-save-file
-          span PDF
+          a(href=link.replace('.html', '.pdf') data-i18n="title=layout.downloadPdf" title=t('layout.downloadPdf'))
+            span.icon
+            span.text PDF
+        if readme
+          .readme
+            a(href=relative(readme))
+              span.icon
+              span.text(data-i18n="html=layout.teacherNotes")= t('layout.teacherNotes')
+        if lesson
+          .lesson-link
+            a(href=relative(lesson))
+              span.icon
+              span.text(data-i18n="html=layout.lesson")= t('layout.lesson')
 
   .col-xs-12
     .content!= contents
+
+    .improve
+      h3= t('improve.header')
+      p= t('improve.text')
+      -createIssue = config.repo + '/issues/new?'
+      -createIssue += 'title='+ courseName +': '+ title
+      -createIssue += '&body='+ t('improve.describeIssue')
+      a.issue(href=createIssue)= t('improve.createIssue')
+      -codePlacement = config.repo +'/tree/master/'+ config.sourceFolder +'/'
+      -codePlacement += path.dir
+      a.code(href=codePlacement)= t('improve.showCode')

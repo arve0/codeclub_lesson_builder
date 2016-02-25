@@ -29,11 +29,13 @@ searchInput.on('focus', downloadIndex);
 
 
 // search when typing
+var timeout;
 searchInput.on('input', function(event){
   var value = $(this).val();
   if (global.index !== undefined && value.length > 0){
     // debounce
-    setTimeout(function(){
+    clearTimeout(timeout);
+    timeout = setTimeout(function(){
       if (value == searchInput.val()){
         $('div.search').show();
         $('.search > .results > li').remove();
@@ -77,7 +79,6 @@ function getResult(searchResult){
 
   return defer.promise();
 }
-global.gr = getResult;
 
 // get html of searchResult.ref
 function getPage(searchResult){

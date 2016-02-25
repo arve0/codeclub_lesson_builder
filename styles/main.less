@@ -17,7 +17,7 @@
   .container {
     max-width: 800px;
   }
-  section p {
+  section p, section li {
     @media (max-width: @screen-sm) {
       font-size: 17px;
     }
@@ -68,27 +68,45 @@ figure > img {
   margin-top: 20px;
   background-color: @light-background;
   border-radius: 5px;
-  padding: 10px;
-  margin-top: 20px;
+  .clearfix;
   @media print {
     display:none;
+  }
+  > * {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .navigation {
+    line-height: 35px;
+    padding-left: 15px;
+    display: inline-block;
+    a {
+      color: #000;
+    }
   }
   .search {
     .form-inline;
     display: inline-block;
-    vertical-align: middle;
-    margin: 0 0 0 auto;
+    float: right;
+    padding-right: 10px;
     > * {
-      margin-left: 5px;
-      margin-top: 0;
+      margin: 0;
     }
   }
   a.intro {
-    .glyphicon;
-    .glyphicon-question-sign;
     float: right;
     color: #fff;
-    font-size: 35px;
+    padding-right: 10px;
+    text-align: center;
+    .icon {
+      .glyphicon;
+      .glyphicon-question-sign;
+      font-size: 21px;
+      display: block;
+    }
+    .text {
+      font-size: 10px;
+    }
   }
   .flags {
     float: right;
@@ -178,7 +196,7 @@ a:hover, a:hover > * {
     }
     color: #000000;
     font-weight: 300;
-    padding-bottom: 45px; /* Vertical spacing between courses */
+    margin-bottom: 45px; /* Vertical spacing between courses */
     .logo-wrapper { /* FIXME: when "safe" to use flexbox? */
       height: 35vw;
       max-height: 150px;
@@ -194,6 +212,9 @@ a:hover, a:hover > * {
         max-height: 150px;
         max-width: 150px;
       }
+    }
+    .lessons {
+      display: none;
     }
     .name {
       .text-center;
@@ -238,9 +259,18 @@ table  {
   .table;
 }
 
-// intro should not be in prints/PDF
-.intro-question, .modal-backdrop {
+// should not be in prints/PDF
+.intro-question, .modal-backdrop, .improve {
   @media print {
     display: none !important;
   }
+}
+
+// do not set max-width on intro boxes
+.introjs-tooltip {
+  max-width: none;
+}
+
+.courseIntro .popover {
+  max-width: 600px;
 }

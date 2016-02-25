@@ -17,6 +17,7 @@ var translate = require('./i18n.js');
 // get configuration variables
 var config = require('./config.js');
 var tools = require('./tools.js');
+var lessonReadme = require('./lesson-readme.js');
 
 /*
  * # SETUP OBJECTS #
@@ -33,7 +34,6 @@ var metadataOptions = [
 
 // ignores
 var ignoreOptions = [
-  '**/README.md',
   'index.md',
   '*/index.md'
 ];
@@ -75,6 +75,7 @@ module.exports = function build(callback, options){
   // do the building
   Metalsmith(config.lessonRoot)
   .source(config.sourceFolder)
+  .use(lessonReadme())
   .use(ignore(ignoreOptions))
   .clean(false) // do not delete files, allow gulp tasks in parallel
   .use(paths())

@@ -147,7 +147,7 @@ function showLessonIntro(){
       element: document.querySelector('.lesson-icons'),
       intro: i18n.t('intro.lesson.lessonIcons')
     }, {
-      element: document.querySelector('#step-1-pick-a-word'),
+      element: document.querySelector(i18n.t('intro.lesson.steps')),
       position: 'top',
       intro: i18n.t('intro.lesson.pickAWord')
     }]

@@ -26,23 +26,29 @@ i18n.on('initialized', () => {
   }
 })
 
-/**
- * show/hide playlist
- */
-$('.playlist > li').click(function(){
-  $('.' + this.id).slideToggle();
-});
+export default function init () {
+  /**
+   * show/hide playlist
+   */
+  $('.playlist > li').click(function(){
+    $('.' + this.id).slideToggle();
+  });
 
-
-/**
- * save playlist to localStorage when clicking lesson in playlist
- */
-$('.playlist a').click(function(event){
-  event.preventDefault();
-  var playlist = getPlaylist(this);
-  localStorage.setItem('playlist', JSON.stringify(playlist));
-  window.location.href = this.attributes.href.value;
-});
+  /**
+   * save playlist to localStorage when clicking lesson in playlist
+   */
+  $('.playlist a').click(function(event) {
+    event.preventDefault();
+    var url = $(this).attr('href');
+    if (url.search(/^http/) === 0) {
+      // external lesson
+      return;
+    }
+    var playlist = getPlaylist(this);
+    localStorage.setItem('playlist', JSON.stringify(playlist));
+    window.location.href = this.attributes.href.value;
+  });
+}
 
 
 /**
@@ -85,12 +91,12 @@ function addNavigation(playlist) {
     navigation += '</a></li>';
   }
   navigation += '<li><a class="next" data-i18n="title=next" ';
-  navigation += 'title="'+ t('next') +'">&raquo;</a></li>'; // FIXME: translate
+  navigation += 'title="'+ t('next') +'">&raquo;</a></li>';
   navigation += '</ul>';
   navigation += '<div class="clearfix"></div></div>';
 
   $('header').parent().prepend(navigation);
-  $('#footer').parent().prepend(navigation);
+  $('.content').append(navigation);
 
   $('.playlist-navigation select').change(function(){
     window.location.href = this.value;

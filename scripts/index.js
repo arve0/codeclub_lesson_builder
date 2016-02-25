@@ -1,10 +1,13 @@
-/*
+/**
  * Entry point for scripts.
+ * Load after index.js so that click handles in index.js has priority.
  */
 
 import './search.js';
 import './intro.js';
-import './playlist.js';
+import playlistInit from './playlist.js';
+import './course-hover.js';
+import './lesson-hover.js';
 import i18n from './i18n.js';
 
 let t;
@@ -76,6 +79,7 @@ $(() => {
       });
       $(elm).click(function(event){
         event.preventDefault();
+        event.stopPropagation();
         // if other popover is open, hide it
         if (openExternalPopover && openExternalPopover !== elm) {
           $(openExternalPopover).popover('hide');
@@ -87,5 +91,27 @@ $(() => {
       });
     }
   }
+
+
+  /**
+   * click teacher notes in lesson index
+   * hack, as link inside link is not possible
+   */
+  $('.lesson > .readme').click(function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    var url = $(this).attr('href');
+    if (url) {
+      window.location.href = url;
+    }
+  })
+
+  /**
+  * Init event handlers in other scripts.
+  *
+  * playlist click handlers are registered last to let other click handlers
+  * do their thing (external popover, teacher notes)
+  */
+  playlistInit();
 
 });

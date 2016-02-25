@@ -48,7 +48,8 @@ var githubhook = require('githubhook');
  */
 gulp.task('server', ['build', 'build-indexes', 'css', 'js:client', 'js:vendor', 'assets'], function () {
   browserSync.init({
-    server: { baseDir: config.buildRoot }
+    server: { baseDir: config.buildRoot },
+    ghostMode: false
   });
 });
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install node packages and
-# and clone arve0/example_lessons/src to ..
+# and clone kodeklubben/oppgaver/src to ..
 sed -i "/^.*\"browser-sync\".*$/d" package.json
 npm install
 if [ $? -ne 0 ]; then # try again
@@ -9,5 +9,5 @@ if [ $? -ne 0 ]; then # try again
   rm -fr node_modules
   npm install
 fi
-git clone --depth 1 https://github.com/arve0/example_lessons
-mv example_lessons/src ..
+git clone --depth 1 https://github.com/kodeklubben/oppgaver
+mv oppgaver/src ..

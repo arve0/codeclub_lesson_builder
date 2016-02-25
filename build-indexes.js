@@ -16,7 +16,8 @@ var translate = require('./i18n.js');
 // get configuration variables
 var config = require('./config.js');
 var tools = require('./tools.js');
-var getPlaylists = require('./playlist.js');
+var playlists = require('./playlists.js');
+var lessonReadme = require('./lesson-readme.js');
 
 /**
  * # SETUP OBJECTS #
@@ -43,6 +44,25 @@ config.collections.forEach(function(collection){
     pattern: collection + '/**/*.md'
   };
 });
+function sortCollections(courses) {
+  var out = [];
+  for (var name in courses) {
+    var course = {};
+    course.lessons = courses[name];
+    course.name = name;
+    out.push(course);
+  }
+  out.sort(function (a, b) {
+    if (a.lessons.length > b.lessons.length) {
+      return -1;
+    }
+    if (a.lessons.length < b.lessons.length) {
+      return 1;
+    }
+    return 0;
+  })
+  return out;
+}
 
 // defines available in layout
 var defineOptions = {
@@ -51,7 +71,8 @@ var defineOptions = {
   config: config,
   isFile: tools.isFile,
   matter: tools.frontmatter,
-  t: translate 
+  t: translate,
+  sort: sortCollections
 };
 
 // layout
@@ -67,21 +88,17 @@ var layoutOptions = {
  * build-function, calls callback when done
  */
 module.exports = function build(callback){
-  // read playlists upon every build
-  var playlists = {};
-  config.collections.forEach(function(collection){
-    // playlists
-    var collectionFolder = [config.lessonRoot, config.sourceFolder, collection].join("/");
-    playlists[collection] = getPlaylists(collectionFolder);
-  });
-  // make it available in layout
-  defineOptions.playlists = playlists;
-
   // do the building
   Metalsmith(config.lessonRoot)
   .source(config.sourceFolder)
-  .clean(false) // do not delete files, allow gulp tasks in parallel
+  .clean(false)  // do not delete files, allow gulp tasks in parallel
+  .use(lessonReadme())  // before ignore
+  .use(playlists({  // before ignore
+    collections: Object.keys(collectionOptions)
+  }))
   .use(ignore(ignoreOptions))
+  // add file.link metadata (files are .md here)
+  .use(filepath())
   .use(ignoreIndexedFalse)
   .use(paths())
   // set layout for exercises
@@ -90,8 +107,6 @@ module.exports = function build(callback){
   .use(relative())
   // create collections for index
   .use(collections(collectionOptions))
-  // add file.link metadata (files are .md here)
-  .use(filepath())
   // remove lessons *after* we have necessary metadata
   .use(ignore(['**', '!**/index.md']))
   .use(tools.removeExternal)
