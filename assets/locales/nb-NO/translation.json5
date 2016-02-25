@@ -57,7 +57,7 @@
   },
   improve: {
     header: 'Forbedre denne siden',
-    text: 'Funnet en feil? Kunne noe vært bedre? Hvis ja, vennligst gi oss tilbakemelding ved å lage en sak på github eller fiks feilen selv om du kan. Vi er takknemlige for enhver tilbakemelding!',
+    text: 'Funnet en feil? Kunne noe vært bedre? Hvis ja, vennligst gi oss tilbakemelding ved å lage en sak på Github eller fiks feilen selv om du kan. Vi er takknemlige for enhver tilbakemelding!',
     createIssue: 'Rapporter et problem',
     showCode: 'Vis koden og fiks selv',
     describeIssue: 'Beskriv ditt problem...'

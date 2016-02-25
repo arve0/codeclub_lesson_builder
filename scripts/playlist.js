@@ -91,12 +91,12 @@ function addNavigation(playlist) {
     navigation += '</a></li>';
   }
   navigation += '<li><a class="next" data-i18n="title=next" ';
-  navigation += 'title="'+ t('next') +'">&raquo;</a></li>'; // FIXME: translate
+  navigation += 'title="'+ t('next') +'">&raquo;</a></li>';
   navigation += '</ul>';
   navigation += '<div class="clearfix"></div></div>';
 
   $('header').parent().prepend(navigation);
-  $('#footer').parent().prepend(navigation);
+  $('.content').append(navigation);
 
   $('.playlist-navigation select').change(function(){
     window.location.href = this.value;
