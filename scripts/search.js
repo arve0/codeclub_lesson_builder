@@ -29,36 +29,44 @@ searchInput.on('focus', downloadIndex)
 
 // search when typing
 var timeout
+var numberOfSearches = 0  // keep state, to avoid race conditions
 searchInput.on('input', function (event) {
   var value = $(this).val()
-  if (global.index !== undefined && value.length > 0) {
-    // debounce
-    clearTimeout(timeout)
-    timeout = setTimeout(function () {
-      if (value === searchInput.val()) {
-        $('div.search').show()
-        $('.search > .results > li').remove()
-        var results = global.index.search(value)
-        global.res = results
-        var defers = results.slice(0, 10).map(getResult)
-        defers.map(drawResult)
-      }
-    }, 200)
+  if (global.index === undefined) {
+    return
   }
   if (value.length === 0) {
     $('div.search').hide()
+    return
   }
+  // debounce, 200 ms
+  clearTimeout(timeout)
+  timeout = setTimeout(function () {
+    if (value !== searchInput.val()) {
+      return
+    }
+    var results = global.index.search(value)
+    var defers = results.slice(0, 10).map(getResult)
+    numberOfSearches += 1
+    var thisSearch = numberOfSearches
+    wait(defers, function (pages) {
+      if (thisSearch !== numberOfSearches) {
+        return  // avoid race conditions
+      }
+      var elms = pages.map(SearchEntry)
+      $('.search > .results').html(elms.join(''))
+      $('div.search').show()
+    })
+  }, 200)
 })
 
 // draw search results
-function drawResult (defer) {
-  defer.done(function (res) {
-    var html = '<li><a href="' + res.url + '">'
-    html += '<h2>' + res.title + '</h2>'
-    html += '<p>' + res.content + '</p>'
-    html += '</a></li>'
-    $('.search > .results').append(html)
-  })
+function SearchEntry (res) {
+  var html = '<li><a href="' + res.url + '">'
+  html += '<h2>' + res.title + '</h2>'
+  html += '<p>' + res.content + '</p>'
+  html += '</a></li>'
+  return html
 }
 
 // fetches title and content of search result
@@ -122,4 +130,23 @@ function getTitle (searchResult) {
 function getContent (searchResult) {
   searchResult.content = $(searchResult.html).find('.content > *').text()
   return searchResult
+}
+
+/**
+ * Takes an array of defers and waits until all are done.
+ * When done, `cb` is called with the results as an array.
+ */
+function wait (defers, cb) {
+  var j = 0
+  var results = []
+  defers.map((defer, i) => {
+    results.push(0)
+    defer.done((data) => {
+      results[i] = data
+      j += 1
+      if (j === defers.length) {
+        cb(results)
+      }
+    })
+  })
 }
