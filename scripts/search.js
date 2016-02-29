@@ -30,9 +30,13 @@ searchInput.on('focus', downloadIndex)
 // search when typing
 var timeout
 var numberOfSearches = 0  // keep state, to avoid race conditions
-searchInput.on('input', function (event) {
+searchInput.on('input', handleSearchInput)
+
+function handleSearchInput (event) {
   var value = $(this).val()
   if (global.index === undefined) {
+    // retry in 500 ms
+    setTimeout(handleSearchInput.bind(this, event), 500)
     return
   }
   if (value.length === 0) {
@@ -58,7 +62,7 @@ searchInput.on('input', function (event) {
       $('div.search').show()
     })
   }, 200)
-})
+}
 
 // draw search results
 function SearchEntry (res) {
