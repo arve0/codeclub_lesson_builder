@@ -28,10 +28,10 @@ var searchInput = $('.search input')
 searchInput.on('focus', downloadIndex)
 
 // search when typing
-var timeout
-var numberOfSearches = 0  // keep state, to avoid race conditions
 searchInput.on('input', handleSearchInput)
 
+var timeout
+var numberOfSearches = 0  // keep state, to avoid race conditions
 function handleSearchInput (event) {
   var value = $(this).val()
   if (global.index === undefined) {
@@ -41,6 +41,7 @@ function handleSearchInput (event) {
   }
   if (value.length === 0) {
     $('div.search').hide()
+    numberOfSearches += 1  // do not render any waiting searches
     return
   }
   // debounce, 200 ms
