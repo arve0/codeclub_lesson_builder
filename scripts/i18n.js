@@ -19,7 +19,7 @@ export default i18n
 
 $(() => {
   // page loaded
-  const locales = ['nb-NO', 'en-US']  // first is default language
+  const locales = ['nb-NO', 'nn-NO', 'en-US']  // first is default language
   i18n.use(XHR)
   .use(lngDetector)
   .init({
