@@ -47,7 +47,7 @@ i18n.on('initialized', () => {
     if (lastVisit.add(30, 'days') < now) {
       // not visited in 30 days (time to refresh)
       const questionBody = $('.intro-question .modal-body > p')
-      questionBody.text("Seems like it's a while since you've been here. Would you like a tour?") // FIXME: translate
+      questionBody.text(i18n.t('intro.askTour'))
       question.modal()
     }
   }

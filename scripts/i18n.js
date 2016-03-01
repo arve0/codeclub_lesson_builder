@@ -19,7 +19,6 @@ export default i18n
 
 $(() => {
   // page loaded
-  // FIXME: nb-NO default language?
   const locales = ['nb-NO', 'en-US']  // first is default language
   i18n.use(XHR)
   .use(lngDetector)
