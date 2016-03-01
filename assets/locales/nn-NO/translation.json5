@@ -1,4 +1,4 @@
-{ // Tekster (captions) for norsk bokmål (nb-NO). Merk: Kommentarer i denne filen blir fjernet ved build.
+{ // Tekster (captions) for nynorsk (nn-NO). Merk: Kommentarer i denne filen blir fjernet ved build.
   test: { // Keys in "test" are just for testing. Do not put keys used in actual production code here.
     helloWorld: "Hei verda"
   },
