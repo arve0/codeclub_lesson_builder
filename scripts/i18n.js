@@ -43,13 +43,13 @@ $(() => {
   * E.g. a tag with:
   *   data-i18n="html=key" will set this tag's innerHTML to the caption given by "key".
   *   data-i18n="placeholder=key" will set the attribute "placeholder" to the caption given by "key".
-  *   data-i18n="html=key1placeholder=key2" will set both innerHTML and the attribute "placeholder" to
+  *   data-i18n="html=key1;placeholder=key2" will set both innerHTML and the attribute "placeholder" to
   *                                          the captions for "key1" and "key2", respectively.
   */
 
   function onLanguageChanged () {
     $('[data-i18n]').each((_, item) => {
-      const captions = $(item).attr('data-i18n').split('')
+      const captions = $(item).attr('data-i18n').split(';')
       for (let i = 0; i < captions.length; ++i) {
         const capSplit = captions[i].split('=')
         const key = capSplit[0]
