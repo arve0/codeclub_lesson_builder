@@ -54,9 +54,9 @@ html
                 a.flag.btn.btn-default(onclick="setLanguage('en-US')")
                   img(src="/assets/img/flag_usa.png")
         .search
+          h1(data-i18n="html=layout.searchResults")
+            = t('layout.searchResults')
           .results
-            h1(data-i18n="html=layout.searchResults")
-              = t('layout.searchResults')
         block content
         .col-xs-12
           #footer.clearfix

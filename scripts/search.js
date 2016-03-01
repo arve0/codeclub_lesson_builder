@@ -5,6 +5,12 @@ var lunr = require('lunr')
 require('lunr-no/lunr.stemmer.support.js')(lunr)
 require('lunr-no')(lunr)
 
+import i18n from './i18n.js'
+let t
+i18n.on('initialized', () => {
+  t = i18n.getFixedT()
+})
+
 // for is not a stopword in this context
 var words = lunr.no.stopWordFilter.stopWords.elements
 words.splice(words.indexOf('for'), 1)
@@ -34,23 +40,35 @@ var timeout
 var numberOfSearches = 0  // keep state, to avoid race conditions
 function handleSearchInput (event) {
   var value = $(this).val()
-  if (global.index === undefined) {
-    // retry in 500 ms
-    setTimeout(handleSearchInput.bind(this, event), 500)
-    return
-  }
   if (value.length === 0) {
     $('div.search').hide()
     numberOfSearches += 1  // do not render any waiting searches
     return
   }
+  if (global.index === undefined) {
+    $('.search > .results').html(`<img src="${relative('assets/img/loading.gif')}">`)
+    $('div.search').show()
+    // retry in 500 ms
+    setTimeout(handleSearchInput.bind(this, event), 500)
+    return
+  }
+  // give feedback
+  $('.search > .results').html(`<img src="${relative('assets/img/loading.gif')}">`)
+  $('div.search').show()
+
   // debounce, 200 ms
   clearTimeout(timeout)
   timeout = setTimeout(function () {
     if (value !== searchInput.val()) {
       return
     }
+
     var results = global.index.search(value)
+    if (results.length === 0) {
+      $('.search > .results').html(t('searchjs.nothingFound'))
+      return
+    }
+
     var defers = results.slice(0, 10).map(getResult)
     numberOfSearches += 1
     var thisSearch = numberOfSearches
@@ -60,7 +78,6 @@ function handleSearchInput (event) {
       }
       var elms = pages.map(SearchEntry)
       $('.search > .results').html(elms.join(''))
-      $('div.search').show()
     })
   }, 200)
 }
