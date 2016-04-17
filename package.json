@@ -29,11 +29,11 @@
     "gulp": "^3.8.10",
     "gulp-add-src": "^0.2.0",
     "gulp-autoprefixer": "^2.0.0",
-    "gulp-concat": "^2.4.3",
+    "gulp-concat": "^2.6.0",
     "gulp-less": "^3.0.1",
     "gulp-minify-css": "^0.3.11",
     "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^1.5.2",
+    "gulp-uglify": "^1.5.3",
     "highlight.js": "^8.9.1",
     "i18next-sync-fs-backend": "0.1.0",
     "jade": "^1.11.0",
@@ -69,7 +69,7 @@
     "yaml-front-matter": "^3.2.3"
   },
   "napa": {
-    "scratchblocks2": "tjvr/scratchblocks2#0ca7d46"
+    "scratchblocks": "arve0/scratchblocks#eb4170106aaf11fd2c5e327dcf643a54a04c36cd"
   },
   "scripts": {
     "install": "napa",
