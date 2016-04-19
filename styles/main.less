@@ -34,6 +34,12 @@
     white-space: pre;
   }
 }
+@media print {
+  // avoid bug kodeklubben/oppgaver#225
+  .comment.attached div {
+    position: inherit !important;
+  }
+}
 
 // force display of horisontal scroll bar on safari
 ::-webkit-scrollbar {
