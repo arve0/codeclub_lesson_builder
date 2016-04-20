@@ -75,7 +75,6 @@ gulp.task('css', function (cb) {
 gulp.task('assets', function () {
   return gulp.src([
     'assets/**/*',
-    'node_modules/scratchblocks/src/block_images/*.png',
     'node_modules/bootstrap/dist/*/glyphicons-halflings-regular.*'
   ]).pipe(gulp.dest(config.assetRoot))
 })

@@ -8,10 +8,11 @@
     "i18next-browser-languagedetector": "0.0.11",
     "i18next-xhr-backend": "^0.1.0",
     "intro.js": "^1.1.1",
-    "json5": "^0.4.0",
     "jquery": "^2.1.3",
     "js-cookie": "^2.0.4",
-    "moment": "^2.10.6"
+    "json5": "^0.4.0",
+    "moment": "^2.10.6",
+    "scratchblocks": "github:arve0/scratchblocks#no_build"
   },
   "devDependencies": {
     "async-each": "^0.1.6",
@@ -57,7 +58,6 @@
     "metalsmith-markdownit": "^0.1.3",
     "metalsmith-paths": "^2.0.0",
     "metalsmith-relative": "^1.0.3",
-    "napa": "^1.1.0",
     "node-spider": "^1.3.0",
     "node-static": "^0.7.7",
     "nodepdf-series": "^0.2.2",
@@ -68,11 +68,7 @@
     "watchify": "^3.7.0",
     "yaml-front-matter": "^3.2.3"
   },
-  "napa": {
-    "scratchblocks": "arve0/scratchblocks#eb4170106aaf11fd2c5e327dcf643a54a04c36cd"
-  },
   "scripts": {
-    "install": "napa",
     "lint": "standard",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "forever node_modules/gulp/bin/gulp.js"
