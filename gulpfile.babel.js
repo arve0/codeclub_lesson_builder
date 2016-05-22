@@ -60,7 +60,6 @@ gulp.task('css', function (cb) {
     .pipe(less())
     .on('error', cb)
     .pipe(addsrc([
-      'node_modules/scratchblocks2/build/scratchblocks2.css',
       'node_modules/highlight.js/styles/idea.css',
       'node_modules/intro.js/introjs.css'
     ]))
@@ -76,7 +75,6 @@ gulp.task('css', function (cb) {
 gulp.task('assets', function () {
   return gulp.src([
     'assets/**/*',
-    'node_modules/scratchblocks2/build/*/*.png',
     'node_modules/bootstrap/dist/*/glyphicons-halflings-regular.*'
   ]).pipe(gulp.dest(config.assetRoot))
 })
@@ -123,17 +121,17 @@ gulp.task('js:dist', function () {
  */
 gulp.task('js:vendor', function () {
   return gulp.src([
-    'node_modules/scratchblocks2/build/scratchblocks2.js',
-    'node_modules/scratchblocks2/src/translations.js',
+    'node_modules/jquery/dist/jquery.min.js',
+    'node_modules/scratchblocks/src/scratchblocks.js',
+    'node_modules/scratchblocks/src/translations.js',
     'node_modules/bootstrap/js/modal.js',
     'node_modules/bootstrap/js/tooltip.js',
     'node_modules/bootstrap/js/popover.js'
   ])
+  .pipe(sourcemaps.init({ loadMaps: true }))
   .pipe(uglify())
-  .pipe(addsrc.prepend([
-    'node_modules/jquery/dist/jquery.min.js'
-  ]))
   .pipe(concat('vendor.min.js'))
+  .pipe(sourcemaps.write('./'))
   .pipe(gulp.dest(config.assetRoot))
 })
 
