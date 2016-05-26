@@ -2,6 +2,14 @@ extends ./lesson.jade
 
 block scripts
   script.
+    // bind shim for phantomJS
+    Function.prototype.bind = Function.prototype.bind || function (thisp) {
+      var fn = this;
+      var args = Array.prototype.slice.call(arguments, 1);
+      return function () {
+        return fn.apply(thisp, args);
+      };
+    };
     $(document).ready(function(){
       $('pre').has('code.blocks').addClass('blocks');
       scratchblocks.renderMatching('code.blocks', {
