@@ -47,7 +47,7 @@
     "markdown-it-implicit-figures": "^0.0.1",
     "merge-stream": "^0.1.7",
     "metalsmith": "^1.7.0",
-    "metalsmith-changed": "^0.2.0",
+    "metalsmith-changed": "^1.1.0",
     "metalsmith-collections": "^0.7.0",
     "metalsmith-define": "^1.0.0",
     "metalsmith-filemetadata": "0.0.4",

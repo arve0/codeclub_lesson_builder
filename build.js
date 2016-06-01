@@ -74,9 +74,12 @@ module.exports = function build (callback, options) {
   // do the building
   Metalsmith(config.lessonRoot)
   .source(config.sourceFolder)
+  .clean(false) // do not delete files, allow gulp tasks in parallel
+  .use(changed({
+    force: forceBuild
+  }))
   .use(lessonReadme())
   .use(ignore(ignoreOptions))
-  .clean(false) // do not delete files, allow gulp tasks in parallel
   .use(paths())
   // set layout for exercises
   .use(setMetadata(metadataOptions))
@@ -84,12 +87,6 @@ module.exports = function build (callback, options) {
   .use(relative())
   // create collections
   .use(collections(collectionOptions))
-  .use(changed({
-    force: forceBuild,
-    extnames: {
-      '.md': '.html'
-    }
-  }))
   // convert markdown to html
   .use(md)
   // add file.link metadata (now files are .html)
