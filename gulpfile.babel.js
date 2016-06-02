@@ -139,6 +139,9 @@ gulp.task('js:vendor', function () {
  * metalsmith building
  */
 gulp.task('build', build)
+gulp.task('build-force', (cb) => {
+  build(cb, { force: true })
+})
 gulp.task('build-indexes', buildIndexes)
 gulp.task('build-search-index', buildSearchIndex)
 
@@ -149,7 +152,7 @@ gulp.task('dist', function (cb) {
   // preferred way to this will change in gulp 4
   // see https://github.com/gulpjs/gulp/issues/96
   run('clean',
-      ['assets', 'build', 'build-indexes', 'build-search-index', 'css', 'js:dist', 'js:vendor'],
+      ['assets', 'build-force', 'build-indexes', 'build-search-index', 'css', 'js:dist', 'js:vendor'],
       'pdf',
       function (err) {
         // make sure process exit (b = watchify bundle)
