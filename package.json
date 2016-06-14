@@ -12,7 +12,7 @@
     "js-cookie": "^2.0.4",
     "json5": "^0.4.0",
     "moment": "^2.10.6",
-    "scratchblocks": "github:arve0/scratchblocks#no_build"
+    "scratchblocks": "arve0/scratchblocks#no_build"
   },
   "devDependencies": {
     "async-each": "^0.1.6",
