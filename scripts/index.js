@@ -9,6 +9,7 @@ import './intro.js'
 import playlistInit from './playlist.js'
 import './course-hover.js'
 import './lesson-hover.js'
+import './comments.js'
 import i18n from './i18n.js'
 
 let t

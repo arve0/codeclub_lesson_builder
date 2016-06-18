@@ -124,6 +124,8 @@ gulp.task('js:vendor', function () {
     'node_modules/jquery/dist/jquery.min.js',
     'node_modules/scratchblocks/src/scratchblocks.js',
     'node_modules/scratchblocks/src/translations.js',
+    'node_modules/bootstrap/js/transition.js',
+    'node_modules/bootstrap/js/collapse.js',
     'node_modules/bootstrap/js/modal.js',
     'node_modules/bootstrap/js/tooltip.js',
     'node_modules/bootstrap/js/popover.js'
