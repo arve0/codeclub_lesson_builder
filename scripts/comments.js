@@ -1,4 +1,7 @@
 /* eslint-env browser, jquery */
+import moment from 'moment'
+import 'moment/locale/nb'
+moment.locale('nb')
 
 /**
  * Comments in pages.
@@ -12,15 +15,82 @@
  *   dblclik -> comment
  */
 
+// TODO: same author in several browsers, register-link in email
 // TODO: database url from config
 // const config = import '../config.js'
 const server = 'http://spole.seljebu.no:3000'
-
-// fetch comments
 const page = window.location.pathname
-ajax(`/comments/${encodeURIComponent(page)}`)
-  .then((res) => console.log(res))
-  .fail((err) => console.error(err))
+
+/**
+ * @returns jQuery promise
+ */
+let comments = []  // TODO: state and single direction data flow
+const fetchComments = () =>
+  ajax(`/comments/${encodeURIComponent(page)}`)
+    .then((res) => res.comments)
+    .then((res) => {
+      // unique list of comment paragraphs [ 0, 2, 33 ]
+      let paragraphs = res.reduce((arr, val) => {
+        if (arr.indexOf(val.paragraph) === -1) {
+          arr.push(val.paragraph)
+        }
+        return arr
+      }, []).sort()
+      /**
+       * {
+       *   0: [{paragraph: 0, ...}, ...],
+       *   2: [{paragraph: 2, ...}, ...],
+       *   33: [{paragraph: 33, ...}, ...]
+       * }
+       */
+      comments = paragraphs.reduce((c, i) => {
+        c[i] = res.filter(c => c.paragraph === i)
+        return c
+      }, {})
+      return comments
+    }).then(showCommentBadges)
+
+fetchComments().fail((jqXHR, err) => console.error(err))
+
+function showCommentBadges (comments) {
+  $('.commentBubble').remove()
+  let paragraphs = $(SELECTOR)  // TODO: state object
+  for (let i in comments) {
+    let bubble = CommentBubble(comments[i].length)
+    bubble.onclick = showCommentContainer.bind(paragraphs[i])
+    paragraphs[i].insertAdjacentElement('beforeBegin', bubble)
+  }
+}
+
+const CommentBubble = (text) => {
+  let bubble = document.createElement('span')
+  bubble.className = 'commentBubble'
+  bubble.innerText = text
+  return bubble
+}
+
+const Comment = ({ author, date, comment }) => {
+  let el = document.createElement('div')
+  el.style.backgroundColor = 'white'
+  el.style.marginRight = '25px'
+  el.style.padding = '10px'
+  el.style.borderRadius = '5px'
+  el.style.marginBottom = '10px'
+  let since = moment(date).fromNow()
+  el.innerHTML = ` - <small>${since}</small><br>`
+  el.insertAdjacentElement('afterBegin', Strong(author))
+  el.insertAdjacentText('beforeEnd', comment)
+  return el
+}
+
+const Comments = (index) =>
+  comments[index] ? comments[index].map(c => Comment(c)) : []
+
+const Strong = (text) => {
+  let strong = document.createElement('strong')
+  strong.innerText = text
+  return strong
+}
 
 /**
  * Which elements comments are enabled for.
@@ -40,7 +110,7 @@ if (mobileOrTablet()) {
   // touchstart -> debounce -> not scrolling? -> show comment form
   $(SELECTOR).on('touchstart', function () {
     touched = this
-    timeout = setTimeout(showCommentForm.bind(this), 300)
+    timeout = setTimeout(showCommentContainer.bind(this), 300)
   })
   // scroll shows tooltip
   $(document).on('scroll', function () {
@@ -61,19 +131,23 @@ if (mobileOrTablet()) {
    * dblclik -> comment form
    */
   $(SELECTOR).tooltip({ title: 'Dobbeltklikk for å kommentere' })
-  $(SELECTOR).on('dblclick', showCommentForm)
+  $(SELECTOR).on('dblclick', showCommentContainer)
 }
 
-function showCommentForm () {
+function showCommentContainer () {
   hideTooltips()
   removeCommentContainer()
 
   let paragraph = this
-  let comment = CommentForm(paragraph)
-  let container = CommentContainer(comment)
+  let index = $(SELECTOR).index(paragraph)
+  let commentForm = CommentForm(paragraph)
+  let container = CommentContainer(index, commentForm)
 
-  comment.onsuccess = (res) => {
-    comment.setInnerHTML('Kommentaren er lagret.', 'success')
+  commentForm.onsuccess = (res) => {
+    fetchComments().then(() => {
+      container.updateComments()
+      commentForm.setInnerHTML('Kommentaren er lagret.', 'success')
+    })
   }
 
   if (!isRegistered()) {
@@ -81,8 +155,8 @@ function showCommentForm () {
     container.newChild(register)
     register.onsuccess = (res) => {
       localStorage.setItem(REGISTERED, res)
-      comment.setInnerHTML('Du er registrert! Du kan nå kommentere:', 'success')
-      container.newChild(comment)
+      commentForm.setInnerHTML('Du er registrert! Du kan nå kommentere:', 'success')
+      container.newChild(commentForm)
     }
   }
   paragraph.insertAdjacentElement('afterEnd', container)
@@ -92,13 +166,20 @@ function showCommentForm () {
  * Components.
  */
 
-function CommentContainer (child) {
+function CommentContainer (index, child) {
   let container = document.createElement('div')
   container.className = 'collapse in'
   let close = Close(container)
   let currentChild = child
-  container.well = Well([ child, close ])
+  let commentElements = Comments(index)
+  container.well = Well([ child, ...commentElements, close ])
   container.insertAdjacentElement('afterBegin', container.well)
+  container.updateComments = () => {
+    commentElements = Comments(index)
+    let oldWell = container.well
+    container.well = Well([ child, ...commentElements, close ])
+    container.replaceChild(container.well, oldWell)
+  }
   container.newChild = (newChild) => {
     try {
       container.well.replaceChild(newChild, currentChild)

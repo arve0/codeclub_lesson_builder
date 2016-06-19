@@ -307,7 +307,7 @@ input[type="text"] {
   }
 }
 /* comment bubble */
-.comment {
+.commentBubble {
   position: relative;
   padding: 5px 12px;
   margin: 0;
@@ -317,10 +317,11 @@ input[type="text"] {
   border-radius: 5px;
   float: right;
   line-height: 1em;
+  cursor: pointer;
 }
 
-/* comment triangle */
-.comment:after {
+/* triangle in comment bubble */
+.commentBubble:after {
   content: "";
   display: block;
   position: absolute;
