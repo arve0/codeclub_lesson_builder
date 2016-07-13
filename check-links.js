@@ -117,7 +117,11 @@ module.exports = function (start) {
             if (href.search(/^(mailto|javascript)/) === 0) {
               return
             }
-            // do not add github new issue links
+            // do not add link to lesson source code
+            if (href.search(config.repo + '/tree/master/') === 0) {
+              return
+            }
+            // do not add "github new issue" links
             if (href.search(/^https:\/\/github.com\/.*?\/issues\/new/) === 0) {
               return
             }
