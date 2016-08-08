@@ -30,8 +30,11 @@ html
               -courseIndex = '/' + course + '/index.md'
               -courseMetadata = matter(courseIndex)
               -courseName = courseMetadata.title || course
+              -logo = relative('/' + course + '/logo-black.png')
               if course
                 span &nbsp;/&nbsp;
+                if (isFile(path.dir, logo))
+                  img(src=logo)
                 a(href=relative('/' + course))= courseName
             a.intro(
               data-i18n="title=layout.takeTour"
