@@ -12,6 +12,7 @@
     "js-cookie": "^2.0.4",
     "json5": "^0.4.0",
     "moment": "^2.10.6",
+    "nodepdf-series": "^0.4.0",
     "scratchblocks": "arve0/scratchblocks#no_build"
   },
   "devDependencies": {
@@ -60,7 +61,7 @@
     "metalsmith-relative": "^1.0.3",
     "node-spider": "^1.3.0",
     "node-static": "^0.7.7",
-    "nodepdf-series": "^0.2.2",
+    "nodepdf-series": "^0.4.0",
     "run-sequence": "^1.0.2",
     "standard": "^6.0.7",
     "vinyl-buffer": "^1.0.0",

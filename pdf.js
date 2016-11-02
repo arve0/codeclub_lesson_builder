@@ -20,9 +20,7 @@ function generatePdf (done) {
   var chunkSize = Math.round(files.length / concurrent)
   var chunks = _.chunk(files, chunkSize)
   each(chunks, function (chunk, cb) {
-    PDF.render(chunk, pdfOptions, function (err) {
-      cb(err)
-    })
+    PDF.render(chunk, pdfOptions, cb);
   }, function (err) {
     // check if all htmls are converted
     var pdfs = glob.sync(config.buildRoot + '/**/*.pdf')
