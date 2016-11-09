@@ -12,7 +12,6 @@
     "js-cookie": "^2.0.4",
     "json5": "^0.4.0",
     "moment": "^2.10.6",
-    "nodepdf-series": "^0.4.0",
     "scratchblocks": "arve0/scratchblocks#no_build"
   },
   "devDependencies": {
