@@ -6,7 +6,6 @@ var PDF = require('nodepdf-series')
 var config = require('./config.js')
 
 var concurrent = 4 // how many processes to spawn
-var pdfOptions = { 'viewportSize': { 'width': 1024 } }
 
 var pattern = [config.buildRoot + '/**/*.html',
                '!' + config.buildRoot + '/index.html',
@@ -20,9 +19,7 @@ function generatePdf (done) {
   var chunkSize = Math.round(files.length / concurrent)
   var chunks = _.chunk(files, chunkSize)
   each(chunks, function (chunk, cb) {
-    PDF.render(chunk, pdfOptions, function (err) {
-      cb(err)
-    })
+    PDF(chunk, cb);
   }, function (err) {
     // check if all htmls are converted
     var pdfs = glob.sync(config.buildRoot + '/**/*.pdf')
