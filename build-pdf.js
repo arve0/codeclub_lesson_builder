@@ -54,8 +54,10 @@ function deleteOldPDF (files, metalsmith, done) {
       try {
         fs.unlinkSync(oldPDF);
       } catch (err) {
-        console.error('Unable to remove PDF: ' + oldPDF);
-        console.error(err);
+        if(err.code !== 'ENOENT'){
+          console.error('Unable to remove PDF: ' + oldPDF);
+          console.error(err);
+        }
       }
     }
   });
