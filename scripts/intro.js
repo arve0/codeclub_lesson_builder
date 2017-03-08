@@ -42,14 +42,6 @@ i18n.on('initialized', () => {
     // never visited
     // ask if tour is wanted
     question.modal()
-  } else {
-    // check if it's been more than a month since last visit
-    if (lastVisit.add(30, 'days') < now) {
-      // not visited in 30 days (time to refresh)
-      const questionBody = $('.intro-question .modal-body > p')
-      questionBody.text(i18n.t('intro.askTour'))
-      question.modal()
-    }
   }
 })
 
