@@ -55,8 +55,6 @@ $(() => {
   /*
   * external resources, wait for translation function
   */
-  $('.courses > a[href^="http"]')
-    .each(externalResourcePopover('indexjs.externalCourse', 'indexjs.continueToCourse'))
   $('.playlist > a[href^="http"], .level > a[href^="http"]')
     .each(externalResourcePopover('indexjs.externalLesson', 'indexjs.continueToLesson'))
 
