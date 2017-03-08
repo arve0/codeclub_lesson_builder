@@ -28,12 +28,13 @@ function frontmatter (filename) {
 }
 
 /**
- * remove files from build which have external set
+ * remove lessons from build which are external and is not called `index.md`
+ * (which contains course info)
  */
 function removeExternal (files, _, done) {
-  Object.keys(files).forEach(function (key) {
-    if (files[key].external) {
-      delete files[key]
+  Object.keys(files).forEach(function (filename) {
+    if (files[filename].external && filename.indexOf('index.md') === -1) {
+      delete files[filename]
     }
   })
   done()

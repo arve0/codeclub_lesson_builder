@@ -12,15 +12,17 @@ block content
       -collectionIndex = '/' + course.name + '/index'
       -collectionMetadata = matter(collectionIndex + '.md')
       -realName = collectionMetadata.title || course.name
-      -link = collectionMetadata.external  || relative(collectionIndex + '.html')
+      -indexLink = relative(collectionIndex + '.html')
+      -link = collectionMetadata.external  || indexLink
       -logo = relative('/' + course.name + '/logo-black.png')
       -if (!isFile(path.dir, logo)) logo = relative('/logo-black.png')
-      a(href=link id=course.name)
+      a(href=link id=course.name data-index=indexLink)
         .logo-wrapper
           img(src=logo)
-        .lessons
-          strong(data-i18n="html=layout.numberOfLessons")= t('layout.numberOfLessons')
-          span= ': '+ course.lessons.length
+        if !collectionMetadata.external
+          .lessons
+            strong(data-i18n="html=layout.numberOfLessons")= t('layout.numberOfLessons')
+            span= ': '+ (course.lessons.length - 1)
         .name
           span= realName
           if collectionMetadata.external

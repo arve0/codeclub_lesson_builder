@@ -1,5 +1,7 @@
 /* eslint-env jquery */
 
+import i18n from './i18n.js'
+
 /**
  * show introduction to lesson on :hover
  */
@@ -11,7 +13,7 @@ $(SELECTOR).hover(showIntro, hideIntro)
 
 function showIntro () {
   const elm = $(this)
-  const url = elm.attr('href')
+  const url = elm.attr('data-index')
   if (!url) {
     return
   }
@@ -72,14 +74,19 @@ function createPopover (elm) {
     if (!data) {
       return
     }
-    elm.popover({
+    const options = {
       animate: true,
       container: CONTAINER,
       placement: 'auto bottom',
       trigger: 'manual',
       html: true,
       content: Intro(data)
-    })
+    }
+    if (elm.attr('href').indexOf('http') === 0) {
+      // course is an external resource - add title showing that
+      options.title = () => i18n.t('indexjs.externalResource')
+    }
+    elm.popover(options)
     // debounce
     clearTimeout(timeout)
     timeout = setTimeout(() => elm.popover('show'), 200)
