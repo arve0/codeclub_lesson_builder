@@ -15,6 +15,7 @@ var _ = require('lodash')
 // metalsmith building
 var build = require('./build.js')
 var buildIndexes = require('./build-indexes.js')
+var buildPDF = require('./build-pdf.js')
 var buildSearchIndex = require('./build-search-index.js')
 // styles and scripts
 var less = require('gulp-less')
@@ -27,8 +28,6 @@ var watchify = require('watchify')
 var source = require('vinyl-source-stream')
 var sourcemaps = require('gulp-sourcemaps')
 var buffer = require('vinyl-buffer')
-// pdf generation
-var pdf = require('./pdf.js')
 // link-checking
 var checkLinks = require('./check-links')
 // get configuration variables
@@ -144,15 +143,13 @@ gulp.task('build-force', (cb) => {
 })
 gulp.task('build-indexes', buildIndexes)
 gulp.task('build-search-index', buildSearchIndex)
+gulp.task('pdf', buildPDF)
 
 /**
  * dist - build all without serving
  */
 gulp.task('dist', function (cb) {
-  // preferred way to this will change in gulp 4
-  // see https://github.com/gulpjs/gulp/issues/96
-  run('clean',
-      ['assets', 'build-force', 'build-indexes', 'build-search-index', 'css', 'js:dist', 'js:vendor'],
+  run(['assets', 'build', 'build-indexes', 'build-search-index', 'css', 'js:dist', 'js:vendor'],
       'pdf',
       function (err) {
         // make sure process exit (b = watchify bundle)
@@ -167,11 +164,6 @@ gulp.task('dist', function (cb) {
 gulp.task('clean', function (cb) {
   del([join(config.lessonRoot, 'build')], {force: true}, cb)
 })
-
-/**
- * pdf - generate pdfs of all htmls
- */
-gulp.task('pdf', pdf)
 
 /**
  * links - check for broken links
