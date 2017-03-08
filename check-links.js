@@ -125,6 +125,11 @@ module.exports = function (start) {
             if (href.search(/^https:\/\/github.com\/.*?\/issues\/new/) === 0) {
               return
             }
+            // do not add localhost links that doesn't have `start` as root
+            if (href.search('http://localhost:') === 0 &&
+                href.search(start) !== 0) {
+              return
+            }
             // do not check #-link explicit
             var url = doc.resolve(href).split('#')[0]
             // already added
