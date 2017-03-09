@@ -306,3 +306,29 @@ input[type="text"] {
     .btn-warning;
   }
 }
+/* comment bubble */
+.commentBubble {
+  position: relative;
+  padding: 5px 12px;
+  margin: 0;
+  margin-left: 8px;
+  color: #fff;
+  background: #000;
+  border-radius: 5px;
+  float: right;
+  line-height: 1em;
+  cursor: pointer;
+}
+
+/* triangle in comment bubble */
+.commentBubble:after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: -8px;
+  width: 0;
+  border-width: 15px 20px 0 0;
+  border-style: solid;
+  border-color: transparent #000;
+}

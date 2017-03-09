@@ -61,6 +61,6 @@ function playlistName (filename) {
  */
 function playlistId (name) {
   var id = name.replace(/ /g, '_')
-  id = id.replace(/[\,\.\-\?]/g, '')
+  id = id.replace(/[,\.\-\?]/g, '')
   return id
 }

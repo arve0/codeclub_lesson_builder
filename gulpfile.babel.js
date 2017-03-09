@@ -90,12 +90,12 @@ var b = browserify({
 }).transform('babelify', { presets: ['es2015'] })
 b.on('log', console.log)
 
-gulp.task('js:client', function () {
+gulp.task('js:client', function (cb) {
   // do not uglify in dev env
   return b.bundle()
     .on('error', (err) => {
-      console.log(err)
       this.emit('end')
+      cb(err)
     })
     .pipe(source('script.min.js'))
     .pipe(gulp.dest(config.assetRoot))
@@ -123,6 +123,8 @@ gulp.task('js:vendor', function () {
     'node_modules/jquery/dist/jquery.min.js',
     'node_modules/scratchblocks/src/scratchblocks.js',
     'node_modules/scratchblocks/src/translations.js',
+    'node_modules/bootstrap/js/transition.js',
+    'node_modules/bootstrap/js/collapse.js',
     'node_modules/bootstrap/js/modal.js',
     'node_modules/bootstrap/js/tooltip.js',
     'node_modules/bootstrap/js/popover.js'
