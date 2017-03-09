@@ -21,7 +21,7 @@ module.exports = function build (callback) {
   Metalsmith(config.lessonRoot)
     .source('build')
     .clean(false) // do not delete any files
-    .use(onlyHTML)
+    .use(onlyLessonHTML)
     .use(changed({ ctimes: ctimes }))
     .use(deleteOldPDF)
     .use(pdf())
@@ -34,9 +34,10 @@ module.exports = function build (callback) {
 /**
  * PDF only for files ending in .html
  */
-function onlyHTML (files, _, done) {
+function onlyLessonHTML (files, _, done) {
   Object.keys(files).forEach(function (file) {
-    if (file.search(/\.html$/i) === -1) {
+    // assume index.html are only course indexes
+    if (file.search(/\.html$/i) === -1 || file.search(/index\.html$/) !== -1) {
       delete files[file];
     }
   });
