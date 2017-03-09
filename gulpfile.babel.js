@@ -190,23 +190,25 @@ gulp.task('github', function (cb) {
   github.listen()
   var currentlyBuilding = false
   function build (repo, ref, data) {
+    if (!data.pull_request.merged) {
+      console.log('Webhook event "pull_request", not merged. Nothing to do.')
+      return
+    }
     if (currentlyBuilding) {
       console.log('Already building. Waiting 4 minutes...')
       _.delay(build, 4 * 60 * 1000, repo, ref, data)
-    } else if (data.pull_request.merged) {
-      currentlyBuilding = true
-      console.log('Merged PR, building...')
-      exec(config.ghMergeCommand, function (err, stdout, stderr) {
-        if (err !== null) {
-          console.log(stderr)
-        } else {
-          console.log('Build successfull.')
-        }
-        currentlyBuilding = false
-      })
-    } else {
-      console.log('Webhook event "pull_request", not merged. Nothing to do.')
+      return
     }
+    currentlyBuilding = true
+    console.log('Merged PR, building...')
+    exec(config.ghMergeCommand, function (err, stdout, stderr) {
+      if (err !== null) {
+        console.log(stderr)
+      } else {
+        console.log('Build successfull.')
+      }
+      currentlyBuilding = false
+    })
   }
 })
 
