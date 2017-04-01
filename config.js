@@ -15,8 +15,6 @@ var builderRoot = path.basename(__dirname)
 var assetRoot = path.join(buildRoot, 'assets')
 var sourceFolder = 'src'
 var sourceRoot = path.join(lessonRoot, sourceFolder)
-var i18nRoot = path.join(__dirname, 'assets', 'locales')
-var i18nDest = path.join(buildRoot, 'locales')
 
 /**
  * Collections
@@ -40,8 +38,6 @@ var config = {
   assetRoot: assetRoot,
   buildRoot: buildRoot,
   builderRoot: builderRoot,
-  i18nRoot: i18nRoot,
-  i18nDest: i18nDest,
   lessonRoot: lessonRoot,
   // folder names
   playlistFolder: 'playlists',
@@ -61,7 +57,13 @@ var config = {
   showFlags: false,
   locales: ['nb-NO', 'nn-NO', 'en-US'],
   // for improve links in lessons
-  repo: 'https://github.com/kodeklubben/oppgaver'
+  repo: 'https://github.com/kodeklubben/oppgaver',
+  levelNames: {
+    '1': 'Introduksjon',
+    '2': 'Nybegynner',
+    '3': 'Erfaren',
+    '4': 'Ekspert'
+  }
 }
 
 module.exports = config

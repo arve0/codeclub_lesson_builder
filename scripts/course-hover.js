@@ -1,7 +1,5 @@
 /* eslint-env jquery */
 
-import i18n from './i18n.js'
-
 /**
  * show introduction to lesson on :hover
  */
@@ -84,7 +82,7 @@ function createPopover (elm) {
     }
     if (elm.attr('href').indexOf('http') === 0) {
       // course is an external resource - add title showing that
-      options.title = () => i18n.t('indexjs.externalResource')
+      options.title = 'Dette er et eksternt kurs'
     }
     elm.popover(options)
     // debounce

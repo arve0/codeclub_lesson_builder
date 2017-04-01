@@ -5,12 +5,6 @@ var lunr = require('lunr')
 require('lunr-no/lunr.stemmer.support.js')(lunr)
 require('lunr-no')(lunr)
 
-import i18n from './i18n.js'
-let t
-i18n.on('initialized', () => {
-  t = i18n.getFixedT()
-})
-
 // for is not a stopword in this context
 var words = lunr.no.stopWordFilter.stopWords.elements
 words.splice(words.indexOf('for'), 1)
@@ -65,7 +59,7 @@ function handleSearchInput (event) {
 
     var results = global.index.search(value)
     if (results.length === 0) {
-      $('.search > .results').html(t('searchjs.nothingFound'))
+      $('.search > .results').html('Ingenting funnet.')
       return
     }
 
@@ -97,12 +91,12 @@ function getResult (searchResult) {
   var defer = $.Deferred()
 
   chain.resolve(searchResult)
-  .then(getPage)
-  .then(removeImg)
-  .then(getTitle)
-  .then(getContent)
-  .then(cleanContent)
-  .then(defer.resolve)
+    .then(getPage)
+    .then(removeImg)
+    .then(getTitle)
+    .then(getContent)
+    .then(cleanContent)
+    .then(defer.resolve)
 
   return defer.promise()
 }

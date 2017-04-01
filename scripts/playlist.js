@@ -6,26 +6,20 @@
  * - Keep track of position in playlist.
  */
 
-import i18n from './i18n.js'
 
-let t
-i18n.on('initialized', () => {
-  t = i18n.getFixedT()
-
-  /**
-   * If in lesson of playlist
-   */
-  var playlist = JSON.parse(localStorage.getItem('playlist'))
-  if (playlist) {
-    if (indexOf(playlist.lessons, window.location.href) !== undefined) {
-      // current lesson is this very page -> add navigation
-      addNavigation(playlist)
-    } else {
-      // remove playlist from localStorage, we are no longer in a playlist
-      localStorage.removeItem('playlist')
-    }
+/**
+ * If in lesson of playlist
+ */
+var playlist = JSON.parse(localStorage.getItem('playlist'))
+if (playlist) {
+  if (indexOf(playlist.lessons, window.location.href) !== undefined) {
+    // current lesson is this very page -> add navigation
+    addNavigation(playlist)
+  } else {
+    // remove playlist from localStorage, we are no longer in a playlist
+    localStorage.removeItem('playlist')
   }
-})
+}
 
 export default function init () {
   /**
@@ -68,7 +62,7 @@ function getLessons (playlist) {
   return $.map(links, function (elm) {
     var url = base + elm.attributes.href.value
     var name = $('> li', elm).text()
-    return {url: url, name: name}
+    return { url: url, name: name }
   })
 }
 
@@ -77,8 +71,7 @@ function addNavigation (playlist) {
   navigation += '<h1>' + playlist.name + '</h1>'
 
   navigation += '<ul class="pagination">'
-  navigation += '<li><a class="prev" data-i18n="title=prev" '
-  navigation += 'title="' + t('prev') + '">&laquo</a></li>'
+  navigation += '<li><a class="prev" title="Forrige">&laquo</a></li>'
   for (var i = 0, l = playlist.lessons.length; i < l; ++i) {
     var lesson = playlist.lessons[i]
     navigation += '<li'
@@ -90,8 +83,7 @@ function addNavigation (playlist) {
     navigation += '<span>' + (i + 1) + '</span>'
     navigation += '</a></li>'
   }
-  navigation += '<li><a class="next" data-i18n="title=next" '
-  navigation += 'title="' + t('next') + '">&raquo</a></li>'
+  navigation += '<li><a class="next" title="Neste">&raquo</a></li>'
   navigation += '</ul>'
   navigation += '<div class="clearfix"></div></div>'
 

@@ -13,7 +13,6 @@ var _ = require('lodash')
 var changed = require('metalsmith-changed')
 var paths = require('metalsmith-paths')
 var md = require('./markdown.js')
-var translate = require('./i18n.js')
 // get configuration variables
 var config = require('./config.js')
 var tools = require('./tools.js')
@@ -25,11 +24,15 @@ var lessonReadme = require('./lesson-readme.js')
 // metadata
 var metadataOptions = [
   // scratch lesson layout
-  { pattern: '**/*.md',
-    metadata: { layout: 'lesson.jade' }},
+  {
+    pattern: '**/*.md',
+    metadata: { layout: 'lesson.jade' }
+  },
   // scratch lesson layout
-  { pattern: 'scratch/**/*.md',
-    metadata: { layout: 'scratch.jade' }}
+  {
+    pattern: 'scratch/**/*.md',
+    metadata: { layout: 'scratch.jade' }
+  }
 ]
 
 // ignores
@@ -53,8 +56,7 @@ var defineOptions = {
   _: _,
   config: config,
   isFile: tools.isFile,
-  matter: tools.frontmatter,
-  t: translate
+  matter: tools.frontmatter
 }
 
 // layout
@@ -73,33 +75,33 @@ module.exports = function build (callback, options) {
 
   // do the building
   Metalsmith(config.lessonRoot)
-  .source(config.sourceFolder)
-  .clean(false) // do not delete files, allow gulp tasks in parallel
-  .use(changed({
-    force: forceBuild
-  }))
-  .use(lessonReadme())
-  .use(ignore(ignoreOptions))
-  .use(paths())
-  // set layout for exercises
-  .use(setMetadata(metadataOptions))
-  // add relative(path) for use in layouts
-  .use(relative())
-  // create collections
-  .use(collections(collectionOptions))
-  // convert markdown to html
-  .use(md)
-  // add file.link metadata (now files are .html)
-  .use(filepath())
-  // globals for use in layouts
-  .use(define(defineOptions))
-  // apply layouts
-  .use(layouts(layoutOptions))
-  // build
-  .destination('build')
-  .build(function (err) {
-    if (err) console.log(err)
-    // callback when build is done
-    callback(err)
-  })
+    .source(config.sourceFolder)
+    .clean(false) // do not delete files, allow gulp tasks in parallel
+    .use(changed({
+      force: forceBuild
+    }))
+    .use(lessonReadme())
+    .use(ignore(ignoreOptions))
+    .use(paths())
+    // set layout for exercises
+    .use(setMetadata(metadataOptions))
+    // add relative(path) for use in layouts
+    .use(relative())
+    // create collections
+    .use(collections(collectionOptions))
+    // convert markdown to html
+    .use(md)
+    // add file.link metadata (now files are .html)
+    .use(filepath())
+    // globals for use in layouts
+    .use(define(defineOptions))
+    // apply layouts
+    .use(layouts(layoutOptions))
+    // build
+    .destination('build')
+    .build(function (err) {
+      if (err) console.log(err)
+      // callback when build is done
+      callback(err)
+    })
 }
