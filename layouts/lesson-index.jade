@@ -3,7 +3,7 @@ extends ./layout.jade
 //- playlists
 mixin PlaylistIndex(playlist)
   .playlist
-    li(data-i18n="title=layout.clickToExpand" title=t('layout.clickToExpand') id=playlist.id)
+    li(title="Klikk for å utvide" id=playlist.id)
       .icon
       .name= playlist.name
 
@@ -18,10 +18,8 @@ mixin LevelIndex(level, lessons)
   // sort lessons by filename
   -lessons = _.sortBy(lessons, 'link')
   .level.col-xs-12.col-sm-6(id=name)
-    -levelName = 'layout.levelNames.' + level
-    -dataLevelName = 'html=' + levelName
-    h2.clearfix(class='level-' + level data-i18n=dataLevelName)
-      = t(levelName)
+    h2.clearfix(class='level-' + level)
+      = config.levelNames[level]
 
     //- all lessons which does not have `indexed: false`
     each lesson in lessons
@@ -37,8 +35,7 @@ mixin Lesson(lesson, attrs)
       if lesson.readme
         span.readme(
           href=relative(lesson.readme)
-          data-i18n="title=layout.teacherNotes"
-          title=t('layout.teacherNotes')
+          title="Lærerveiledning"
         )
         // click -> js redirect to readme
       if lesson.external
@@ -52,13 +49,13 @@ block content
     h1.info
       span.infoicon.glyphicon.glyphicon-plus-sign
       = ' ' + title
-      span.clickformore(data-i18n="html=layout.clickForInfo")= t('layout.clickForInfo')
+      span.clickformore Klikk her for mer info
     .content(style="display:none")!= contents
 
   //- plalists
   if playlists[path.dir] && playlists[path.dir].length
     .playlists.col-xs-12.col-sm-6(id=name)
-      h2(data-i18n="html=layout.playlists")= t('layout.playlists')
+      h2 Oppgavesamlinger
       each playlist in playlists[path.dir]
         +PlaylistIndex(playlist)
 

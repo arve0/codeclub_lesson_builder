@@ -12,7 +12,6 @@ var define = require('metalsmith-define')
 var _ = require('lodash')
 var paths = require('metalsmith-paths')
 var md = require('./markdown.js')
-var translate = require('./i18n.js')
 // get configuration variables
 var config = require('./config.js')
 var tools = require('./tools.js')
@@ -25,8 +24,10 @@ var lessonReadme = require('./lesson-readme.js')
 // metadata
 var metadataOptions = [
   // front page layout
-  { pattern: 'index.md',
-    metadata: { layout: 'index.jade' }}
+  {
+    pattern: 'index.md',
+    metadata: { layout: 'index.jade' }
+  }
 ]
 
 // ignore everything except index files
@@ -71,7 +72,6 @@ var defineOptions = {
   config: config,
   isFile: tools.isFile,
   matter: tools.frontmatter,
-  t: translate,
   sort: sortCollections
 }
 
@@ -89,39 +89,39 @@ var layoutOptions = {
 module.exports = function build (callback) {
   // do the building
   Metalsmith(config.lessonRoot)
-  .source(config.sourceFolder)
-  .clean(false)  // do not delete files, allow gulp tasks in parallel
-  .use(lessonReadme())  // before ignore
-  .use(playlists({  // before ignore
-    collections: Object.keys(collectionOptions)
-  }))
-  .use(ignore(ignoreOptions))
-  // add file.link metadata (files are .md here)
-  .use(filepath())
-  .use(ignoreIndexedFalse)
-  .use(paths())
-  // set layout for exercises
-  .use(setMetadata(metadataOptions))
-  // add relative(path) for use in layouts
-  .use(relative())
-  // create collections for index
-  .use(collections(collectionOptions))
-  // remove lessons *after* we have necessary metadata
-  .use(ignore(['**', '!**/index.md']))
-  .use(tools.removeExternal)
-  // convert markdown to html
-  .use(md)
-  // globals for use in layouts
-  .use(define(defineOptions))
-  // apply layouts
-  .use(layouts(layoutOptions))
-  // build
-  .destination('build')
-  .build(function (err) {
-    if (err) console.log(err)
-    // callback when build is done
-    callback(err)
-  })
+    .source(config.sourceFolder)
+    .clean(false)  // do not delete files, allow gulp tasks in parallel
+    .use(lessonReadme())  // before ignore
+    .use(playlists({  // before ignore
+      collections: Object.keys(collectionOptions)
+    }))
+    .use(ignore(ignoreOptions))
+    // add file.link metadata (files are .md here)
+    .use(filepath())
+    .use(ignoreIndexedFalse)
+    .use(paths())
+    // set layout for exercises
+    .use(setMetadata(metadataOptions))
+    // add relative(path) for use in layouts
+    .use(relative())
+    // create collections for index
+    .use(collections(collectionOptions))
+    // remove lessons *after* we have necessary metadata
+    .use(ignore(['**', '!**/index.md']))
+    .use(tools.removeExternal)
+    // convert markdown to html
+    .use(md)
+    // globals for use in layouts
+    .use(define(defineOptions))
+    // apply layouts
+    .use(layouts(layoutOptions))
+    // build
+    .destination('build')
+    .build(function (err) {
+      if (err) console.log(err)
+      // callback when build is done
+      callback(err)
+    })
 }
 
 /**

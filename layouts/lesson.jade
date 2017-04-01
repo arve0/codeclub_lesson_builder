@@ -9,10 +9,8 @@ block content
       .lesson-icons
         if level
           .level
-            img(title="Level " + level src=relative('/assets/img/level' + level + '.png'))
-            -levelName = 'layout.levelNames.' + level
-            -dataLevelName = 'html=' + levelName
-            span(data-i18n=dataLevelName)= t(levelName)
+            img(title="Nivå " + level src=relative('/assets/img/level' + level + '.png'))
+            span= config.levelNames[level]
         -course = _.first(collection)
         -courseIndex = '/' + course + '/index.md'
         -courseMetadata = matter(courseIndex)
@@ -24,30 +22,29 @@ block content
           img(src=courseLogo)
           span= courseName
         .pdf
-          a(href=link.replace('.html', '.pdf') data-i18n="title=layout.downloadPdf" title=t('layout.downloadPdf'))
+          a(href=link.replace('.html', '.pdf') title="Last ned PDF")
             span.icon
             span.text PDF
         if readme
           .readme
             a(href=relative(readme))
               span.icon
-              span.text(data-i18n="html=layout.teacherNotes")= t('layout.teacherNotes')
+              span.text Lærerveiledning
         if lesson
           .lesson-link
             a(href=relative(lesson))
               span.icon
-              span.text(data-i18n="html=layout.lesson")= t('layout.lesson')
+              span.text Oppgave
 
   .col-xs-12
     .content!= contents
 
     .improve
-      h3= t('improve.header')
-      p= t('improve.text')
+      h3 Forbedre denne siden
+      p Funnet en feil? Kunne noe vært bedre? Hvis ja, vennligst gi oss tilbakemelding ved å lage en sak på Github eller fiks feilen selv om du kan. Vi er takknemlige for enhver tilbakemelding!
+      -codePlacement = [config.repo, 'tree/master', config.sourceFolder, path.dir].join('/')
       -createIssue = config.repo + '/issues/new?'
-      -createIssue += 'title='+ courseName +': '+ title
-      -createIssue += '&body='+ t('improve.describeIssue')
-      a.issue(href=createIssue)= t('improve.createIssue')
-      -codePlacement = config.repo +'/tree/master/'+ config.sourceFolder +'/'
-      -codePlacement += path.dir
-      a.code(href=codePlacement)= t('improve.showCode')
+      -createIssue += 'title=Problem med ' + courseName + ': ' + title
+      -createIssue += '&body=Oppgavens kildekode: ' + codePlacement + ''
+      a.issue(href=createIssue) Rapporter et problem
+      a.code(href=codePlacement) Vis koden og fiks selv

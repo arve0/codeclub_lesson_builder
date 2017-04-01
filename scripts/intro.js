@@ -6,12 +6,10 @@
 
 import { introJs } from 'intro.js'
 import moment from 'moment'
-import i18n from './i18n.js'
 import Cookie from 'js-cookie'
 
 // event handler: tour is wanted
-const yesButton = $('.intro-question .btn-success')
-yesButton.click(startTour)
+$('.intro-question .btn-success').click(startTour)
 $('.top-menu a.intro').click(startTour)
 
 const question = $('.intro-question')
@@ -31,19 +29,17 @@ try {
 }
 const now = moment()
 
-i18n.on('initialized', () => {
-  if (tour === 'front page') {
-    showFrontPageIntro()
-  } else if (tour === 'lesson index') {
-    showLessonIndexIntro()
-  } else if (tour === 'lesson') {
-    showLessonIntro()
-  } else if (!lastVisit) {
-    // never visited
-    // ask if tour is wanted
-    question.modal()
-  }
-})
+if (tour === 'front page') {
+  showFrontPageIntro()
+} else if (tour === 'lesson index') {
+  showLessonIndexIntro()
+} else if (tour === 'lesson') {
+  showLessonIntro()
+} else if (!lastVisit) {
+  // never visited
+  // ask if tour is wanted
+  question.modal()
+}
 
 // update "last visit"
 localStorage.setItem('last visit', now.format())
@@ -64,83 +60,83 @@ function startTour () {
 function showFrontPageIntro () {
   localStorage.removeItem('tour')
   introJs()
-  .setOptions({
-    nextLabel: i18n.t('next'),
-    prevLabel: i18n.t('prev'),
-    skipLabel: i18n.t('intro.skipLabel'),
-    scrollToElement: false,
-    doneLabel: i18n.t('intro.frontPage.doneLabel'),
-    steps: [{
-      element: document.querySelector('.courses'),
-      intro: i18n.t('intro.frontPage.courses'),
-      position: 'top'
-    }, {
-      element: document.querySelector('#scratch'),
-      intro: i18n.t('intro.frontPage.scratch')
-    }, {
-      element: document.querySelector('#python'),
-      intro: i18n.t('intro.frontPage.python')
-    }]
+    .setOptions({
+      nextLabel: 'Neste',
+      prevLabel: 'Forrige',
+      skipLabel: "Avslutt omvisning",
+      scrollToElement: false,
+      doneLabel: "Fortsett omvisning på Python-siden",
+      steps: [{
+        element: document.querySelector('.courses'),
+        intro: "Fremsiden inneholder alle kursene vi har.",
+        position: 'top'
+      }, {
+        element: document.querySelector('#scratch'),
+        intro: "<b>Scratch</b> passer for alle aldre. I Scratch er koden klosser som plasseres ved <i>dra-og-slipp</i>, som gjør det <i>meget</i> enkelt å lage <b>spill</b>.",
+      }, {
+        element: document.querySelector('#python'),
+        intro: "<b>Python</b> er et tekstbasert språk som har en <i>enkel skrivemåte</i> med få unødige tegn. Python er et seriøst programmeringsspråk som brukes mye i <b>bedrifter, vitenskap og automatisering</b>."
+      }]
 
-  })
-  .start()
-  .oncomplete(function () {
-    // take to python page
-    localStorage.setItem('tour', 'lesson index')
-    window.location.href = 'python'
-  })
-  .onexit(tourDone)
+    })
+    .start()
+    .oncomplete(function () {
+      // take to python page
+      localStorage.setItem('tour', 'lesson index')
+      window.location.href = 'python'
+    })
+    .onexit(tourDone)
 }
 
 function showLessonIndexIntro () {
   localStorage.removeItem('tour')
   introJs()
-  .setOptions({
-    nextLabel: i18n.t('next'),
-    prevLabel: i18n.t('prev'),
-    skipLabel: i18n.t('intro.skipLabel'),
-    scrollToElement: false,
-    doneLabel: i18n.t('intro.lessonIndex.doneLabel'),
-    steps: [{
-      element: document.querySelector('h1.info'),
-      intro: i18n.t('intro.lessonIndex.info')
-    }, {
-      element: document.querySelector('.playlists h2'),
-      intro: i18n.t('intro.lessonIndex.playlists')
-    }, {
-      element: document.querySelector('h2.level-1'),
-      intro: i18n.t('intro.lessonIndex.level1')
-    }]
-  })
-  .start()
-  .oncomplete(function () {
-    // take to python page
-    localStorage.setItem('tour', 'lesson')
-    window.location.href = i18n.t('intro.lessonIndex.nextUrl')
-  })
-  .onexit(tourDone)
+    .setOptions({
+      nextLabel: 'Neste',
+      prevLabel: 'Forrige',
+      skipLabel: "Avslutt omvisning",
+      scrollToElement: false,
+      doneLabel: "Fortsett omvisning på oppgave-siden \"Kuprat\"",
+      steps: [{
+        element: document.querySelector('h1.info'),
+        intro: "Hvert programmeringsspråk har en kort introduksjon. Klikk på <span class=\"glyphicon glyphicon-plus-sign\"></span> for å vise introduksjonen."
+      }, {
+        element: document.querySelector('.playlists h2'),
+        intro: "Oppgavesamlinger inneholder oppgaver som passer godt i lag. Klikk på <span class=\"glyphicon glyphicon-play\"></span> for å vise oppgavene."
+      }, {
+        element: document.querySelector('h2.level-1'),
+        intro: "Oppgavene er sortert etter vanskelighetsgrad. Her er introduksjonsoppgaver, som er en god start for helt ferske kodere."
+      }]
+    })
+    .start()
+    .oncomplete(function () {
+      // take to python page
+      localStorage.setItem('tour', 'lesson')
+      window.location.href = "kuprat/kuprat.html"
+    })
+    .onexit(tourDone)
 }
 
 function showLessonIntro () {
   localStorage.removeItem('tour')
   introJs()
-  .setOptions({
-    nextLabel: i18n.t('next'),
-    prevLabel: i18n.t('prev'),
-    skipLabel: i18n.t('intro.skipLabel'),
-    scrollToElement: false,
-    doneLabel: i18n.t('intro.lesson.doneLabel'),
-    steps: [{
-      element: document.querySelector('.lesson-icons'),
-      intro: i18n.t('intro.lesson.lessonIcons')
-    }, {
-      element: document.querySelector(i18n.t('intro.lesson.steps')),
-      position: 'top',
-      intro: i18n.t('intro.lesson.pickAWord')
-    }]
-  })
-  .start()
-  .oncomplete(tourDone)
+    .setOptions({
+      nextLabel: 'Neste',
+      prevLabel: 'Forrige',
+      skipLabel: "Avslutt omvisning",
+      scrollToElement: false,
+      doneLabel: "Gå tilbake til der du startet",
+      steps: [{
+        element: document.querySelector('.lesson-icons'),
+        intro: "Nivå og programmeringsspråk vises her. Du kan også laste ned oppgaven som PDF."
+      }, {
+        element: document.querySelector('#steg-1-hei-verden'),
+        position: 'top',
+        intro: "Oppgavene består av steg med instruksjoner og kodeblokker.<br><br> Det var det! Lykke til :-)"
+      }]
+    })
+    .start()
+    .oncomplete(tourDone)
 }
 
 function tourDone () {

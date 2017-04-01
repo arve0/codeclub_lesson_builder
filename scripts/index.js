@@ -9,20 +9,20 @@ import './intro.js'
 import playlistInit from './playlist.js'
 import './course-hover.js'
 import './lesson-hover.js'
-import i18n from './i18n.js'
+import addGithubIssueBody from './github-issue.js'
 
-let t
-i18n.on('initialized', () => {
-  t = i18n.getFixedT()
+$(() => {
+  // page loaded
 
   /*
   * tooltips
   */
   $('[title]').tooltip()
-})
 
-$(() => {
-  // page loaded
+  /*
+  * gihub issues
+  */
+  $('a.issue').each(addGithubIssueBody)
 
   /*
   * show/hide course info
@@ -53,17 +53,17 @@ $(() => {
   })
 
   /*
-  * external resources, wait for translation function
+  * external resources
   */
   $('.playlist > a[href^="http"], .level > a[href^="http"]')
-    .each(externalResourcePopover('indexjs.externalLesson', 'indexjs.continueToLesson'))
+    .each(externalResourcePopover('Dette er en ekstern oppgave.', 'Fortsett til oppgaven.'))
 
   let openExternalPopover  // global state
-  function externalResourcePopover (thisIs, continueTo) {
+  function externalResourcePopover (description, continueTo) {
     return function (_, elm) {
       function getContent () {
-        let content = `<span><p data-i18n="html=${thisIs}">${t(thisIs)}</p>`
-        content += `<a href="${elm.href}" data-i18n="html=${continueTo}">${t(continueTo)}</a></span>`
+        let content = `<span><p>${description}</p>`
+        content += `<a href="${elm.href}">${continueTo}</a></span>`
         return content
       }
       $(elm).popover({
@@ -71,7 +71,7 @@ $(() => {
         placement: 'top',
         trigger: 'manual',
         html: 'true',
-        title: () => t('indexjs.externalResource'),
+        title: 'Ekstern ressurs',
         content: getContent
       })
       $(elm).click(function (event) {
