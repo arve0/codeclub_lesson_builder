@@ -5,7 +5,7 @@ This project builds codeclub exercises from markdown to styled webpages. A file
 watcher builds upon changes and refreshes the browser. Watching is done through
 [gulp](//gulpjs.com) and build are done with [metalsmith](//metalsmith.io).
 
-Here is a screenshot with exmaple of workflow:
+Here is a screenshot with a workflow example:
 ![](assets/img/workflow.png)
 
 ## Development
