@@ -8,6 +8,7 @@
     "jquery": "^2.1.3",
     "js-cookie": "^2.0.4",
     "json5": "^0.4.0",
+    "markdown-it-checkbox": "^1.1.0",
     "moment": "^2.10.6",
     "scratchblocks": "arve0/scratchblocks#no_build"
   },
