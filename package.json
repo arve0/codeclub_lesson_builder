@@ -39,7 +39,7 @@
     "lunr-no": "0.0.3",
     "markdown-it-anchor": "^2.3.2",
     "markdown-it-attrs": "^0.1.2",
-    "markdown-it-checkbox": "^1.1.0",
+    "markdown-it-checkbox": "git+https://github.com/agnetedjupvik/markdown-it-checkbox.git",
     "markdown-it-header-sections": "^0.2.0",
     "markdown-it-implicit-figures": "^0.0.1",
     "merge-stream": "^0.1.7",
