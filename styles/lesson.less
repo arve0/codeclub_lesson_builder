@@ -1,3 +1,4 @@
+@checkbox-blue: #abdbea;
 
 // header
 header {
@@ -94,6 +95,9 @@ header {
     padding: 0;
     margin: 0 0 20px 0;
   }
+  ul.task-list li.task-list-item::before {
+    display: none;
+  }
   li {
     list-style: none;
     padding-top: 10px;
@@ -103,11 +107,11 @@ header {
   li:before {
     content: " ";
     border-radius: 20px;
-    border: 3px solid #ABDBEA;
-    padding: 5px;
+    border: 3px solid @checkbox-blue;
+    padding: 8px;
     float: left;
     margin-left: -30px;
-    margin-top: 7px;
+    margin-top: 6px;
   }
   label {
     font-weight: normal;
@@ -153,7 +157,7 @@ section.check {
   }
 }
 section.try {
-  background: #ABDBEA;
+  background: @checkbox-blue;
   border-radius: 10px;
   padding: 1px 20px 10px 20px;
   code {
@@ -292,31 +296,32 @@ input[type="text"] {
 }
 
 input[type="checkbox"] {
-  opacity: 0;
-  filter: alpha(opacity=0);
+  display: none;
 }
+
 input[type="checkbox"] + label {
   position: relative;
-  margin-left: 10px;
   font-weight: normal;
+  margin: 0;
 }
-input[type="checkbox"] + label:before {
-  content: '';
+
+input[type="checkbox"] + label::before {
+  content: '\a0'; // non-breaking space
   display: inline-block;
   visibility: visible;
-  left: 0;
-  width: 1em;
-  height: 1em;
-  margin: 0 0.8em -0.1em -1em;
-  line-height: 0.8;
+  width: 1.3em;
+  height: 1.3em;
+  margin: 0 0.6em 0 -2.2em;
+  line-height: 1.1em;
   text-align: center;
-  /* Put checkbox styles here: */
-  border: 3px solid #ABDBEA;
+  border: 3px solid @checkbox-blue;
+  border-radius: 3px;
 }
-input[type="checkbox"]:checked + label:before {
-  content: '✔';
-  line-height: 0.8em;
-  text-align: center;
+
+input[type="checkbox"]:checked + label::before {
+  content: '\2714'; // checkmark
+  line-height: 1.1em;
+  padding-left: 0.1em;
 }
 
 .improve {

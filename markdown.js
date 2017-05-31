@@ -3,7 +3,7 @@ var anchor = require('markdown-it-anchor')
 var attrs = require('markdown-it-attrs')
 var headerSections = require('markdown-it-header-sections')
 var implicitFigures = require('markdown-it-implicit-figures')
-var checkbox = require('markdown-it-checkbox')
+var checkbox = require('markdown-it-task-checkbox')
 var hljs = require('highlight.js')
 
 // setup markdown parser
