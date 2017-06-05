@@ -3,6 +3,7 @@ var anchor = require('markdown-it-anchor')
 var attrs = require('markdown-it-attrs')
 var headerSections = require('markdown-it-header-sections')
 var implicitFigures = require('markdown-it-implicit-figures')
+var checkbox = require('markdown-it-task-checkbox')
 var hljs = require('highlight.js')
 
 // setup markdown parser
@@ -33,6 +34,7 @@ md.parser
   .use(headerSections)
   .use(implicitFigures)
   .use(anchor)
+  .use(checkbox)
   .linkify.tlds('.py', false)  // linkify: turn of .py top level domain
 
 module.exports = md
