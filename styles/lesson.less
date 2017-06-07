@@ -90,7 +90,7 @@ header {
 }
 
 // list items in .check, .activity and .save
-.check, .activity, .save, .teacher-activity {
+.check, .activity, .save {
   ul, ol {
     padding: 0;
     margin: 0 0 20px 0;
@@ -146,17 +146,11 @@ section.activity {
   }
 }
 
-section.teacher-activity {
-  // activities, "Step 1: Bla bla"
-  h1 {
+.teacher {
+  // different colors for README.md aka Læreveiledning
+  h1, h2, h3, h4, h5, h6 {
     color: #FFF;
     background: #00b1da;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  .subsection h2 {
-    &:extend(.teacher-activity h1);
-    font-weight: 300;
   }
 }
 
