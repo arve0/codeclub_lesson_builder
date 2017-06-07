@@ -145,6 +145,21 @@ section.activity {
     font-weight: 300;
   }
 }
+
+section.teacher-activity {
+  // activities, "Step 1: Bla bla"
+  h1 {
+    color: #FFF;
+    background: #00b1da;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .subsection h2 {
+    &:extend(.teacher-activity h1);
+    font-weight: 300;
+  }
+}
+
 section.check {
   // check lists
   h2 {
@@ -227,6 +242,8 @@ section.challenge {
     padding: 0 20px;
   }
 }
+
+
 
 // scratchblocks colors
 code {
