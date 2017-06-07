@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "stable"
+  - "6"
 install: ./travis-setup.sh
 script: ./node_modules/gulp/bin/gulp.js dist && ./node_modules/gulp/bin/gulp.js links
 cache:
