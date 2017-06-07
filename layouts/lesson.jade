@@ -2,7 +2,7 @@ extends ./layout.jade
 
 block content
   .col-xs-12
-    header(class=lesson ? "clearfix teacher" : clearfix)
+    header(class=lesson ? 'clearfix teacher' : 'clearfix')
       -if (!logo) logo = relative('/assets/img/ccno_logo.png')
       img.logo.hidden-xs(src=logo)
       h1.title= title
