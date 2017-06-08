@@ -2,7 +2,7 @@ extends ./layout.jade
 
 block content
   .col-xs-12
-    header.clearfix
+    header(class=lesson ? 'clearfix teacher' : 'clearfix')
       -if (!logo) logo = relative('/assets/img/ccno_logo.png')
       img.logo.hidden-xs(src=logo)
       h1.title= title
@@ -37,7 +37,12 @@ block content
               span.text Oppgave
 
   .col-xs-12
-    .content!= contents
+    if lesson
+      // this is README.md and an accompanying lesson is found
+      // add .teacher class to allow for different styling
+      .content.teacher!= contents
+    else
+      .content!= contents
 
     .improve
       h3 Forbedre denne siden
