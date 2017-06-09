@@ -15,7 +15,8 @@ html
         }
         return url;
       }
-  body
+  //- if lesson is defined, this is README.md -> other colors
+  body(class=lesson ? 'teacher' : '')
     .container
       .row
         .col-xs-12
