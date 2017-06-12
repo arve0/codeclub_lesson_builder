@@ -15,7 +15,8 @@ var _ = require('lodash')
 // metalsmith building
 var build = require('./build.js')
 var buildIndexes = require('./build-indexes.js')
-var buildPDF = require('./build-pdf.js')
+// use no-op (callback) if BUILD_PDF is false
+var buildPDF = process.env.BUILD_PDF === 'false' ? (d) => d() : require('./build-pdf.js')
 var buildSearchIndex = require('./build-search-index.js')
 // styles and scripts
 var less = require('gulp-less')
@@ -36,6 +37,11 @@ var config = require('./config.js')
 // github hooks
 var exec = require('child_process').exec
 var githubhook = require('githubhook')
+
+// Inform user about BUILD_PDF environment values
+if (process.env.BUILD_PDF === 'false') {
+  console.log('BUILD_PDF environment value is false, not building PDFs')
+}
 
 /**
  * # TASKS #

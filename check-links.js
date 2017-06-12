@@ -132,6 +132,12 @@ module.exports = function (start) {
             }
             // do not check #-link explicit
             var url = doc.resolve(href).split('#')[0]
+            // do not check local PDFs if env.BUILD_PDF is 'false'
+            if (process.env.BUILD_PDF === 'false' &&
+                url.search(/\.pdf$/) !== -1 &&
+                doc.url.search(url.slice(0, -4)) === 0) {
+                  return
+                }
             // already added
             if (url in resources) {
               // add referrer
