@@ -17,10 +17,6 @@ var ctimes = 'metalsmith-changed-ctimes-html.json';
  */
 module.exports = function build (callback) {
 
-  if (process.env.BUILD_PDF === 'false') {
-    return callback()
-  }
-
   // do the building
   Metalsmith(config.lessonRoot)
     .source('build')
