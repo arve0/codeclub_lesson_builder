@@ -38,6 +38,11 @@ var config = require('./config.js')
 var exec = require('child_process').exec
 var githubhook = require('githubhook')
 
+// Inform user about BUILD_PDF environment values
+if (process.env.BUILD_PDF === 'false') {
+  console.log('BUILD_PDF environment value is false, not building PDFs')
+}
+
 /**
  * # TASKS #
  */
