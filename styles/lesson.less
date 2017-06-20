@@ -145,6 +145,11 @@ section.activity {
     font-weight: 300;
   }
 }
+.teacher section.activity h1 {
+  // different colors for README.md aka Læreveiledning
+  background: @teacher2;
+}
+
 section.check {
   // check lists
   h2 {
@@ -156,6 +161,7 @@ section.check {
     padding-left: 50px;
   }
 }
+
 section.try {
   background: @checkbox-blue;
   border-radius: 10px;
@@ -168,6 +174,12 @@ section.try {
     border: 3px solid #fff !important;
   }
 }
+.teacher section.try {
+  // different colors for README.md aka Læreveiledning
+  background: @teacher3;
+  color: #fff;
+}
+
 section.protip, section.tip {
   border: 3px solid #ff7f00;
   background: #fff99d;
@@ -176,6 +188,14 @@ section.protip, section.tip {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+.teacher {
+  section.protip, section.tip {
+    background-color: @teacher4;
+    border-color: #000;
+    color: #fff;
+  }
+}
+
 section.flag {
   border-top: 3px dotted rgb(230,134,45);
   padding-bottom: 20px;
@@ -194,6 +214,7 @@ section.flag {
     padding-left: 60px;
   }
 }
+
 section.save {
   border-top: 3px solid rgb(36,90,154);
   margin: 20px 0;
@@ -209,6 +230,7 @@ section.save {
     padding-left: 50px;
   }
 }
+
 section.challenge {
   border: 3px solid #00b1da;
   border-radius: 12px;
@@ -227,6 +249,13 @@ section.challenge {
     padding: 0 20px;
   }
 }
+.teacher section.challenge {
+  border-color: @teacher5;
+  h2 {
+    background-color: @teacher5;
+  }
+}
+
 
 // scratchblocks colors
 code {
@@ -340,4 +369,7 @@ input[type="checkbox"] + label::before {
   a.code {
     .btn-warning;
   }
+}
+.teacher .improve {
+  background-color: @teacher2;
 }
