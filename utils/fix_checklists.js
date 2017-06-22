@@ -20,12 +20,12 @@ function fixChecklists (filename) {
   var content = fs.readFileSync(filename, 'utf8')
 
   // section starts with #
-  // every char not {
+  // every char not { or new line \n
   // {.check} literally
   // any character not # (start of next section)
   // g: global - all matches
   // m: multiline match - [^#]+ matches newlines \n too
-  var checkSection = /^#[^{]+\{\.check\}[^#]+/gm
+  var checkSection = /^#[^{\n]+\{\.check\}[^#]+/gm
   var sections = content.match(checkSection)
   if (!sections) {
     return
