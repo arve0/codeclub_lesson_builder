@@ -58,7 +58,7 @@ module.exports = function (start) {
         done: done,
         error: error,
         headers: { 'user-agent': 'codeclub_lesson_builder' },
-        timeout: 10000
+        timeout: 30000
       }  // spider options
 
       // text spider for HTML, CSS, etc
